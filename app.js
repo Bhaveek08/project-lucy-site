@@ -200,6 +200,7 @@
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var t0 = performance.now();
   function frame(now) {
+    if (window.__pauseBrain) return;  // dev hook: freeze the ambient loop for capture
     var t = (now - t0) * 0.001;
     var camZ = (window.innerWidth < 720 ? 10.6 : 8.4) - (selected !== -1 ? 1.4 : 0);
     camera.position.z += (camZ - camera.position.z) * 0.05;
