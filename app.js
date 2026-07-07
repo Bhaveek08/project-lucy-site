@@ -1,7 +1,7 @@
-/* Project Lucy — an interactive particle-brain you can explore.
+/* Project Lucy — a solid, clickable 3D brain (MSD-style, self-hosted).
    Click a region: the brain turns to face it, that region ignites in its own
-   colour, and a panel tells you how that part of the brain IS Lucy. Pure
-   three.js, vendored locally, no external anything. */
+   colour, and a panel tells you how that part of the brain IS Lucy.
+   Pure three.js, vendored locally, no external assets. */
 (function () {
   "use strict";
 
@@ -9,9 +9,7 @@
   var revealed = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-      });
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
     }, { threshold: 0.14 });
     revealed.forEach(function (el) { io.observe(el); });
   } else { revealed.forEach(function (el) { el.classList.add("in"); }); }
@@ -47,128 +45,101 @@
 
   function classify(x, y, z) {
     if (Math.abs(x) < 0.8 && y < -1.15) return IDX.brainstem;
-    if (z < -0.9 && y < -0.35) return IDX.cerebellum;
+    if (z < -0.9 && y < -0.4) return IDX.cerebellum;
     if (z < -1.3) return IDX.occipital;
     if (z > 1.4 && y > -0.4) return IDX.frontal;
-    if (y > 0.7 && z < 1.4 && z > -1.3) return IDX.parietal;
-    if (Math.abs(x) > 1.3 && y < 0.7) return IDX.temporal;
+    if (y > 0.75 && z < 1.4 && z > -1.3) return IDX.parietal;
+    if (Math.abs(x) > 1.35 && y < 0.75) return IDX.temporal;
+    if (Math.abs(x) < 0.55 && Math.abs(y) < 0.5 && Math.abs(z) < 0.9) return IDX.limbic;
     return IDX.frontal;
   }
 
-  /* ---------- renderer / scene ---------- */
+  /* ---------- renderer / scene / lights ---------- */
   var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
-  camera.position.set(0, 0, 6.2);
-  var group = new THREE.Group();
-  group.rotation.x = 0.18;
-  scene.add(group);
+  var camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+  camera.position.set(0, 0, 8.4);
+  var group = new THREE.Group(); group.rotation.x = 0.16; scene.add(group);
 
-  /* ---------- build the point brain, tagged by region ---------- */
-  var SURFACE = 5000, CORE = 500, TOTAL = SURFACE + CORE;
-  var positions = new Float32Array(TOTAL * 3);
-  var baseCol = new Float32Array(TOTAL * 3);
-  var region = new Uint8Array(TOTAL);
-  var pts = [];
+  scene.add(new THREE.AmbientLight(0x3a3350, 0.9));
+  var key = new THREE.DirectionalLight(0xcdd2ff, 1.15); key.position.set(3, 4, 6); scene.add(key);
+  var rim = new THREE.DirectionalLight(0x8b5cf6, 1.2); rim.position.set(-5, 2, -4); scene.add(rim);
+  var fill = new THREE.DirectionalLight(0x22d3ee, 0.5); fill.position.set(0, -4, 2); scene.add(fill);
+
+  /* ---------- build a wrinkled solid brain ---------- */
+  var s = 2.35;
+  function wrinkle(x, y, z) {
+    return Math.sin(x * 3.1) * Math.cos(y * 2.7) * Math.sin(z * 3.3)
+      + 0.5 * Math.sin(x * 6.2 + 1.3) * Math.cos(y * 5.8 + 0.7) * Math.sin(z * 6.1)
+      + 0.25 * Math.sin(x * 12.1) * Math.cos(z * 11.3);
+  }
+  var geo = new THREE.SphereGeometry(1, 200, 140);
+  var pos = geo.attributes.position;
+  var vCount = pos.count;
+  var region = new Uint8Array(vCount);
+  var baseCol = new Float32Array(vCount * 3);
+  var BASE = new THREE.Color(0x6a5568);           // muted anatomical mauve-grey
   var regCols = REGIONS.map(function (r) { return new THREE.Color(r.hex); });
   var centroidSum = REGIONS.map(function () { return [0, 0, 0, 0]; });
+  var v = new THREE.Vector3();
 
-  function place(i, x, y, z, reg) {
-    positions[i * 3] = x; positions[i * 3 + 1] = y; positions[i * 3 + 2] = z;
-    pts.push([x, y, z]); region[i] = reg;
-    var c = regCols[reg], b = 0.62 + Math.random() * 0.3;
-    // base look leans blue/violet-neutral so a selected region's colour pops
-    baseCol[i * 3] = (0.30 + c.r * 0.25) * b;
-    baseCol[i * 3 + 1] = (0.34 + c.g * 0.25) * b;
-    baseCol[i * 3 + 2] = (0.55 + c.b * 0.25) * b;
+  for (var i = 0; i < vCount; i++) {
+    v.fromBufferAttribute(pos, i);                // unit sphere direction
+    var dx = v.x, dy = v.y, dz = v.z;
+    var r = 1 + 0.1 * wrinkle(dx, dy, dz);
+    var x = dx * r * 1.18, y = dy * r * 0.92, z = dz * r * 1.42;
+    var side = x >= 0 ? 1 : -1;
+    var groove = Math.max(0, 1 - Math.abs(x) * 2.4) * Math.max(0, y * 0.9 + 0.1);
+    x += side * groove * 0.18;
+    x *= s; y *= s; z *= s;
+    pos.setXYZ(i, x, y, z);
+    var reg = classify(x, y, z); region[i] = reg;
+    baseCol[i * 3] = BASE.r; baseCol[i * 3 + 1] = BASE.g; baseCol[i * 3 + 2] = BASE.b;
     var cs = centroidSum[reg]; cs[0] += x; cs[1] += y; cs[2] += z; cs[3]++;
   }
-
-  var s = 2.35;
-  for (var i = 0; i < SURFACE; i++) {
-    var u = Math.random(), v = Math.random();
-    var th = Math.acos(2 * u - 1), ph = 2 * Math.PI * v;
-    var x = Math.sin(th) * Math.cos(ph), y = Math.sin(th) * Math.sin(ph), z = Math.cos(th);
-    var n = 0.13 * (Math.sin(x * 7) * Math.cos(y * 6) + Math.sin(z * 8 + x * 3) * 0.6);
-    var r = 1 + n;
-    x *= r * 1.18; y *= r * 0.92; z *= r * 1.42;
-    var side = x >= 0 ? 1 : -1;
-    var groove = Math.max(0, 1 - Math.abs(x) * 2.4) * Math.max(0, y * 0.9 + 0.15);
-    x += side * groove * 0.22;
-    x *= s; y *= s; z *= s;
-    place(i, x, y, z, classify(x, y, z));
-  }
-  // limbic core — a glowing cluster deep inside (her emotional heart)
-  for (var j = 0; j < CORE; j++) {
-    var rr = 0.35 + Math.random() * 0.6;
-    var a1 = Math.random() * Math.PI * 2, a2 = Math.acos(2 * Math.random() - 1);
-    var cx = Math.sin(a2) * Math.cos(a1) * rr * 1.2;
-    var cy = Math.sin(a2) * Math.sin(a1) * rr * 0.8 - 0.25;
-    var cz = Math.cos(a2) * rr * 1.1;
-    place(SURFACE + j, cx, cy, cz, IDX.limbic);
-  }
+  pos.needsUpdate = true;
+  geo.computeVertexNormals();
+  var colAttr = new THREE.Float32BufferAttribute(baseCol.slice(), 3);
+  geo.setAttribute("color", colAttr);
 
   var centroids = centroidSum.map(function (cs) {
     return cs[3] ? new THREE.Vector3(cs[0] / cs[3], cs[1] / cs[3], cs[2] / cs[3]) : new THREE.Vector3();
   });
 
-  var geo = new THREE.BufferGeometry();
-  geo.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
-  var colAttr = new THREE.Float32BufferAttribute(baseCol.slice(), 3);
-  geo.setAttribute("color", colAttr);
+  var mat = new THREE.MeshStandardMaterial({
+    vertexColors: true, roughness: 0.62, metalness: 0.04,
+    emissive: new THREE.Color(0x120a24), emissiveIntensity: 0.55
+  });
+  var brain = new THREE.Mesh(geo, mat);
+  group.add(brain);
 
-  function sprite() {
-    var c = document.createElement("canvas"); c.width = c.height = 64;
-    var g = c.getContext("2d");
-    var grd = g.createRadialGradient(32, 32, 0, 32, 32, 32);
-    grd.addColorStop(0, "rgba(255,255,255,1)");
-    grd.addColorStop(0.25, "rgba(205,215,255,0.85)");
-    grd.addColorStop(1, "rgba(120,140,255,0)");
-    g.fillStyle = grd; g.fillRect(0, 0, 64, 64);
-    return new THREE.CanvasTexture(c);
-  }
-  var mat = new THREE.PointsMaterial({ size: 0.055, map: sprite(), vertexColors: true,
-    transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true });
-  var points = new THREE.Points(geo, mat);
-  group.add(points);
+  // a faint inner glow sphere so it reads on the dark bg
+  var glow = new THREE.Mesh(
+    new THREE.SphereGeometry(2.3, 32, 24),
+    new THREE.MeshBasicMaterial({ color: 0x3a2b66, transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending, depthWrite: false })
+  );
+  group.add(glow);
 
-  // connectome
-  var lp = [], lc = [], made = 0, MAX = 1300;
-  for (var k = 0; k < TOTAL * 3 && made < MAX; k++) {
-    var a = (Math.random() * TOTAL) | 0, b = (Math.random() * TOTAL) | 0;
-    if (a === b) continue;
-    var dx = pts[a][0] - pts[b][0], dy = pts[a][1] - pts[b][1], dz = pts[a][2] - pts[b][2];
-    if (dx * dx + dy * dy + dz * dz > 0.18) continue;
-    lp.push(pts[a][0], pts[a][1], pts[a][2], pts[b][0], pts[b][1], pts[b][2]);
-    lc.push(baseCol[a * 3], baseCol[a * 3 + 1], baseCol[a * 3 + 2], baseCol[b * 3], baseCol[b * 3 + 1], baseCol[b * 3 + 2]);
-    made++;
-  }
-  var lgeo = new THREE.BufferGeometry();
-  lgeo.setAttribute("position", new THREE.Float32BufferAttribute(lp, 3));
-  lgeo.setAttribute("color", new THREE.Float32BufferAttribute(lc, 3));
-  var lmat = new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.14,
-    blending: THREE.AdditiveBlending, depthWrite: false });
-  group.add(new THREE.LineSegments(lgeo, lmat));
-
-  /* ---------- selection + highlight ---------- */
+  /* ---------- selection / highlight ---------- */
   var selected = -1;
   var panel = document.getElementById("region-panel");
   var legend = document.getElementById("region-legend");
 
   function applyHighlight() {
     var arr = colAttr.array;
-    for (var p = 0; p < TOTAL; p++) {
-      var hot = (selected === -1) || (region[p] === selected);
-      var c = regCols[region[p]];
-      if (selected !== -1 && region[p] === selected) {
-        arr[p * 3] = Math.min(1, 0.45 + c.r); arr[p * 3 + 1] = Math.min(1, 0.45 + c.g); arr[p * 3 + 2] = Math.min(1, 0.45 + c.b);
+    for (var p = 0; p < vCount; p++) {
+      if (selected === -1) {
+        arr[p * 3] = baseCol[p * 3]; arr[p * 3 + 1] = baseCol[p * 3 + 1]; arr[p * 3 + 2] = baseCol[p * 3 + 2];
+      } else if (region[p] === selected) {
+        var c = regCols[selected];
+        arr[p * 3] = c.r; arr[p * 3 + 1] = c.g; arr[p * 3 + 2] = c.b;
       } else {
-        var dim = hot ? 1 : 0.22;
-        arr[p * 3] = baseCol[p * 3] * dim; arr[p * 3 + 1] = baseCol[p * 3 + 1] * dim; arr[p * 3 + 2] = baseCol[p * 3 + 2] * dim;
+        arr[p * 3] = baseCol[p * 3] * 0.35; arr[p * 3 + 1] = baseCol[p * 3 + 1] * 0.35; arr[p * 3 + 2] = baseCol[p * 3 + 2] * 0.35;
       }
     }
     colAttr.needsUpdate = true;
+    mat.emissiveIntensity = selected === -1 ? 0.55 : 0.8;
   }
 
   function showPanel(i) {
@@ -186,18 +157,13 @@
 
   var autoRotate = true, targetYaw = null;
   function select(i) {
-    selected = i;
-    applyHighlight();
+    selected = i; applyHighlight();
     if (legend) legend.querySelectorAll("button").forEach(function (b, bi) { b.classList.toggle("active", bi === i); });
     if (i === -1) { if (panel) panel.classList.remove("open"); autoRotate = true; targetYaw = null; return; }
-    autoRotate = false;
-    showPanel(i);
-    // turn the brain so this region faces the viewer (+z), accounting for the base tilt
-    var c = centroids[i];
-    targetYaw = -Math.atan2(c.x, c.z);
+    autoRotate = false; showPanel(i);
+    var c = centroids[i]; targetYaw = -Math.atan2(c.x, c.z);
   }
 
-  // clickable legend
   if (legend) {
     REGIONS.forEach(function (r, i) {
       var btn = document.createElement("button");
@@ -208,32 +174,26 @@
     });
   }
 
-  // click the brain itself
-  var ray = new THREE.Raycaster();
-  ray.params.Points.threshold = 0.16;
-  var mouse = new THREE.Vector2();
-  function pick(ev) {
+  // click the brain itself — reliable mesh raycasting
+  var ray = new THREE.Raycaster(); var m2 = new THREE.Vector2();
+  canvas.addEventListener("click", function (ev) {
     var rect = canvas.getBoundingClientRect();
-    mouse.x = ((ev.clientX - rect.left) / rect.width) * 2 - 1;
-    mouse.y = -((ev.clientY - rect.top) / rect.height) * 2 + 1;
-    ray.setFromCamera(mouse, camera);
-    var hit = ray.intersectObject(points);
-    if (hit.length) select(region[hit[0].index]);
+    m2.x = ((ev.clientX - rect.left) / rect.width) * 2 - 1;
+    m2.y = -((ev.clientY - rect.top) / rect.height) * 2 + 1;
+    ray.setFromCamera(m2, camera);
+    var hit = ray.intersectObject(brain);
+    if (hit.length && hit[0].face) select(region[hit[0].face.a]);
     else if (selected !== -1) select(-1);
-  }
-  canvas.addEventListener("click", pick);
+  });
 
   /* ---------- interaction / resize / loop ---------- */
-  var targetX = 0, targetY = 0;
+  var tX = 0, tY = 0;
   window.addEventListener("pointermove", function (e) {
-    targetX = e.clientX / window.innerWidth - 0.5;
-    targetY = e.clientY / window.innerHeight - 0.5;
+    tX = e.clientX / window.innerWidth - 0.5; tY = e.clientY / window.innerHeight - 0.5;
   }, { passive: true });
-
   function resize() {
     var w = window.innerWidth, h = window.innerHeight;
-    renderer.setSize(w, h, false);
-    camera.aspect = w / h; camera.updateProjectionMatrix();
+    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
   }
   window.addEventListener("resize", resize); resize();
 
@@ -241,21 +201,17 @@
   var t0 = performance.now();
   function frame(now) {
     var t = (now - t0) * 0.001;
-    var camZ = window.innerWidth < 720 ? 8.2 : 6.2;
-    if (selected !== -1) camZ -= 1.1; // glide in a little on select
+    var camZ = (window.innerWidth < 720 ? 10.6 : 8.4) - (selected !== -1 ? 1.4 : 0);
     camera.position.z += (camZ - camera.position.z) * 0.05;
     if (!reduce) {
-      if (autoRotate) group.rotation.y += 0.0016;
+      if (autoRotate) group.rotation.y += 0.0015;
       else if (targetYaw !== null) {
-        var d = targetYaw - group.rotation.y;
-        d = Math.atan2(Math.sin(d), Math.cos(d));
+        var d = targetYaw - group.rotation.y; d = Math.atan2(Math.sin(d), Math.cos(d));
         group.rotation.y += d * 0.06;
       }
-      group.rotation.x += ((0.18 + targetY * 0.3) - group.rotation.x) * 0.04;
-      group.position.x += (targetX * 0.5 - group.position.x) * 0.04;
-      group.scale.setScalar(1 + Math.sin(t * 0.9) * 0.02);
-      lmat.opacity = 0.10 + (Math.sin(t * 1.6) * 0.5 + 0.5) * 0.16;
-      mat.size = 0.05 + (Math.sin(t * 2.1) * 0.5 + 0.5) * 0.012;
+      group.rotation.x += ((0.16 + tY * 0.28) - group.rotation.x) * 0.04;
+      group.position.x += (tX * 0.5 - group.position.x) * 0.04;
+      group.scale.setScalar(1 + Math.sin(t * 0.9) * 0.012);
     }
     renderer.render(scene, camera);
     requestAnimationFrame(frame);
