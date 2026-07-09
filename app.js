@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     initParticles();
     initScrollCollapse();
+    initScrollReveal();
 });
 
 // Particle Effect
@@ -160,8 +161,41 @@ function initScrollCollapse() {
         if (progress > 0.8) {
             const gap = 1 - ((progress - 0.8) * 5); // From 1rem to 0rem
             container.style.gap = `${gap}rem`;
+            // Add red glow effect to initials
+            initials.forEach(initial => initial.classList.add('collapsed-initial'));
         } else {
             container.style.gap = '1rem';
+            initials.forEach(initial => initial.classList.remove('collapsed-initial'));
         }
     });
+}
+
+// Timeline Scroll Reveal Effect
+function initScrollReveal() {
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    const nodes = document.querySelectorAll('.timeline-node');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+                if (entry.target.classList.contains('timeline-node')) {
+                    entry.target.classList.add('active');
+                }
+            } else {
+                // Optional: remove class when scrolling up if we want it to trigger again
+                // entry.target.classList.remove('is-revealed');
+                // entry.target.classList.remove('active');
+            }
+        });
+    }, observerOptions);
+
+    revealElements.forEach(el => revealObserver.observe(el));
+    nodes.forEach(node => revealObserver.observe(node));
 }
