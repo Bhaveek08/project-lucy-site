@@ -9,6 +9,8 @@ function initParticles() {
     const ctx = canvas.getContext('2d');
     
     let width, height, particles;
+    let isVisible = true;
+    let animationFrameId;
 
     function resize() {
         width = canvas.width = window.innerWidth;
@@ -19,11 +21,10 @@ function initParticles() {
         constructor() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
-            this.size = Math.random() * 2 + 1;
-            this.speedX = (Math.random() - 0.5) * 0.5;
-            this.speedY = (Math.random() - 0.5) * 0.5;
-            // Red or White particles
-            this.color = Math.random() > 0.8 ? 'rgba(230, 25, 25, 0.6)' : 'rgba(255, 255, 255, 0.4)';
+            this.size = Math.random() * 1.5 + 0.5; // Smaller particles
+            this.speedX = (Math.random() - 0.5) * 0.2; // Slower speed
+            this.speedY = (Math.random() - 0.5) * 0.2;
+            this.color = Math.random() > 0.8 ? 'rgba(230, 25, 25, 0.4)' : 'rgba(255, 255, 255, 0.2)'; // Less opacity
         }
 
         update() {
@@ -47,25 +48,47 @@ function initParticles() {
     function init() {
         resize();
         particles = [];
-        const numParticles = window.innerWidth < 768 ? 40 : 100;
+        // Significantly reduced particle count for performance
+        const numParticles = window.innerWidth < 768 ? 20 : 40;
         for (let i = 0; i < numParticles; i++) {
             particles.push(new Particle());
         }
     }
 
     function animate() {
+        if (!isVisible) return; // Pause rendering if not visible
+
         ctx.clearRect(0, 0, width, height);
         particles.forEach(p => {
             p.update();
             p.draw();
         });
-        requestAnimationFrame(animate);
+        animationFrameId = requestAnimationFrame(animate);
     }
 
     window.addEventListener('resize', () => {
         resize();
         init();
     });
+
+    // Use IntersectionObserver to pause animation when scrolled past hero
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!isVisible) {
+                    isVisible = true;
+                    animate();
+                }
+            } else {
+                isVisible = false;
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            }
+        });
+    });
+    
+    // Assuming hero section is where the effect is most visible
+    const hero = document.getElementById('hero');
+    if(hero) observer.observe(hero);
 
     init();
     animate();
