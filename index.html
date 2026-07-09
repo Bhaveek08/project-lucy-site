@@ -48,6 +48,21 @@
 
     <!-- Neural Pathway Timeline -->
     <main class="neural-pathway">
+        <!-- Interactive 3D Brain Explorer -->
+        <section class="timeline-node reveal-on-scroll" style="justify-content: center; margin-bottom: 12rem;">
+            <div class="brain-explorer-container glass-card" style="width: 100%; max-width: 900px; display: flex; flex-direction: column; align-items: center; padding: 0;">
+                <div style="padding: 2rem; text-align: center;">
+                    <h2>Interactive Neural Map</h2>
+                    <p class="node-desc" style="margin-bottom: 0;">Rotate and tap regions of the cortex to explore Lucy's core faculties.</p>
+                </div>
+                <div class="model-wrapper">
+                    <canvas id="model-canvas"></canvas>
+                    <div id="model-loading">Initializing Neural Substrate...</div>
+                    <div id="model-panel" class="glass-card"></div>
+                </div>
+            </div>
+        </section>
+
         <div class="pathway-line"></div>
 
         <section class="timeline-node reveal-on-scroll">
@@ -140,6 +155,13 @@
     <script>
         feather.replace();
     </script>
+    
+    <!-- 3D Brain Model Dependencies -->
+    <script src="vendor/three.min.js"></script>
+    <script src="vendor/GLTFLoader.js"></script>
+    <script src="vendor/OrbitControls.js"></script>
+    <script src="brain-model.js"></script>
+    
     <!-- Main JS -->
     <script src="app.js"></script>
 </body>
