@@ -25,7 +25,7 @@ function initParticles() {
             this.size = Math.random() * 1.5 + 0.5; // Smaller particles
             this.speedX = (Math.random() - 0.5) * 0.2; // Slower speed
             this.speedY = (Math.random() - 0.5) * 0.2;
-            this.color = Math.random() > 0.8 ? 'rgba(230, 25, 25, 0.4)' : 'rgba(255, 255, 255, 0.2)'; // Less opacity
+            this.color = Math.random() > 0.7 ? 'rgba(37, 99, 235, 0.45)' : 'rgba(96, 165, 250, 0.30)'; // light-blue theme
         }
 
         update() {
@@ -108,7 +108,7 @@ function initScrollCollapse() {
         dot.textContent = '.';
         dot.className = 'dot';
         dot.style.opacity = '0';
-        dot.style.color = 'var(--accent-red)';
+        dot.style.color = 'var(--accent-deep)';
         dot.style.width = '0px';
         dot.style.display = 'inline-block';
         dot.style.overflow = 'hidden';
