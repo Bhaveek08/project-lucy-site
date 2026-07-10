@@ -303,15 +303,23 @@ main > section { padding: 0 max(1.25rem, env(safe-area-inset-left)); }
     border-radius: 16px;
     box-shadow: var(--shadow-soft);
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    max-height: calc(100% - 3rem); overflow-y: auto;
     transform: translateY(130%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease;
     opacity: 0; pointer-events: none; z-index: 10;
 }
 #model-panel.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
 .panel-close {
-    position: absolute; top: 8px; right: 14px; background: none; border: none;
-    color: var(--text-secondary); font-size: 1.5rem; cursor: pointer; transition: color 0.3s;
+    position: absolute; top: 6px; right: 8px;
+    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+    background: none; border: none; color: var(--text-secondary); font-size: 1.7rem;
+    line-height: 1; cursor: pointer; transition: color 0.3s; -webkit-tap-highlight-color: transparent;
 }
 .panel-close:hover { color: var(--accent); }
+.model-hint {
+    position: absolute; top: 1rem; left: 50%; transform: translateX(-50%);
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 1px;
+    color: var(--text-secondary); opacity: 0.65; pointer-events: none; text-align: center;
+}
 .panel-region { font-family: var(--font-mono); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
 .panel-faculty { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text-primary); }
 .panel-body { color: var(--text-secondary); font-size: 1rem; margin-bottom: 1rem; line-height: 1.5; }
@@ -338,6 +346,17 @@ main > section { padding: 0 max(1.25rem, env(safe-area-inset-left)); }
 .exam-note { color: var(--text-secondary); font-size: 0.95rem; }
 .results-foot { text-align: center; color: var(--text-secondary); max-width: 62ch; margin: 3rem auto 0; font-size: 1.05rem; }
 .results-foot strong { color: var(--accent-deep); }
+
+/* projected (target) exam cards - visually distinct from measured results */
+.projected-card { position: relative; border-style: dashed; }
+.proj-badge {
+    position: absolute; top: 1rem; right: 1rem;
+    font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--accent-deep); background: var(--accent-soft);
+    padding: 0.25rem 0.6rem; border-radius: 999px;
+}
+.projected-card .exam-head { margin-top: 0.4rem; }
+.projected-card .exam-pct { opacity: 0.92; }
 
 /* ---------- Capabilities ---------- */
 .caps { max-width: var(--container); margin: 0 auto; padding: var(--space-section) 0; }
@@ -447,11 +466,34 @@ footer { padding: var(--space-section) 1.25rem 4rem; text-align: center; positio
     .reveal-on-scroll { transition: opacity 0.4s ease; transform: none; }
 }
 
-/* ---------- Timeline collapses to a single rail on narrow screens ---------- */
+/* ---------- Phone layout ---------- */
 @media (max-width: 760px) {
+    /* less dead space so content fills the screen instead of floating tiny in it */
+    :root { --space-section: clamp(3rem, 10vw, 4.5rem); }
+
+    /* the name stacks one word per line and reads cleanly, instead of wrapping to a
+       ragged 3 lines, then collapses down to a tidy L.U.C.Y */
+    .collapse-text-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.35rem;
+        font-size: clamp(2.6rem, 13vw, 4rem);
+    }
+    .hero-tagline { font-size: 1.05rem; padding: 0 1.5rem; }
+
+    /* comfortable reading sizes on small screens */
+    .intro .lead { font-size: 1.12rem; margin-bottom: 2.5rem; }
+    .section-sub { margin-bottom: 2.25rem; }
+    .exam-card, .cap, .intro-point { padding: 1.6rem; }
+    .stat { padding: 1.4rem 0.75rem; }
+    .neural-pathway { padding: 1rem; }
+
+    /* timeline collapses to a single left rail */
     .pathway-line { left: 1.4rem; }
     .timeline-node, .timeline-node.right-align { justify-content: flex-end; }
     .timeline-node::before { left: 1.4rem; }
     .node-content { width: calc(100% - 3.2rem); }
-    .neural-pathway { padding: 1rem; }
+
+    /* model panel sits a touch tighter and never taller than the stage */
+    #model-panel { left: 1rem; right: 1rem; bottom: 1rem; padding: 1.25rem; max-height: 66%; }
 }

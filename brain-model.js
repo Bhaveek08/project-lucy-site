@@ -172,7 +172,10 @@
     var hit = ray.intersectObjects(meshes, true);
     if (hit.length) {
       var reg = classify(hit[0].point.clone());
-      highlight(reg); showPanel(reg);
+      highlight(reg); showPanel(reg);   // tap a region -> switch straight to it
+    } else {
+      if (panel) panel.classList.remove("open");   // tap empty space -> dismiss, so you're never stuck
+      highlight(-1);
     }
   });
 })();
