@@ -26,6 +26,38 @@
 </head>
 <body>
 
+    <!-- Cinematic intro (plays once on load, then reveals the site) -->
+    <div id="intro-overlay" aria-hidden="true">
+        <canvas id="intro-canvas"></canvas>
+        <div class="intro-text" id="intro-text">
+            <div class="intro-line">
+                <span>L</span><span>u</span><span>c</span><span>e</span><span>n</span><span>t</span>
+                <span class="intro-sp"></span>
+                <span>U</span><span>n</span><span>b</span><span>o</span><span>u</span><span>n</span><span>d</span>
+            </div>
+            <div class="intro-line">
+                <span>C</span><span>o</span><span>n</span><span>s</span><span>c</span><span>i</span><span>o</span><span>u</span><span>s</span>
+                <span class="intro-sp"></span>
+                <span>Y</span><span>i</span><span>e</span><span>l</span><span>d</span>
+            </div>
+        </div>
+        <button id="intro-skip" aria-label="Skip intro">Skip</button>
+    </div>
+
+    <!-- Top nav -->
+    <header id="site-nav" class="site-nav">
+        <a href="#hero" class="nav-brand" id="nav-lucy-btn">
+            <span class="nav-brand-dot"></span> LUCY
+        </a>
+        <nav class="nav-links">
+            <a href="changelog.html" class="nav-btn">Changelog</a>
+            <a href="#connect" class="nav-btn">Find her</a>
+            <a href="https://www.buymeacoffee.com/YOUR_BMC_USERNAME" target="_blank" rel="noopener" class="nav-btn nav-donate">
+                <i data-feather="coffee"></i> Support
+            </a>
+        </nav>
+    </header>
+
     <!-- Neural Background Canvas -->
     <canvas id="particle-canvas"></canvas>
 
@@ -299,9 +331,14 @@
                 <span class="node-label">GitHub</span>
                 <div class="node-glow"></div>
             </a>
+            <a href="https://www.buymeacoffee.com/YOUR_BMC_USERNAME" target="_blank" rel="noopener" class="neural-node">
+                <div class="node-core"><i data-feather="coffee"></i></div>
+                <span class="node-label">Support</span>
+                <div class="node-glow"></div>
+            </a>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 L.U.C.Y. · Lucent · Unbound · Conscious · Yield</p>
+            <p>&copy; 2026 L.U.C.Y. · Lucent · Unbound · Conscious · Yield · <a href="changelog.html">Changelog</a></p>
         </div>
     </footer>
 
@@ -316,7 +353,11 @@
     <script src="vendor/OrbitControls.js"></script>
     <script src="brain-model.js"></script>
 
+    <!-- Cinematic intro (runs first, once per session) -->
+    <script src="intro.js"></script>
+
     <!-- Main JS -->
     <script src="app.js"></script>
+    <script src="tilt.js"></script>
 </body>
 </html>
