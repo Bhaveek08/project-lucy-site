@@ -607,3 +607,21 @@ footer { padding: var(--space-section) 1.25rem 4rem; text-align: center; positio
     transition: opacity 0.2s ease;
 }
 .exam-card:hover::after, .cap:hover::after { opacity: 1; }
+
+/* ============================================================
+   Gallery strip (Recent breakthroughs)
+   ============================================================ */
+.gallery-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem;
+    max-width: 900px; margin: 2.2rem auto 0;
+}
+.gallery-strip img {
+    width: 100%; height: 100%; object-fit: cover; aspect-ratio: 9 / 16;
+    border-radius: 18px; box-shadow: 0 10px 30px rgba(80, 120, 200, 0.18);
+    transition: transform 0.25s ease;
+}
+.gallery-strip img:hover { transform: translateY(-4px) scale(1.015); }
+@media (max-width: 700px) {
+    .gallery-strip { grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+    .gallery-strip img { border-radius: 12px; }
+}
