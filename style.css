@@ -1,20 +1,20 @@
 :root {
-    /* Light-blue / white premium theme (deeper blue wash) */
-    --bg-1: #e9f2ff;
-    --bg-2: #d0e4ff;
-    --bg-3: #b9d6ff;
-    --surface: #ffffff;
-    --text-primary: #0f2141;
-    --text-secondary: #4d648a;
-    --accent: #2f6fed;
-    --accent-2: #5b9bff;
-    --accent-deep: #1d4ed8;
-    --accent-glow: rgba(47, 111, 237, 0.38);
-    --accent-soft: rgba(47, 111, 237, 0.10);
-    --glass-bg: rgba(255, 255, 255, 0.78);
-    --glass-border: rgba(47, 111, 237, 0.18);
-    --shadow-soft: 0 24px 60px -26px rgba(29, 78, 216, 0.34);
-    --shadow-hover: 0 36px 74px -24px rgba(29, 78, 216, 0.46);
+    /* Dark theme - deep ink blues, luminous accents */
+    --bg-1: #070d1c;
+    --bg-2: #0a1226;
+    --bg-3: #0e1a36;
+    --surface: #0e1830;
+    --text-primary: #e7efff;
+    --text-secondary: #93a8d1;
+    --accent: #5b9bff;
+    --accent-2: #82b6ff;
+    --accent-deep: #3b82f6;
+    --accent-glow: rgba(91, 155, 255, 0.45);
+    --accent-soft: rgba(91, 155, 255, 0.12);
+    --glass-bg: rgba(14, 24, 48, 0.72);
+    --glass-border: rgba(91, 155, 255, 0.22);
+    --shadow-soft: 0 24px 60px -26px rgba(0, 0, 0, 0.55);
+    --shadow-hover: 0 36px 74px -24px rgba(0, 0, 0, 0.65);
     --font-primary: 'Outfit', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
 
@@ -539,7 +539,7 @@ footer { padding: var(--space-section) 1.25rem 4rem; text-align: center; positio
     position: fixed; top: 0; left: 0; right: 0; z-index: 500;
     display: flex; align-items: center; justify-content: space-between;
     padding: 1rem clamp(1.2rem, 4vw, 2.5rem);
-    background: linear-gradient(180deg, rgba(233, 242, 255, 0.86) 0%, rgba(233, 242, 255, 0) 100%);
+    background: linear-gradient(180deg, rgba(7, 13, 28, 0.88) 0%, rgba(7, 13, 28, 0) 100%);
     backdrop-filter: blur(6px);
     pointer-events: none;   /* only the actual buttons/links are clickable, not the empty bar */
 }
