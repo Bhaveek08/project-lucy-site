@@ -127,54 +127,57 @@ function initScrollCollapse() {
 
     const dots = document.querySelectorAll('.dot');
 
+    let maxScroll = window.innerHeight * 1.5;
+    let winWidth = window.innerWidth;
+    
+    window.addEventListener('resize', () => {
+        maxScroll = window.innerHeight * 1.5;
+        winWidth = window.innerWidth;
+    });
+
+    let ticking = false;
+
     window.addEventListener('scroll', () => {
-        // Calculate scroll progress specifically for the hero section
-        // Hero is 300vh. We want the effect to complete over the first 150vh.
-        const scrollY = window.scrollY;
-        const maxScroll = window.innerHeight * 1.5;
-        let progress = Math.min(scrollY / maxScroll, 1);
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrollY = window.scrollY;
+                let progress = Math.min(scrollY / maxScroll, 1);
+                const remainderOpacity = 1 - progress;
+                const easeProgress = Math.pow(progress, 2);
 
-        // Calculate opacity and max-width for remainders based on progress
-        // When progress = 0: opacity 1, max-width fully expanded (e.g., 500px)
-        // When progress = 1: opacity 0, max-width 0px
-        const remainderOpacity = 1 - progress;
-        
-        // Easing for smoother collapse
-        const easeProgress = Math.pow(progress, 2);
+                remainders.forEach(r => {
+                    r.style.opacity = remainderOpacity;
+                    if (progress === 1) {
+                        r.style.display = 'none';
+                    } else {
+                        r.style.display = 'inline-block';
+                        const maxWidth = winWidth > 768 ? 400 : 200;
+                        r.style.maxWidth = `${maxWidth * (1 - easeProgress)}px`;
+                    }
+                });
 
-        remainders.forEach(r => {
-            r.style.opacity = remainderOpacity;
-            // Use a clip-path or max-width to collapse
-            if (progress === 1) {
-                r.style.display = 'none';
-            } else {
-                r.style.display = 'inline-block';
-                // Estimate max width based on viewport to avoid wrapping jumps
-                const maxWidth = window.innerWidth > 768 ? 400 : 200;
-                r.style.maxWidth = `${maxWidth * (1 - easeProgress)}px`;
-            }
-        });
+                dots.forEach(dot => {
+                    if (progress > 0.8) {
+                        dot.style.width = 'auto';
+                        dot.style.opacity = (progress - 0.8) * 5;
+                    } else {
+                        dot.style.opacity = '0';
+                        dot.style.width = '0px';
+                    }
+                });
 
-        // Show dots as it collapses
-        dots.forEach(dot => {
-            if (progress > 0.8) {
-                dot.style.width = 'auto';
-                dot.style.opacity = (progress - 0.8) * 5; // fade in from 0.8 to 1.0
-            } else {
-                dot.style.opacity = '0';
-                dot.style.width = '0px';
-            }
-        });
-
-        // Adjust gap in container to bring letters together
-        if (progress > 0.8) {
-            const gap = 1 - ((progress - 0.8) * 5); // From 1rem to 0rem
-            container.style.gap = `${gap}rem`;
-            // Add red glow effect to initials
-            initials.forEach(initial => initial.classList.add('collapsed-initial'));
-        } else {
-            container.style.gap = '1.2rem';
-            initials.forEach(initial => initial.classList.remove('collapsed-initial'));
+                if (progress > 0.8) {
+                    const gap = 1 - ((progress - 0.8) * 5);
+                    container.style.gap = `${Math.max(0, gap)}rem`;
+                    initials.forEach(initial => initial.classList.add('collapsed-initial'));
+                } else {
+                    container.style.gap = '1.2rem';
+                    initials.forEach(initial => initial.classList.remove('collapsed-initial'));
+                }
+                
+                ticking = false;
+            });
+            ticking = true;
         }
     });
 }
