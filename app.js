@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initParticles();
     initScrollCollapse();
     initScrollReveal();
+    initSpotlight();
+    initCounters();
+    initExamBars();
 });
 
 // Particle Effect
@@ -25,13 +28,13 @@ function initParticles() {
             this.size = Math.random() * 1.5 + 0.5; // Smaller particles
             this.speedX = (Math.random() - 0.5) * 0.2; // Slower speed
             this.speedY = (Math.random() - 0.5) * 0.2;
-            // Cyberpunk dark-blue palette: electric blue + cyan
+            // Linear/Modern palette: very subtle indigo-white particles
             const roll = Math.random();
-            this.color = roll > 0.7
-                ? 'rgba(0, 170, 255, 0.5)'    // electric blue
-                : roll > 0.4
-                    ? 'rgba(0, 229, 255, 0.3)' // bright cyan
-                    : 'rgba(34, 102, 255, 0.25)'; // deep blue
+            this.color = roll > 0.75
+                ? 'rgba(94,106,210,0.22)'    // indigo
+                : roll > 0.5
+                    ? 'rgba(170,170,200,0.12)' // cool white
+                    : 'rgba(94,106,210,0.09)'; // faint indigo
         }
 
         update() {
@@ -204,4 +207,75 @@ function initScrollReveal() {
 
     revealElements.forEach(el => revealObserver.observe(el));
     nodes.forEach(node => revealObserver.observe(node));
+}
+
+// ── Mouse spotlight on cards ──
+function initSpotlight() {
+    const cards = document.querySelectorAll('.glass-card, .intro-point, .exam-card, .cap');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--sx', `${e.clientX - rect.left}px`);
+            card.style.setProperty('--sy', `${e.clientY - rect.top}px`);
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.setProperty('--sx', '-9999px');
+            card.style.setProperty('--sy', '-9999px');
+        });
+    });
+}
+
+// ── Animated stat counters ──
+function initCounters() {
+    const stats = document.querySelectorAll('.stat-num[data-target]');
+    if (!stats.length) return;
+
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            obs.unobserve(entry.target);
+            animateCounter(entry.target);
+        });
+    }, { threshold: 0.6 });
+
+    stats.forEach(el => obs.observe(el));
+}
+
+function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+
+    function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // Expo-out easing
+        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const current = Math.round(eased * target);
+        el.textContent = current.toLocaleString() + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target.toLocaleString() + suffix;
+    }
+    requestAnimationFrame(step);
+}
+
+// ── Animated exam progress bars ──
+function initExamBars() {
+    const bars = document.querySelectorAll('.exam-bar span');
+    bars.forEach(bar => {
+        const targetWidth = bar.style.width;
+        bar.style.width = '0%';
+
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                obs.unobserve(entry.target);
+                // Small delay so it's visible after reveal
+                setTimeout(() => { bar.style.width = targetWidth; }, 300);
+            });
+        }, { threshold: 0.8 });
+
+        obs.observe(bar);
+    });
 }

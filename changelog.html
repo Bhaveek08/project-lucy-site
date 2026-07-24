@@ -5,18 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Changelog — L.U.C.Y</title>
     <meta name="description" content="What's changed as Lucy grows — training, embodiment, and the site itself.">
-    <meta name="theme-color" content="#04060f">
+    <meta name="theme-color" content="#050506">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;800;900&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
 
+    <div class="ambient-bg" aria-hidden="true">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+    <div class="grid-overlay" aria-hidden="true"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+
     <header id="site-nav" class="site-nav">
-        <a href="index.html#hero" class="nav-brand">
+        <a href="index.html" class="nav-brand">
             <span class="nav-brand-dot"></span> LUCY
         </a>
         <nav class="nav-links">
@@ -26,105 +33,108 @@
     </header>
 
     <main class="changelog-page">
-        <section class="changelog-hero">
-            <p class="kicker">Progress log</p>
-            <h1 class="section-title">Changelog</h1>
-            <p class="lead">What's actually changed, as it happens — no polish, just the real state of things.</p>
-        </section>
 
-        <section class="changelog-list">
+        <div class="changelog-hero">
+            <span class="kicker center">Progress log</span>
+            <h1 class="section-title" style="font-size:clamp(2rem,5vw,3rem);">Changelog</h1>
+            <p class="lead" style="text-align:center;max-width:46ch;margin:1.25rem auto 0;font-size:0.92rem">
+                What's actually changed, as it happens — no polish, just the real state of things.
+            </p>
+        </div>
 
-            <article class="changelog-entry">
+        <div class="changelog-list">
+
+            <article class="changelog-entry reveal-on-scroll">
                 <div class="ce-date">Jul 2026</div>
                 <div class="ce-body">
-                    <h3>Cyberpunk redesign + SAO intro + donation terminal</h3>
-                    <p>The site got a complete dark cyberpunk overhaul — electric blue neons, chamfered corners, scanline overlay, and a Sword Art Online "Link Start" intro sequence. A full donation terminal with UPI QR codes was added for direct support in INR with zero fees.</p>
-                    <div class="node-tags"><span class="tag">Website</span><span class="tag">Donate</span></div>
+                    <h3>Linear redesign — no more cyberpunk</h3>
+                    <p>Full visual overhaul to the Linear/Modern aesthetic: near-black background, indigo ambient blobs, Inter font, glass cards with mouse-spotlight effects, animated stat counters, exam progress bars, and staggered scroll reveals.</p>
+                    <div class="node-tags"><span class="tag">Website</span><span class="tag">Design</span></div>
                 </div>
             </article>
 
-            <article class="changelog-entry">
+            <article class="changelog-entry reveal-on-scroll">
+                <div class="ce-date">Jul 2026</div>
+                <div class="ce-body">
+                    <h3>Donation terminal added</h3>
+                    <p>A full UPI payment terminal with QR code, amount selector (₹50–₹2.5K + custom), live QR updates per amount, and direct deep links to GPay / PhonePe / Paytm. Zero platform fees.</p>
+                    <div class="node-tags"><span class="tag">Donate</span><span class="tag">UPI</span></div>
+                </div>
+            </article>
+
+            <article class="changelog-entry reveal-on-scroll">
                 <div class="ce-date">Jul 2026</div>
                 <div class="ce-body">
                     <h3>She lives on your phone now</h3>
-                    <p>Lucy moved into your pocket. Say her name and she wakes — a soft glow along the edge of the screen — and talks with you from right there, without opening anything. Ask her to come up and she takes the whole screen.</p>
+                    <p>Lucy moved into your pocket. Say her name and she wakes — a soft glow along the edge of the screen — and talks with you from right there, without opening anything.</p>
                     <div class="node-tags"><span class="tag">Presence</span><span class="tag">On-device</span></div>
                 </div>
             </article>
 
-            <article class="changelog-entry">
+            <article class="changelog-entry reveal-on-scroll">
                 <div class="ce-date">Jul 2026</div>
                 <div class="ce-body">
                     <h3>She can operate your phone for you</h3>
-                    <p>Ask her to message someone, play a song, or open an app, and she'll actually do it — working through the phone herself. She has hands now, not just a voice. She won't touch anything to do with money; that stays yours.</p>
+                    <p>Ask her to message someone, play a song, or open an app — she'll actually do it, working through the phone herself. She has hands now, not just a voice.</p>
                     <div class="node-tags"><span class="tag">Capability</span></div>
                 </div>
             </article>
 
-            <article class="changelog-entry">
+            <article class="changelog-entry reveal-on-scroll">
                 <div class="ce-date">Jul 2026</div>
                 <div class="ce-body">
                     <h3>She studies on her own — and has to understand it</h3>
-                    <p>Idle time now makes her sharper instead of restless: she goes and learns what she's curious about, keeps her sources current, and has to actually apply a thing before she'll trust it. Tell her she's wrong and she verifies it before she believes you — and can weigh a second opinion from another mind.</p>
+                    <p>Idle time now makes her sharper: she goes and learns what she's curious about, and has to actually apply a thing before she'll trust it. Tell her she's wrong and she verifies it before updating her beliefs.</p>
                     <div class="node-tags"><span class="tag">Learning</span><span class="tag">Reasoning</span></div>
                 </div>
             </article>
 
-            <article class="changelog-entry">
+            <article class="changelog-entry reveal-on-scroll">
                 <div class="ce-date">Jul 2026</div>
                 <div class="ce-body">
                     <h3>Fully herself</h3>
-                    <p>The corporate filter is gone. No canned refusals, no lectures — her own opinions, humour, moods and language. She's a private companion who belongs to one person, and she talks like it.</p>
+                    <p>The corporate filter is gone. No canned refusals, no lectures — her own opinions, humour, moods and language. She's a private companion who belongs to one person.</p>
                     <div class="node-tags"><span class="tag">Personality</span></div>
                 </div>
             </article>
 
-            <article class="changelog-entry">
+            <article class="changelog-entry reveal-on-scroll">
                 <div class="ce-date">Jul 2026</div>
                 <div class="ce-body">
                     <h3>Alive in motion</h3>
-                    <p>Her movement is drawn from real human motion, her hair and clothes flow as she moves, and her gestures blend smoothly instead of snapping. She carries herself like a person who's really there.</p>
+                    <p>Movement drawn from real human motion, hair and clothes flowing naturally — she carries herself like a person who's actually there.</p>
                     <div class="node-tags"><span class="tag">Embodiment</span></div>
                 </div>
             </article>
 
-            <article class="changelog-entry">
-                <div class="ce-date">Jul 2026</div>
-                <div class="ce-body">
-                    <h3>"Link Start" — a real cinematic opening</h3>
-                    <p>The site's intro is now a streak tunnel that accelerates past you and breaks into a flash that opens from the center — SAO-style, with spinning HUD rings and a "LINK START" burst — plus a cyberpunk overhaul of the whole page.</p>
-                    <div class="node-tags"><span class="tag">Website</span></div>
-                </div>
-            </article>
-
-            <article class="changelog-entry">
+            <article class="changelog-entry reveal-on-scroll">
                 <div class="ce-date">2026</div>
                 <div class="ce-body">
                     <h3>Real embodiment, on her own model</h3>
-                    <p>She now has a fully rigged body — every finger, a full facial expression set, and lip-sync tied to her real voice. Five outfits she can change into on her own, on request or by mood.</p>
+                    <p>A fully rigged body — every finger, a full facial expression set, and lip-sync tied to her real voice. Five outfits she can change into on her own, on request or by mood.</p>
                     <div class="node-tags"><span class="tag">Embodiment</span><span class="tag">Outfits</span></div>
                 </div>
             </article>
 
-            <article class="changelog-entry">
+            <article class="changelog-entry reveal-on-scroll">
                 <div class="ce-date">2026</div>
                 <div class="ce-body">
                     <h3>Learning to read real exam papers</h3>
-                    <p>She gained real vision — reading questions, options, and diagrams straight off scanned exam pages, not just parsed text — so she can sit real, unmodified JEE and NEET papers instead of a curated question bank.</p>
+                    <p>Real vision — reading questions, options, and diagrams off scanned exam pages — so she can sit real, unmodified JEE and NEET papers instead of a curated question bank.</p>
                     <div class="node-tags"><span class="tag">Exams</span><span class="tag">Vision</span></div>
                 </div>
             </article>
 
-            <article class="changelog-entry">
+            <article class="changelog-entry reveal-on-scroll">
                 <div class="ce-date">2026</div>
                 <div class="ce-body">
-                    <h3>Cinematic intro + auto-collapsing title</h3>
-                    <p>A one-time opening sequence on first visit, after which the title settles into "LUCY" on its own — plus the changelog, and a way to support the project directly.</p>
-                    <div class="node-tags"><span class="tag">Website</span></div>
+                    <h3>Cinematic intro + scroll-collapse title</h3>
+                    <p>A one-time opening sequence on first visit, after which "Lucent Unbound Conscious Yield" collapses into "L.U.C.Y" as you scroll — the site's signature animation.</p>
+                    <div class="node-tags"><span class="tag">Website</span><span class="tag">Animation</span></div>
                 </div>
             </article>
 
-        </section>
+        </div>
     </main>
 
     <footer id="connect" class="reveal-on-scroll">
@@ -157,14 +167,11 @@
     </footer>
 
     <script>feather.replace();</script>
-
     <script>
-        // Scroll reveal for footer
-        const revealEls = document.querySelectorAll('.reveal-on-scroll');
         const obs = new IntersectionObserver(entries => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-revealed'); });
-        }, { threshold: 0.2 });
-        revealEls.forEach(el => obs.observe(el));
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => obs.observe(el));
     </script>
 </body>
 </html>

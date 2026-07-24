@@ -45,9 +45,9 @@
     // streaks: thin elongated boxes flying past the camera, additive-blended.
     // Mostly white-blue core with rainbow accents (the SAO login palette).
     const COUNT = window.innerWidth < 700 ? 260 : 520;
-    // SAO-style palette: electric blues, cyans, violet accents
-    const PALETTE = ['#ffffff', '#00b4ff', '#4dd4ff', '#00e5ff', '#2266ff',
-                     '#aaddff', '#00aaff', '#66bbff', '#0055ff', '#00ccff'];
+    // Linear/Modern: soft indigo, violet, cool-white streaks
+    const PALETTE = ['#ffffff', '#a5b4fc', '#818cf8', '#6366f1', '#5E6AD2',
+                     '#c7d2fe', '#e0e7ff', '#7c3aed', '#ddd6fe', '#8b5cf6'];
     const geo = new THREE.BoxGeometry(0.016, 0.016, 1);
     const mat = new THREE.MeshBasicMaterial({
         blending: THREE.AdditiveBlending, transparent: true, opacity: 0.9, depthWrite: false,
@@ -69,10 +69,10 @@
     glowCanvas.width = glowCanvas.height = 256;
     const gctx = glowCanvas.getContext('2d');
     const grad = gctx.createRadialGradient(128, 128, 0, 128, 128, 128);
-    // Electric blue/cyan glow at tunnel end
-    grad.addColorStop(0, 'rgba(0, 220, 255, 1)');
-    grad.addColorStop(0.35, 'rgba(0, 150, 255, 0.65)');
-    grad.addColorStop(1, 'rgba(0, 80, 200, 0)');
+    // Indigo/violet glow at tunnel centre
+    grad.addColorStop(0, 'rgba(160, 140, 255, 1)');
+    grad.addColorStop(0.35, 'rgba(94, 106, 210, 0.55)');
+    grad.addColorStop(1, 'rgba(94, 106, 210, 0)');
     gctx.fillStyle = grad; gctx.fillRect(0, 0, 256, 256);
     const glow = new THREE.Sprite(new THREE.SpriteMaterial({
         map: new THREE.CanvasTexture(glowCanvas),
@@ -93,7 +93,7 @@
     const skipBtn = document.getElementById('intro-skip');
     skipBtn.addEventListener('click', () => finish(true));
 
-    let raf, startTime, textFaded = false, flashed = false, begun = false, linkStartShown = false;
+    let raf, startTime, textFaded = false, flashed = false, begun = false;
 
     // rAF is frozen while a tab is hidden (opened in the background) - starting the
     // clock at load would fast-forward straight to the flash on first focus. Begin
@@ -160,13 +160,6 @@
             textFaded = true;
             introText.style.transition = 'opacity 0.7s ease';
             introText.style.opacity = '0';
-        }
-
-        // SAO moment: "LINK START" bursts onto screen before the flash
-        if (!linkStartShown && t > 2.35) {
-            linkStartShown = true;
-            const ls = document.getElementById('link-start-text');
-            if (ls) ls.classList.add('visible');
         }
 
         if (!flashed && t >= T_FLASH) { flash(); return; }
