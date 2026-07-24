@@ -25,13 +25,7 @@ function initParticles() {
             this.size = Math.random() * 1.5 + 0.5; // Smaller particles
             this.speedX = (Math.random() - 0.5) * 0.2; // Slower speed
             this.speedY = (Math.random() - 0.5) * 0.2;
-            // Cyberpunk dark-blue palette: electric blue + cyan
-            const roll = Math.random();
-            this.color = roll > 0.7
-                ? 'rgba(0, 170, 255, 0.5)'    // electric blue
-                : roll > 0.4
-                    ? 'rgba(0, 229, 255, 0.3)' // bright cyan
-                    : 'rgba(34, 102, 255, 0.25)'; // deep blue
+            this.color = Math.random() > 0.7 ? 'rgba(37, 99, 235, 0.45)' : 'rgba(96, 165, 250, 0.30)'; // light-blue theme
         }
 
         update() {
