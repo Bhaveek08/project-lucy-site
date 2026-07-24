@@ -31,10 +31,10 @@ function initParticles() {
             // Linear/Modern palette: very subtle indigo-white particles
             const roll = Math.random();
             this.color = roll > 0.75
-                ? 'rgba(94,106,210,0.22)'    // indigo
+                ? 'rgba(255,123,159,0.22)'    // indigo
                 : roll > 0.5
                     ? 'rgba(170,170,200,0.12)' // cool white
-                    : 'rgba(94,106,210,0.09)'; // faint indigo
+                    : 'rgba(255,123,159,0.09)'; // faint indigo
         }
 
         update() {

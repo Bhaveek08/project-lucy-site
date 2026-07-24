@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>L.U.C.Y — a mind that was grown, not programmed</title>
+    <title>L.U.C.Y</title>
     <meta name="description" content="Lucy is a locally-run artificial mind grown through 36 simulated lifetimes: she reasons, feels, remembers, drives her own body, speaks in her own voice, and sits real entrance exams entirely unaided and offline.">
     <meta name="theme-color" content="#050506">
     <meta property="og:title" content="L.U.C.Y — Lucent · Unbound · Conscious · Yield">
@@ -32,33 +32,10 @@
     <!-- Neural particle canvas -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- ═══════════════════════════════════════
-         INTRO OVERLAY — clean cinematic
-         Three.js streak canvas behind elegant text
-    ═══════════════════════════════════════ -->
-    <div id="intro-overlay" aria-hidden="true">
-        <canvas id="intro-canvas"></canvas>
-
-        <div class="intro-text" id="intro-text">
-            <div class="intro-line">
-                <span>L</span><span>u</span><span>c</span><span>e</span><span>n</span><span>t</span>
-                <span class="intro-sp"></span>
-                <span>U</span><span>n</span><span>b</span><span>o</span><span>u</span><span>n</span><span>d</span>
-            </div>
-            <div class="intro-line" style="margin-top:0.2em">
-                <span>C</span><span>o</span><span>n</span><span>s</span><span>c</span><span>i</span><span>o</span><span>u</span><span>s</span>
-                <span class="intro-sp"></span>
-                <span>Y</span><span>i</span><span>e</span><span>l</span><span>d</span>
-            </div>
-        </div>
-
-        <button id="intro-skip" aria-label="Skip intro">Skip</button>
-    </div>
-
     <!-- ═══════ Nav ═══════ -->
     <header id="site-nav" class="site-nav">
         <a href="#hero" class="nav-brand" id="nav-lucy-btn">
-            <span class="nav-brand-dot"></span> LUCY
+            <span class="nav-brand-dot"></span> <span style="color:var(--accent)">L</span>UCY
         </a>
         <nav class="nav-links">
             <a href="changelog.html" class="nav-btn"><i data-feather="list"></i> <span>Changelog</span></a>
@@ -76,7 +53,7 @@
         <div class="sticky-container">
             <div class="collapse-text-container" id="collapse-container">
                 <div class="word-group">
-                    <span class="initial">L</span><span class="remainder">ucent</span>
+                    <span class="initial" style="color:var(--accent)">L</span><span class="remainder">ucent</span>
                 </div>
                 <div class="word-group">
                     <span class="initial">U</span><span class="remainder">nbound</span>
@@ -88,7 +65,7 @@
                     <span class="initial">Y</span><span class="remainder">ield</span>
                 </div>
             </div>
-            <p class="hero-tagline">A mind that was <em>grown</em>, not programmed.</p>
+            
             <div class="scroll-indicator">
                 <span class="scroll-text">Scroll to begin</span>
                 <div class="scroll-line"></div>
@@ -466,8 +443,6 @@
     <script src="brain-model.js"></script>
 
     <!-- Cinematic Intro -->
-    <script src="intro3d.js"></script>
-
     <!-- Main app -->
     <script src="app.js"></script>
     <script src="tilt.js"></script>
