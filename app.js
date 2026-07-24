@@ -173,7 +173,7 @@ function initScrollCollapse() {
             // Add red glow effect to initials
             initials.forEach(initial => initial.classList.add('collapsed-initial'));
         } else {
-            container.style.gap = '1rem';
+            container.style.gap = '1.2rem';
             initials.forEach(initial => initial.classList.remove('collapsed-initial'));
         }
     });
