@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initSpotlight();
     initCounters();
     initExamBars();
+    initMagneticElements();
+    initParallax();
+    initEmotionsTicker();
+    initEmotionOrbs();
 });
 
 // Particle Effect
@@ -182,15 +186,46 @@ function initScrollCollapse() {
     });
 }
 
-// Timeline Scroll Reveal Effect
+// Timeline Scroll Reveal Effect & Split Text
 function initScrollReveal() {
+    // Setup split text for section titles
+    const sectionTitles = document.querySelectorAll('.section-title');
+    sectionTitles.forEach(title => {
+        // Skip if already split or has nested HTML (like links)
+        if (title.children.length > 0) return;
+        
+        const text = title.textContent;
+        title.innerHTML = '';
+        text.split(' ').forEach((word, wordIndex) => {
+            const wordSpan = document.createElement('span');
+            wordSpan.style.display = 'inline-block';
+            wordSpan.style.overflow = 'hidden';
+            wordSpan.style.verticalAlign = 'top';
+            wordSpan.style.paddingRight = '0.3em';
+            
+            const innerSpan = document.createElement('span');
+            innerSpan.textContent = word;
+            innerSpan.style.display = 'inline-block';
+            innerSpan.style.transform = 'translateY(110%)';
+            innerSpan.style.transition = `transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${wordIndex * 0.06}s`;
+            // Keep the text gradient working on the inner spans
+            innerSpan.style.background = 'inherit';
+            innerSpan.style.webkitBackgroundClip = 'text';
+            innerSpan.style.webkitTextFillColor = 'transparent';
+            
+            wordSpan.appendChild(innerSpan);
+            title.appendChild(wordSpan);
+        });
+    });
+
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    const titles = document.querySelectorAll('.section-title');
     const nodes = document.querySelectorAll('.timeline-node');
 
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.3
+        threshold: 0.15
     };
 
     const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -200,27 +235,36 @@ function initScrollReveal() {
                 if (entry.target.classList.contains('timeline-node')) {
                     entry.target.classList.add('active');
                 }
-            } else {
-                // Optional: remove class when scrolling up if we want it to trigger again
-                // entry.target.classList.remove('is-revealed');
-                // entry.target.classList.remove('active');
+                
+                // Trigger text split reveal
+                if(entry.target.classList.contains('section-title')) {
+                     const spans = entry.target.querySelectorAll('span > span');
+                     spans.forEach(s => s.style.transform = 'translateY(0)');
+                }
             }
         });
     }, observerOptions);
 
     revealElements.forEach(el => revealObserver.observe(el));
+    titles.forEach(el => revealObserver.observe(el));
     nodes.forEach(node => revealObserver.observe(node));
 }
 
-// ── Mouse spotlight on cards ──
+// ── Mouse spotlight on cards (RAF-throttled) ──
 function initSpotlight() {
     const cards = document.querySelectorAll('.glass-card, .intro-point, .exam-card, .cap');
     cards.forEach(card => {
+        let rafPending = false;
         card.addEventListener('mousemove', e => {
-            const rect = card.getBoundingClientRect();
-            card.style.setProperty('--sx', `${e.clientX - rect.left}px`);
-            card.style.setProperty('--sy', `${e.clientY - rect.top}px`);
-        });
+            if (rafPending) return;
+            rafPending = true;
+            requestAnimationFrame(() => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--sx', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--sy', `${e.clientY - rect.top}px`);
+                rafPending = false;
+            });
+        }, { passive: true });
         card.addEventListener('mouseleave', () => {
             card.style.setProperty('--sx', '-9999px');
             card.style.setProperty('--sy', '-9999px');
@@ -280,5 +324,109 @@ function initExamBars() {
         }, { threshold: 0.8 });
 
         obs.observe(bar);
+    });
+}
+
+// ── Magnetic elements (RAF-throttled, passive) ──
+function initMagneticElements() {
+    const magnetics = document.querySelectorAll('.nav-btn, .cyber-btn, .neural-node');
+    magnetics.forEach(btn => {
+        let rafPending = false;
+        let lastE = null;
+        btn.addEventListener('mousemove', (e) => {
+            lastE = e;
+            if (rafPending) return;
+            rafPending = true;
+            requestAnimationFrame(() => {
+                if (!lastE) { rafPending = false; return; }
+                const rect = btn.getBoundingClientRect();
+                const x = (lastE.clientX - rect.left) - rect.width / 2;
+                const y = (lastE.clientY - rect.top) - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+                rafPending = false;
+            });
+        }, { passive: true });
+        btn.addEventListener('mouseleave', () => {
+            lastE = null;
+            btn.style.transform = 'translate(0,0)';
+        });
+    });
+}
+
+// ── Subtle Parallax (GPU-only: translateY, not CSS var in keyframes) ──
+function initParallax() {
+    // Apply parallax as a direct transform on the blobs, not injected into keyframe --vars.
+    // This means the animation compositor handles the keyframe, and JS does a separate translate.
+    // We use a wrapper translateY on the ambient-bg so blobs keep their own animations.
+    const blobs = document.querySelectorAll('.blob');
+    let ticking = false;
+    let lastY = 0;
+    window.addEventListener('scroll', () => {
+        lastY = window.scrollY;
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            const offset = lastY * 0.12;
+            blobs.forEach((b, i) => {
+                // Each blob gets a slightly different rate
+                const rate = 0.08 + i * 0.03;
+                b.style.setProperty('--parallax-translate', `${lastY * rate}px`);
+            });
+            ticking = false;
+        });
+    }, { passive: true });
+}
+
+// ── Emotions Ticker (infinite marquee strips) ──
+function initEmotionsTicker() {
+    const tracks = document.querySelectorAll('.emotion-track');
+    tracks.forEach((track, idx) => {
+        const clone = track.innerHTML;
+        track.innerHTML += clone; // duplicate for seamless loop
+    });
+}
+
+// ── Emotion Orbs interactive panel ──
+function initEmotionOrbs() {
+    const orbs = document.querySelectorAll('.emotion-orb');
+    const panel = document.getElementById('emotion-detail-panel');
+    const panelTitle = document.getElementById('emotion-panel-title');
+    const panelList = document.getElementById('emotion-panel-list');
+    const panelClose = document.getElementById('emotion-panel-close');
+    if (!panel) return;
+
+    orbs.forEach(orb => {
+        orb.addEventListener('click', () => {
+            const name = orb.dataset.name;
+            const color = orb.dataset.color;
+            const emotions = orb.dataset.emotions.split(',');
+            const desc = orb.dataset.desc;
+
+            panelTitle.textContent = name;
+            panelTitle.style.color = color;
+            panel.style.setProperty('--orb-color', color);
+
+            panelList.innerHTML = emotions.map(e =>
+                `<span class="emotion-tag" style="border-color:${color}40;color:${color};background:${color}12">${e.trim()}</span>`
+            ).join('');
+
+            // Add description
+            let descEl = panel.querySelector('.emotion-panel-desc');
+            if (!descEl) {
+                descEl = document.createElement('p');
+                descEl.className = 'emotion-panel-desc';
+                panelTitle.after(descEl);
+            }
+            descEl.textContent = desc;
+
+            panel.classList.add('open');
+            orbs.forEach(o => o.classList.remove('active'));
+            orb.classList.add('active');
+        });
+    });
+
+    if (panelClose) panelClose.addEventListener('click', () => {
+        panel.classList.remove('open');
+        orbs.forEach(o => o.classList.remove('active'));
     });
 }
