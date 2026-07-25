@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    initParticles();
     initScrollCollapse();
     initScrollReveal();
     initSpotlight();
@@ -7,104 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initExamBars();
     initMagneticElements();
     initParallax();
+    initVelocitySkew();
 });
-
-// Particle Effect
-function initParticles() {
-    const canvas = document.getElementById('particle-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    let width, height, particles;
-    let isVisible = true;
-    let animationFrameId;
-
-    function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    }
-
-    class Particle {
-        constructor() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * height;
-            this.size = Math.random() * 1.5 + 0.5; // Smaller particles
-            this.speedX = (Math.random() - 0.5) * 0.2; // Slower speed
-            this.speedY = (Math.random() - 0.5) * 0.2;
-            // Linear/Modern palette: very subtle indigo-white particles
-            const roll = Math.random();
-            this.color = roll > 0.75
-                ? 'rgba(255,123,159,0.22)'    // indigo
-                : roll > 0.5
-                    ? 'rgba(170,170,200,0.12)' // cool white
-                    : 'rgba(255,123,159,0.09)'; // faint indigo
-        }
-
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-
-            if (this.x < 0) this.x = width;
-            if (this.x > width) this.x = 0;
-            if (this.y < 0) this.y = height;
-            if (this.y > height) this.y = 0;
-        }
-
-        draw() {
-            ctx.fillStyle = this.color;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
-
-    function init() {
-        resize();
-        particles = [];
-        // Significantly reduced particle count for performance
-        const numParticles = window.innerWidth < 768 ? 20 : 40;
-        for (let i = 0; i < numParticles; i++) {
-            particles.push(new Particle());
-        }
-    }
-
-    function animate() {
-        if (!isVisible) return; // Pause rendering if not visible
-
-        ctx.clearRect(0, 0, width, height);
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-        animationFrameId = requestAnimationFrame(animate);
-    }
-
-    window.addEventListener('resize', () => {
-        resize();
-        init();
-    });
-
-    // Use IntersectionObserver to pause animation when scrolled past hero
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                if (!isVisible) {
-                    isVisible = true;
-                    animate();
-                }
-            } else {
-                isVisible = false;
-                if (animationFrameId) cancelAnimationFrame(animationFrameId);
-            }
-        });
-    });
-    
-    // Assuming hero section is where the effect is most visible
-    const hero = document.getElementById('hero');
-    if(hero) observer.observe(hero);
-
-    init();
-    animate();
-}
 
 // Scroll Collapse Effect for "L.U.C.Y"
 function initScrollCollapse() {
@@ -177,11 +80,21 @@ function initScrollCollapse() {
                     initials.forEach(initial => initial.classList.remove('collapsed-initial'));
                 }
                 
+                // Hero text pull effect
+                const heroText = document.querySelector('.hero-content p');
+                const heroBtns = document.querySelector('.hero-actions');
+                if (heroText && heroBtns) {
+                    heroText.style.transform = `translateY(${scrollY * 0.1}px)`;
+                    heroText.style.opacity = 1 - progress * 1.5;
+                    heroBtns.style.transform = `translateY(${scrollY * 0.15}px)`;
+                    heroBtns.style.opacity = 1 - progress * 1.5;
+                }
+
                 ticking = false;
             });
             ticking = true;
         }
-    });
+    }, { passive: true });
 }
 
 // Timeline Scroll Reveal Effect & Split Text
@@ -372,6 +285,58 @@ function initParallax() {
             });
             ticking = false;
         });
+    }, { passive: true });
+}
+
+// ── Scroll Velocity Skew (Cool animation) ──
+function initVelocitySkew() {
+    const skewElements = document.querySelectorAll('.glass-card, .timeline-node');
+    if (!skewElements.length) return;
+
+    let lastY = window.scrollY;
+    let currentSkew = 0;
+    let ticking = false;
+
+    // Apply smooth spring-like decay to skew
+    function updateSkew() {
+        // Interpolate skew back to 0
+        currentSkew += (0 - currentSkew) * 0.15;
+        
+        // Stop updating if it's visually zero to save battery
+        if (Math.abs(currentSkew) < 0.1) {
+            currentSkew = 0;
+            skewElements.forEach(el => el.style.transform = '');
+        } else {
+            skewElements.forEach(el => {
+                // Combine with existing transforms if needed, here we just apply skewY
+                el.style.transform = `skewY(${currentSkew}deg)`;
+            });
+            requestAnimationFrame(updateSkew);
+        }
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(() => {
+                const y = window.scrollY;
+                const delta = y - lastY;
+                lastY = y;
+                
+                // Calculate velocity-based skew (capped at 4 degrees)
+                const velocity = Math.min(Math.max(delta * 0.05, -4), 4);
+                
+                // Only trigger update loop if skew changes significantly
+                const previousSkew = currentSkew;
+                currentSkew = velocity;
+                
+                if (Math.abs(previousSkew) < 0.1 && Math.abs(currentSkew) >= 0.1) {
+                    requestAnimationFrame(updateSkew);
+                }
+                
+                ticking = false;
+            });
+        }
     }, { passive: true });
 }
 

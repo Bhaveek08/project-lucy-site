@@ -67,20 +67,19 @@ img, canvas { max-width: 100%; }
 }
 .blob {
     position: absolute; border-radius: 50%; will-change: transform;
+    --center: translateX(0);
 }
 /* Primary indigo blob — top center */
 .blob-1 {
     width: 900px; height: 700px;
     background: radial-gradient(circle, rgba(255,123,159,0.18) 0%, transparent 70%);
-    filter: blur(40px); /* Reduced blur for performance */
-    top: -300px; left: 50%; transform: translateX(-50%);
+    top: -300px; left: 50%; --center: translateX(-50%);
     animation: blobFloat 24s ease-in-out infinite; /* Slower animation */
 }
 /* Secondary violet — left */
 .blob-2 {
     width: 600px; height: 700px;
     background: radial-gradient(circle, rgba(255,100,140,0.10) 0%, transparent 70%);
-    filter: blur(50px);
     top: 35%; left: -200px;
     animation: blobFloat 32s ease-in-out infinite reverse;
 }
@@ -88,7 +87,6 @@ img, canvas { max-width: 100%; }
 .blob-3 {
     width: 500px; height: 600px;
     background: radial-gradient(circle, rgba(255,150,180,0.08) 0%, transparent 70%);
-    filter: blur(45px);
     top: 25%; right: -150px;
     animation: blobFloat 28s ease-in-out infinite 3s;
 }
@@ -96,18 +94,17 @@ img, canvas { max-width: 100%; }
 .blob-4 {
     width: 700px; height: 400px;
     background: radial-gradient(circle, rgba(255,123,159,0.07) 0%, transparent 70%);
-    filter: blur(60px);
-    bottom: 0; left: 50%; transform: translateX(-50%);
+    bottom: 0; left: 50%; --center: translateX(-50%);
     animation: blobPulse 16s ease-in-out infinite;
 }
 @keyframes blobFloat {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    33% { transform: translateY(-25px) rotate(0.5deg); }
-    66% { transform: translateY(10px) rotate(-0.5deg); }
+    0%, 100% { transform: var(--center) translateY(0) rotate(0deg) var(--parallax-translate, translateY(0)); }
+    33% { transform: var(--center) translateY(-25px) rotate(0.5deg) var(--parallax-translate, translateY(0)); }
+    66% { transform: var(--center) translateY(10px) rotate(-0.5deg) var(--parallax-translate, translateY(0)); }
 }
 @keyframes blobPulse {
-    0%, 100% { opacity: 0.5; transform: translateX(-50%) scaleX(1); }
-    50% { opacity: 1; transform: translateX(-50%) scaleX(1.1); }
+    0%, 100% { opacity: 0.5; transform: var(--center) scaleX(1) var(--parallax-translate, translateY(0)); }
+    50% { opacity: 1; transform: var(--center) scaleX(1.1) var(--parallax-translate, translateY(0)); }
 }
 
 /* ── Noise texture overlay ── */
@@ -124,11 +121,7 @@ img, canvas { max-width: 100%; }
     background-size: 64px 64px;
 }
 
-/* ── Particle canvas ── */
-#particle-canvas {
-    position: fixed; inset: 0; width: 100vw; height: 100vh;
-    z-index: 0; pointer-events: none; opacity: 0.45;
-}
+
 
 /* ════════════════════════════════════════
    SECTION FURNITURE
