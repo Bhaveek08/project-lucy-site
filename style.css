@@ -258,6 +258,10 @@ body {
     color: var(--fg);
     line-height: 1.6;
     overflow-x: hidden;
+    /* Anti-Theft CSS */
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 /* Accessibility */
