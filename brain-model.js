@@ -52,7 +52,7 @@
     return IDX.limbic;
   }
 
-  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   if ("outputEncoding" in renderer) renderer.outputEncoding = THREE.sRGBEncoding;
   var scene = new THREE.Scene();

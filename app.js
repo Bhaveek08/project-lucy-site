@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initExamBars();
     initMagneticElements();
     initParallax();
-    initEmotionsTicker();
-    initEmotionOrbs();
 });
 
 // Particle Effect
@@ -377,56 +375,4 @@ function initParallax() {
     }, { passive: true });
 }
 
-// ── Emotions Ticker (infinite marquee strips) ──
-function initEmotionsTicker() {
-    const tracks = document.querySelectorAll('.emotion-track');
-    tracks.forEach((track, idx) => {
-        const clone = track.innerHTML;
-        track.innerHTML += clone; // duplicate for seamless loop
-    });
-}
 
-// ── Emotion Orbs interactive panel ──
-function initEmotionOrbs() {
-    const orbs = document.querySelectorAll('.emotion-orb');
-    const panel = document.getElementById('emotion-detail-panel');
-    const panelTitle = document.getElementById('emotion-panel-title');
-    const panelList = document.getElementById('emotion-panel-list');
-    const panelClose = document.getElementById('emotion-panel-close');
-    if (!panel) return;
-
-    orbs.forEach(orb => {
-        orb.addEventListener('click', () => {
-            const name = orb.dataset.name;
-            const color = orb.dataset.color;
-            const emotions = orb.dataset.emotions.split(',');
-            const desc = orb.dataset.desc;
-
-            panelTitle.textContent = name;
-            panelTitle.style.color = color;
-            panel.style.setProperty('--orb-color', color);
-
-            panelList.innerHTML = emotions.map(e =>
-                `<span class="emotion-tag" style="border-color:${color}40;color:${color};background:${color}12">${e.trim()}</span>`
-            ).join('');
-
-            // Add description
-            let descEl = panel.querySelector('.emotion-panel-desc');
-            if (!descEl) {
-                descEl = document.createElement('p');
-                descEl.className = 'emotion-panel-desc';
-                panelTitle.after(descEl);
-            }
-            descEl.textContent = desc;
-
-            panel.classList.add('open');
-            orbs.forEach(o => o.classList.remove('active'));
-            orb.classList.add('active');
-        });
-    });
-
-    if (panelClose) panelClose.addEventListener('click', () => {
-        panel.classList.remove('open');
-        orbs.forEach(o => o.classList.remove('active'));
-    });
-}
