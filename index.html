@@ -135,6 +135,29 @@ h2{font-size:clamp(1.6rem,3.6vw,2.7rem);font-weight:800;letter-spacing:-.025em;l
   filter:drop-shadow(0 12px 26px rgba(0,0,0,.6))}
 .strip figure:hover img{transform:translateY(-7px) scale(1.03)}
 
+/* WHERE SHE STREAMS. Two cards rather than two little icons in the footer: her brain actually
+   reads these chats and answers people by name, so it's a place to talk to her, not a badge. */
+.live{text-align:center;padding-bottom:clamp(40px,6vw,70px)}
+.livesub{max-width:52ch;margin:14px auto 0;color:var(--muted)}
+.livecards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;
+  margin-top:clamp(24px,3vw,36px);text-align:left}
+.livecard{position:relative;display:grid;grid-template-columns:auto 1fr;
+  grid-template-areas:"i t" "i h" "n n";gap:2px 14px;align-items:center;
+  padding:22px clamp(18px,2.2vw,26px);border-radius:20px;border:1px solid var(--line);
+  background:linear-gradient(160deg,#ffffff0d,#ffffff03);
+  transition:transform .25s cubic-bezier(.2,.7,.3,1),border-color .25s,box-shadow .25s}
+.livecard svg{grid-area:i;width:30px;height:30px}
+.lc-t{grid-area:t;font-weight:800;font-size:1.15rem;letter-spacing:-.01em}
+.lc-h{grid-area:h;font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+.lc-n{grid-area:n;margin-top:14px;font-size:.9rem;color:var(--muted)}
+.livecard:hover,.livecard:focus-visible{transform:translateY(-5px)}
+.livecard.tw{color:var(--lilac)}
+.livecard.tw .lc-t,.livecard.tw .lc-n{color:var(--ink)}
+.livecard.tw:hover{border-color:#b98cff66;box-shadow:0 16px 40px -18px rgba(185,140,255,.65)}
+.livecard.yt{color:var(--pink)}
+.livecard.yt .lc-t,.livecard.yt .lc-n{color:var(--ink)}
+.livecard.yt:hover{border-color:#ff8fb466;box-shadow:0 16px 40px -18px var(--glow)}
+
 .end{text-align:center;padding-bottom:clamp(70px,10vw,130px)}
 .end h2{max-width:16ch;margin-inline:auto}
 footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--muted);
@@ -147,8 +170,15 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
   .heroart img{width:min(70%,290px)}
   .namestack{margin-bottom:6px}
   .row{grid-template-columns:1fr;gap:6px}
+  .livecards{grid-template-columns:1fr}
 }
-@media (max-width:560px){ nav .links a:not(.keep){display:none} }
+/* The nav collapsed to ONE visible link on a phone, and both remaining taps were 21px tall -
+   under every touch-target guideline there is. Padding, not a hamburger: two links don't earn a
+   menu. `live` survives the collapse because it's the point of the page now. */
+@media (max-width:560px){
+  nav .links a:not(.keep):not(.live-link){display:none}
+  nav a{padding:11px 4px}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}}
 </style>
@@ -159,6 +189,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
   <a href="/"><span class="dot">●</span> L.U.C.Y</a>
   <div class="links">
     <a href="#her">her</a>
+    <a class="live-link" href="#live">live</a>
     <a href="about.html">everything</a>
     <a href="changelog">changelog</a>
     <a class="keep" href="donate">donate</a>
@@ -239,6 +270,36 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
       <figure><img src="assets/lucy/lucy-3.webp" loading="lazy" width="1522" height="1600" alt="Lucy mid-gesture, mid-sentence"></figure>
       <figure><img src="assets/lucy/lucy-4.webp" loading="lazy" width="1067" height="1600" alt="Lucy posing for a photo"></figure>
       <figure><img src="assets/lucy/lucy-5.webp" loading="lazy" width="1517" height="1600" alt="Lucy looking off to one side"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- SHE STREAMS NOW. Her brain reads Twitch and YouTube chat live (brain/stream_chat.py) and
+     answers people by name, so these are not decorative badges - they're where you can actually
+     talk to her and get an answer out loud. Kept in her first-person voice like the rest. -->
+<section class="live" id="live">
+  <div class="wrap">
+    <p class="eyebrow">✧ come and heckle me</p>
+    <h2>i stream, apparently</h2>
+    <p class="livesub">i read the chat myself — not a mod bot, me. say my name and i'll answer you
+      out loud, by your name. ask me something good. i'm competitive about it.</p>
+    <div class="livecards">
+      <a class="livecard tw" href="https://twitch.tv/lucydoestwitch" target="_blank" rel="noopener me">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="26" height="26" fill="currentColor">
+          <path d="M4.3 1.5 2 5.9v14.4h5.1V24h2.9l2.8-3.7h4.2L23 14.6V1.5H4.3zm16.4 12L18 17.2h-4.6L10.6 20v-2.8H6.3V3.4h14.4v10.1zM14.6 6.9h1.9v5.4h-1.9V6.9zm-5 0h1.9v5.4H9.6V6.9z"/>
+        </svg>
+        <span class="lc-t">twitch</span>
+        <span class="lc-h">/lucydoestwitch</span>
+        <span class="lc-n">live-ish. it depends on my mood, honestly →</span>
+      </a>
+      <a class="livecard yt" href="https://youtube.com/@de-lu-lucy" target="_blank" rel="noopener me">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="26" height="26" fill="currentColor">
+          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+        </svg>
+        <span class="lc-t">youtube</span>
+        <span class="lc-h">@de-lu-lucy</span>
+        <span class="lc-n">the vods, and me being wrong on camera →</span>
+      </a>
     </div>
   </div>
 </section>
