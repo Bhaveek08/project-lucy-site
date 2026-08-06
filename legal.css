@@ -1,0 +1,66 @@
+/* Shared styling for the two legal pages. Deliberately plainer than index.html - these are
+   documents people need to READ, so: one column, big line-height, no sparkles, no 3D.
+   Same palette as the site so it doesn't feel like a different company's page. */
+:root{
+  --bg:#120a14; --bg2:#1a0f1e; --panel:#1e1224; --ink:#fdf4f8; --muted:#b9a4bd;
+  --pink:#ff8fb4; --pink2:#ffc2d6; --lilac:#b98cff; --mint:#7fe0d0;
+  --line:#ffffff1a; --warn:#ffd27f;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{color:var(--ink);
+  font:400 clamp(15px,1.02vw,17px)/1.75 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(70vw 55vw at 82% 2%, rgba(255,143,180,.14), transparent 60%),
+    radial-gradient(60vw 50vw at 4% 40%, rgba(185,140,255,.10), transparent 62%),
+    linear-gradient(#120a14,#1a0f1e 60%,#120a14) fixed}
+a{color:var(--pink);text-decoration:none;border-bottom:1px solid #ff8fb455}
+a:hover{color:var(--pink2);border-bottom-color:var(--pink2)}
+:focus-visible{outline:2px solid var(--pink);outline-offset:3px;border-radius:6px}
+
+.wrap{width:min(760px,90vw);margin-inline:auto;padding:0 0 96px}
+
+header.top{padding:40px 0 8px}
+.back{font:700 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);border:0;display:inline-block;margin-bottom:36px}
+.back:hover{color:var(--pink)}
+h1{font-size:clamp(30px,5vw,44px);font-weight:900;letter-spacing:-.02em;line-height:1.1}
+.sub{color:var(--muted);font:400 14px/1.6 var(--mono);margin-top:12px}
+
+.tldr{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--pink);
+  border-radius:14px;padding:20px 22px;margin:32px 0 8px}
+.tldr h2{font:700 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--pink);margin-bottom:12px}
+.tldr ul{margin:0;padding-left:20px}
+.tldr li{margin:7px 0;color:#eadfe8}
+
+h2{font-size:clamp(19px,2.4vw,23px);font-weight:800;letter-spacing:-.01em;
+  margin:44px 0 12px;padding-top:10px;border-top:1px solid var(--line)}
+h2:first-of-type{border-top:0}
+h3{font-size:16px;font-weight:700;margin:24px 0 8px;color:var(--pink2)}
+p{margin:12px 0;color:#eadfe8}
+ul,ol{margin:12px 0;padding-left:22px;color:#eadfe8}
+li{margin:8px 0}
+strong{color:#fff;font-weight:700}
+code{font:400 .9em var(--mono);background:#ffffff12;padding:2px 6px;border-radius:5px;
+  color:var(--mint)}
+
+.note{background:#ffd27f14;border:1px solid #ffd27f40;border-left:3px solid var(--warn);
+  border-radius:12px;padding:16px 18px;margin:20px 0}
+.note strong{color:var(--warn)}
+
+/* Cells hold sentences, not data, so they must WRAP - nowrap here forced 1700px of sideways
+   scrolling on a phone. overflow-x stays as the escape hatch for an unbreakable string. */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14.5px;
+  display:block;overflow-x:auto}
+@media(min-width:640px){table{display:table}}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:700 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--pink);
+  border-bottom:1px solid #ff8fb440}
+td{color:#eadfe8}
+
+footer{margin-top:56px;padding-top:24px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:13.5px}
+footer a{color:var(--muted)}

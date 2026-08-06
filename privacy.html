@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Privacy Policy — L.U.C.Y</title>
+<!-- Unlisted, not secret. Discord must be able to fetch it, and a privacy policy people can't
+     read fails at its only job. noindex keeps it out of search instead. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Privacy Policy for the L.U.C.Y Discord application.">
+<meta name="theme-color" content="#120a14">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22800%22 fill=%22%23ff7b9f%22>L</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="legal.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <a class="back" href="/">← back to lucy</a>
+  <h1>Privacy Policy</h1>
+  <p class="sub">L.U.C.Y — Discord application &amp; website<br>
+     Last updated: 6 August 2026 · Version 1.0</p>
+</header>
+
+<div class="tldr">
+  <h2>The short version</h2>
+  <ul>
+    <li>Lucy runs on a <strong>private machine</strong>, not a cloud service. Her memory lives there.</li>
+    <li>In a server she only reads messages that <strong>mention her</strong>. She is not logging your server.</li>
+    <li>In a DM she reads what you send her, because that's what a DM is.</li>
+    <li><strong>Some messages are sent to Google's Gemini API</strong> when she wants a second
+        opinion, and search queries go to search engines when she looks something up. Details below.</li>
+    <li>Nothing is sold, rented, or shared for advertising. There is no advertising.</li>
+    <li>Say <strong>"stop"</strong> and she blocks you permanently. Email us and your data is deleted.</li>
+  </ul>
+</div>
+
+<h2>1. Who is responsible</h2>
+<p>Lucy is built and operated by a private individual in India — not a company. For the purposes
+of India's <strong>Digital Personal Data Protection Act, 2023</strong> that person is the Data
+Fiduciary; for the <strong>UK/EU GDPR</strong>, the Data Controller. Contact:
+<a href="mailto:privacy@project-lucy.me">privacy@project-lucy.me</a>.</p>
+
+<h2>2. What she collects</h2>
+<table>
+  <tr><th>Data</th><th>When</th><th>Why</th></tr>
+  <tr><td>Your Discord user ID and username</td>
+      <td>Whenever you interact with her</td>
+      <td>To tell people apart, to remember a conversation, and to honour a block</td></tr>
+  <tr><td>Message content you send her</td>
+      <td>In a DM, or in a server channel <em>when you mention or name her</em></td>
+      <td>To understand and answer you</td></tr>
+  <tr><td>Channel and server ID, timestamp</td>
+      <td>Same</td>
+      <td>To reply in the right place, and to apply rate limits</td></tr>
+  <tr><td>What she sent you</td>
+      <td>Every message she sends</td>
+      <td>An audit log, so her operator can see exactly what she said to whom</td></tr>
+  <tr><td>Block records</td>
+      <td>When you tell her to stop</td>
+      <td>To make the block permanent. <strong>This record is kept even after deletion requests</strong>
+          — otherwise the block would be forgotten and she'd message you again</td></tr>
+</table>
+
+<h3>What she does not collect</h3>
+<ul>
+  <li>Messages in servers that don't mention her. She isn't reading your channels.</li>
+  <li>Your email, phone number, address or payment details. She has no payments.</li>
+  <li>Voice or video from Discord. The Discord app is text only.</li>
+  <li>Your IP address. Discord handles the connection; she never sees it.</li>
+  <li>Anything from your camera or microphone. Those exist in her private local build and are
+      <strong>never</strong> connected to Discord.</li>
+</ul>
+
+<div class="note">
+  <p><strong>Please don't send her secrets.</strong> Passwords, card numbers, government IDs,
+  medical records, or other people's personal information. She has no way to un-see them, and
+  they'd end up in the log described above.</p>
+</div>
+
+<h2>3. Where your data goes</h2>
+<p>This is the part most policies are vague about, so here it is exactly.</p>
+
+<h3>3.1 Stored locally</h3>
+<p>Her memory, conversation history and logs are stored on the operator's own hardware in India.
+They are not on a hosted database and not on anyone else's server.</p>
+
+<h3>3.2 Third parties that may receive your message content</h3>
+<table>
+  <tr><th>Who</th><th>What they get</th><th>When</th></tr>
+  <tr><td><strong>Discord Inc.</strong></td>
+      <td>Everything, inevitably</td>
+      <td>They operate the platform. Their
+          <a href="https://discord.com/privacy" rel="noopener">privacy policy</a> applies</td></tr>
+  <tr><td><strong>Google (Gemini API)</strong></td>
+      <td>The text of your question, or part of it</td>
+      <td>When she consults a second opinion to check her own reasoning. Not every message —
+          but assume it can happen to any message</td></tr>
+  <tr><td><strong>Search engines</strong></td>
+      <td>A search query derived from your question</td>
+      <td>When she looks something up rather than answering from memory</td></tr>
+  <tr><td><strong>Google Fonts</strong></td>
+      <td>Your IP and browser, on this website only</td>
+      <td>When you load a page here. Not connected to the Discord app</td></tr>
+</table>
+<p><strong>Nobody else.</strong> No analytics, no advertising networks, no data brokers, no
+tracking pixels, no selling. There is nothing to sell and no intention to.</p>
+<p>The language model that actually forms her replies runs <em>locally</em>. Google is a
+consultant she sometimes asks, not the thing she is.</p>
+
+<h2>4. Legal basis and purpose</h2>
+<p>Under GDPR, processing rests on <em>legitimate interests</em> (operating a conversational
+service you chose to talk to) and, for optional memory features, <em>consent</em>. Under the DPDP
+Act, on your consent given by choosing to interact with her. You can withdraw at any time — see
+section 6.</p>
+<p>Your data is used to answer you, to remember conversations, to enforce blocks and rate limits,
+and to fix bugs. <strong>It is not used to train or fine-tune models.</strong> Lucy's training
+data comes from her operator's own material and public datasets, not from users' messages.</p>
+
+<h2>5. How long it's kept</h2>
+<table>
+  <tr><th>What</th><th>Kept for</th></tr>
+  <tr><td>Conversation history</td><td>Up to 12 months, then deleted</td></tr>
+  <tr><td>Outbound audit log</td><td>Up to 12 months</td></tr>
+  <tr><td>Facts she remembers about you</td><td>Until you ask her to forget, or you stop using her for 12 months</td></tr>
+  <tr><td>Block records</td><td>Indefinitely, on purpose — so the block keeps working</td></tr>
+  <tr><td>Records of serious abuse</td><td>As long as needed for safety and any report</td></tr>
+</table>
+
+<h2>6. Your rights, and how to actually use them</h2>
+<p>You have the right to know what's held about you, to get a copy, to correct it, to have it
+deleted, to withdraw consent, and to object to processing. Under GDPR you may also complain to
+your local supervisory authority; under the DPDP Act, to the Data Protection Board of India.</p>
+
+<h3>The fast ways</h3>
+<ul>
+  <li><strong>Stop her messaging you:</strong> say <code>stop</code>, <code>leave me alone</code>,
+      or <code>don't message me</code> in a DM. It takes effect immediately and permanently.
+      No confirmation, no attempt to talk you out of it.</li>
+  <li><strong>Make her forget something:</strong> ask her directly — "forget what I told you
+      about X".</li>
+  <li><strong>Delete everything:</strong> email
+      <a href="mailto:privacy@project-lucy.me">privacy@project-lucy.me</a> from any address, with
+      your Discord username and user ID. Answered within 30 days. Everything goes except the
+      block record, for the reason given above.</li>
+  <li><strong>Get a copy:</strong> same address, same 30 days.</li>
+</ul>
+<p>Requests are free. We may ask you to confirm the request from your Discord account, so that
+somebody else can't delete your data or read it by claiming to be you.</p>
+
+<h2>7. Children</h2>
+<p>Lucy is not for anyone under 13, or under the higher minimum age Discord sets in your country.
+She does not knowingly collect data from children. Under the DPDP Act, processing a child's data
+requires verifiable parental consent, which this service is not set up to obtain — so it does not
+process children's data at all. If you believe a child's data is held, email
+<a href="mailto:privacy@project-lucy.me">privacy@project-lucy.me</a> and it will be deleted.</p>
+
+<h2>8. Security</h2>
+<p>Data sits on personal hardware with full-disk encryption and no public inbound access. API
+keys and tokens are kept in local environment files that are never committed to source control
+and never logged. Access is limited to the operator.</p>
+<p>Honestly: this is a personal project, not a bank. It is defended seriously but it is one
+person's machine. Please calibrate what you share accordingly.</p>
+<p>If a breach affects your rights, affected users will be notified and the Data Protection Board
+of India informed, as the DPDP Act requires. Found a hole? Tell us at
+<a href="mailto:abuse@project-lucy.me">abuse@project-lucy.me</a> — you'll get thanks, not lawyers.</p>
+
+<h2>9. International transfers</h2>
+<p>Data is held in India. If you're in the UK/EU, using the service means your data is processed
+in India, and by Google and Discord in the United States and elsewhere. Those transfers rely on
+your consent and on the third parties' own transfer mechanisms.</p>
+
+<h2>10. Automated decisions</h2>
+<p>Lucy makes no decision that produces a legal or similarly significant effect on you. She talks.
+The one automated action she takes about you is blocking, which you trigger yourself and which
+only ever reduces contact.</p>
+
+<h2>11. This website</h2>
+<p><code>project-lucy.me</code> is a static site on GitHub Pages. No cookies are set, no analytics
+run, and no account is needed. GitHub records standard server logs; Google Fonts sees your IP when
+fonts load. That is the entire extent of it.</p>
+
+<h2>12. Changes</h2>
+<p>This policy may change. The version and date at the top change with it. If a change materially
+affects how your data is used, it will be announced through the Service where reasonably possible.</p>
+
+<h2>13. Contact</h2>
+<p>Privacy &amp; data requests: <a href="mailto:privacy@project-lucy.me">privacy@project-lucy.me</a><br>
+   Abuse &amp; security: <a href="mailto:abuse@project-lucy.me">abuse@project-lucy.me</a><br>
+   Anything else: <a href="mailto:hello@project-lucy.me">hello@project-lucy.me</a></p>
+
+<footer>
+  <p><a href="terms.html">Terms of Service</a> · <a href="/">project-lucy.me</a></p>
+  <p style="margin-top:10px">Written carefully, but not by a lawyer. A serious starting point,
+  not certified legal advice.</p>
+</footer>
+
+</div>
+</body>
+</html>
