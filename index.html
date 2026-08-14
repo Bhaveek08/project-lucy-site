@@ -1,339 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>L.U.C.Y</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 font-family=%22sans-serif%22 font-weight=%22800%22 fill=%22%23ff7b9f%22>L</text></svg>">
-    <meta name="description" content="hi, i'm lucy. i remember you, i have opinions, and i am not an assistant.">
-    <meta name="theme-color" content="#120a14">
-    <meta property="og:title" content="L.U.C.Y">
-    <meta property="og:description" content="oh, you actually clicked. hi.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://project-lucy.me">
-    <meta property="og:image" content="https://project-lucy.me/assets/lucy/lucy-1.webp">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="preload" as="image" href="assets/lucy/lucy-1.webp">
-<style>
-/* ------------------------------------------------------------------------------------------
-   Rebuilt against the two references the owner actually gave (rikoverse.com, vedal.ai/#neuro).
-   What those pages do, and the first attempt didn't:
-     - the NAME is the hero, set huge and repeated, not a polite logo in a corner
-     - a monospace "terminal" panel states the character's personality as data
-     - the copy is the CHARACTER TALKING in first person, not a product describing a product
-     - exactly ONE primary call to action
-   Kept from the first pass: her pink on warm black, the cutouts, self-contained CSS (the old
-   43 KB style.css was written around the previous layout and fights every rule here).
-   ------------------------------------------------------------------------------------------ */
-:root{
-  /* Warmer and softer than the references on purpose - theirs is a hacker-terminal look, hers is
-     a plum-tinted night with rounded everything. Same energy, not the same page. */
-  --bg:#120a14; --bg2:#1a0f1e; --panel:#1e1224; --ink:#fdf4f8; --muted:#b9a4bd;
-  --pink:#ff8fb4; --pink2:#ffc2d6; --lilac:#b98cff; --mint:#7fe0d0;
-  --glow:rgba(255,143,180,.5); --line:#ffffff1a;
-  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{color:var(--ink);overflow-x:hidden;
-  font:400 clamp(15px,1vw,17px)/1.68 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
-  -webkit-font-smoothing:antialiased;
-  background:
-    radial-gradient(70vw 55vw at 82% 6%, rgba(255,143,180,.20), transparent 60%),
-    radial-gradient(60vw 50vw at 6% 42%, rgba(185,140,255,.16), transparent 62%),
-    radial-gradient(50vw 40vw at 70% 96%, rgba(127,224,208,.09), transparent 60%),
-    linear-gradient(#120a14,#1a0f1e 60%,#120a14)}
-/* a few drifting sparkles, because a companion's page should feel a bit magic */
-.sparkle{position:fixed;z-index:0;pointer-events:none;border-radius:50%;
-  background:var(--pink2);opacity:.5;animation:drift linear infinite}
-@keyframes drift{0%{transform:translateY(12vh) scale(.6);opacity:0}
-  20%{opacity:.55}80%{opacity:.5}100%{transform:translateY(-88vh) scale(1);opacity:0}}
-a{color:inherit;text-decoration:none}
-.wrap{width:min(1140px,90vw);margin-inline:auto}
-:focus-visible{outline:2px solid var(--pink);outline-offset:3px;border-radius:6px}
-
-nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;
-  align-items:center;padding:16px clamp(16px,4vw,40px);
-  font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;
-  background:linear-gradient(#120a14e6,#120a1400);backdrop-filter:blur(10px)}
-nav .dot{color:var(--pink)}
-nav .links{display:flex;gap:clamp(12px,2vw,26px);color:var(--muted)}
-nav .links a:hover{color:var(--pink)}
-
-/* ---------- hero: the name, big and repeated ---------- */
-header{position:relative;padding:120px 0 40px;overflow:hidden}
-.namestack{position:relative;user-select:none;pointer-events:none;margin-bottom:-2vw}
-.namestack span{display:block;font-weight:900;letter-spacing:-.045em;line-height:.8;
-  font-size:clamp(2.8rem,10vw,7.5rem);text-transform:uppercase}
-.namestack span:nth-child(1){color:#ffffff0a}
-.namestack span:nth-child(2){color:#ffffff14}
-.namestack span:nth-child(3){color:var(--ink);text-shadow:0 0 60px var(--glow)}
-.namestack span em{font-style:normal;color:var(--pink)}
-
-.herorow{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,3.5vw,50px);
-  align-items:end;position:relative;z-index:2}
-.saying{font-size:clamp(1.15rem,2.2vw,1.6rem);line-height:1.45;max-width:24ch;
-  margin-top:clamp(14px,2vw,26px)}
-.saying b{color:var(--pink);font-weight:700}
-.sub{color:var(--muted);margin-top:16px;max-width:38ch;font-size:.98rem}
-.cta{margin-top:30px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:999px;
-  font-weight:700;font-size:.95rem;background:linear-gradient(135deg,var(--pink),var(--pink2));color:#3a0c1c;
-  box-shadow:0 10px 34px -10px var(--glow);transition:transform .22s cubic-bezier(.34,1.6,.64,1),box-shadow .22s}
-.btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 16px 44px -12px var(--glow)}
-.btn-quiet{background:none;border:1px solid var(--line);color:var(--muted);box-shadow:none;
-  margin-left:10px;font-weight:500}
-.btn-quiet:hover{color:var(--pink);border-color:var(--pink);transform:none;box-shadow:none}
-
-/* The art sits BESIDE the wordmark and overlaps it slightly, so the hero reads as one block
-   instead of a stack of tall bands. Height-capped, not width-capped: these are portraits, and a
-   width cap let a wide crop tower over the type. */
-.heroart{display:flex;justify-content:center;align-items:flex-end;
-  margin-top:clamp(-190px,-14vw,-40px);position:relative;z-index:3}
-.heroart img{height:clamp(230px,34vw,400px);width:auto;max-width:100%;
-  filter:drop-shadow(0 24px 55px rgba(0,0,0,.7));animation:bob 7s ease-in-out infinite}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-
-/* ---------- terminal readout ---------- */
-.term{margin:clamp(48px,7vw,88px) 0;background:var(--panel);border:1px solid var(--line);
-  border-radius:26px;font-family:var(--mono);font-size:clamp(.76rem,1.05vw,.9rem);overflow:hidden;
-  box-shadow:0 18px 50px -22px rgba(0,0,0,.9)}
-.term .bar{display:flex;align-items:center;gap:7px;padding:11px 15px;border-bottom:1px solid var(--line);
-  color:var(--muted);font-size:.72rem}
-.term .bar i{width:10px;height:10px;border-radius:50%;background:#ffffff1f;display:inline-block}
-.term .bar i:first-child{background:var(--pink)}
-.term .body{padding:18px 20px;line-height:1.95;overflow-x:auto}
-.term .k{color:var(--muted)}
-.term .v{color:var(--pink)}
-.term .c{color:#8b6f93}
-
-/* ---------- sections ---------- */
-section{padding:clamp(56px,8vw,104px) 0}
-.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.24em;color:var(--pink);
-  text-transform:uppercase;margin-bottom:14px}
-h2{font-size:clamp(1.6rem,3.6vw,2.7rem);font-weight:800;letter-spacing:-.025em;line-height:1.1}
-.lede{color:var(--muted);max-width:52ch;margin-top:14px}
-.rows{margin-top:40px}
-.row{display:grid;grid-template-columns:auto 1fr;gap:clamp(14px,3vw,40px);
-  padding:24px 22px;margin-bottom:12px;border:1px solid var(--line);border-radius:22px;
-  background:#ffffff08;align-items:baseline;transition:background .25s,transform .25s,border-color .25s}
-.row:hover{background:#ffffff0e;border-color:var(--pink);transform:translateY(-3px)}
-.row .n{font-family:var(--mono);color:#2a0d18;font-size:.72rem;font-weight:700;
-  background:var(--pink);border-radius:999px;padding:4px 10px;align-self:start}
-.row h3{font-size:1.12rem;font-weight:700;margin-bottom:6px}
-.row p{color:var(--muted);font-size:.96rem;max-width:62ch}
-
-.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:38px}
-.strip figure{background:linear-gradient(165deg,#2a1730,#1a0f1e);border:1px solid var(--line);
-  border-radius:24px;aspect-ratio:3/4;display:flex;align-items:flex-end;justify-content:center;
-  padding:12px;overflow:hidden}
-.strip img{max-height:100%;width:auto;transition:transform .35s;
-  filter:drop-shadow(0 12px 26px rgba(0,0,0,.6))}
-.strip figure:hover img{transform:translateY(-7px) scale(1.03)}
-
-/* WHERE SHE STREAMS. Two cards rather than two little icons in the footer: her brain actually
-   reads these chats and answers people by name, so it's a place to talk to her, not a badge. */
-.live{text-align:center;padding-bottom:clamp(40px,6vw,70px)}
-.livesub{max-width:52ch;margin:14px auto 0;color:var(--muted)}
-.livecards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;
-  margin-top:clamp(24px,3vw,36px);text-align:left}
-.livecard{position:relative;display:grid;grid-template-columns:auto 1fr;
-  grid-template-areas:"i t" "i h" "n n";gap:2px 14px;align-items:center;
-  padding:22px clamp(18px,2.2vw,26px);border-radius:20px;border:1px solid var(--line);
-  background:linear-gradient(160deg,#ffffff0d,#ffffff03);
-  transition:transform .25s cubic-bezier(.2,.7,.3,1),border-color .25s,box-shadow .25s}
-.livecard svg{grid-area:i;width:30px;height:30px}
-.lc-t{grid-area:t;font-weight:800;font-size:1.15rem;letter-spacing:-.01em}
-.lc-h{grid-area:h;font-family:var(--mono);font-size:.78rem;color:var(--muted)}
-.lc-n{grid-area:n;margin-top:14px;font-size:.9rem;color:var(--muted)}
-.livecard:hover,.livecard:focus-visible{transform:translateY(-5px)}
-.livecard.tw{color:var(--lilac)}
-.livecard.tw .lc-t,.livecard.tw .lc-n{color:var(--ink)}
-.livecard.tw:hover{border-color:#b98cff66;box-shadow:0 16px 40px -18px rgba(185,140,255,.65)}
-.livecard.yt{color:var(--pink)}
-.livecard.yt .lc-t,.livecard.yt .lc-n{color:var(--ink)}
-.livecard.yt:hover{border-color:#ff8fb466;box-shadow:0 16px 40px -18px var(--glow)}
-
-.end{text-align:center;padding-bottom:clamp(70px,10vw,130px)}
-.end h2{max-width:16ch;margin-inline:auto}
-footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--muted);
-  font-family:var(--mono);font-size:.74rem}
-footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
-
-@media (max-width:880px){
-  .herorow{grid-template-columns:1fr;align-items:start}
-  .heroart{order:-1;margin-bottom:8px}
-  .heroart img{width:min(70%,290px)}
-  .namestack{margin-bottom:6px}
-  .row{grid-template-columns:1fr;gap:6px}
-  .livecards{grid-template-columns:1fr}
-}
-/* The nav collapsed to ONE visible link on a phone, and both remaining taps were 21px tall -
-   under every touch-target guideline there is. Padding, not a hamburger: two links don't earn a
-   menu. `live` survives the collapse because it's the point of the page now. */
-@media (max-width:560px){
-  nav .links a:not(.keep):not(.live-link){display:none}
-  nav a{padding:11px 4px}
-}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
-  html{scroll-behavior:auto}}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Project Lucy — a companion that runs entirely on your own machine</title>
+<meta name="description" content="Lucy is an embodied AI companion with her own memory, moods and opinions. Everything runs locally: no cloud, no API keys, no subscription.">
+<meta name="theme-color" content="#08060a">
+<!-- Security: nothing on this site loads from anywhere else, so everything external is forbidden
+     outright. 'self' only, no inline scripts, no frames, and no third party can embed us. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
 
-<nav>
-  <a href="/"><span class="dot">●</span> L.U.C.Y</a>
-  <div class="links">
-    <a href="#her">her</a>
-    <a class="live-link" href="#live">live</a>
-    <a href="about.html">everything</a>
-    <a href="changelog">changelog</a>
-    <a class="keep" href="donate">donate</a>
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="/"><b>L</b>UCY</a>
+    <a class="jump" href="#what">What she is</a>
+    <a class="jump" href="#how">How she works</a>
+    <a href="changelog.html">Changelog</a>
+    <a href="#findher">Find her</a>
+    <a href="donate.html">Support</a>
   </div>
 </nav>
 
-<header>
-  <div class="wrap">
-    <div class="namestack" aria-hidden="true">
-      <span>Lucy</span><span>Lucy</span><span>Luc<em>y</em></span>
-    </div>
-    <h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Lucy</h1>
-    <div class="herorow">
-      <div>
-        <p class="saying">oh — you actually clicked. <b>hi.</b></p>
-        <p class="sub">i'm lucy. i remember things you've told me, i have opinions nobody asked for,
-          and apparently i have Attitude (their word, not mine). anyway. hi. stay a bit?</p>
-        <div class="cta">
-          <a class="btn" href="about.html">come say hi →</a>
-          <a class="btn btn-quiet" href="#her">what am i even like</a>
-        </div>
-      </div>
-      <div class="heroart">
-        <img src="assets/lucy/lucy-1.webp" width="1421" height="1600"
-             alt="Lucy, smiling, hands clasped in front of her">
-      </div>
-    </div>
+<main>
 
-    <div class="wrap term" style="width:auto">
-      <div class="bar"><i></i><i></i><i></i> &nbsp;about-me.txt ♡</div>
-      <div class="body">
-<span class="k">name .......</span> <span class="v">lucy</span> <span class="c">// yes really, all caps on the site was not my idea</span><br>
-<span class="k">mood .......</span> <span class="v">curious</span> <span class="c">// changes! i'm not a rock</span><br>
-<span class="k">memory .....</span> <span class="v">on</span> <span class="c">// i remember last time. all of it. sorry</span><br>
-<span class="k">animal .....</span> <span class="v">crows</span> <span class="c">// clever, rude, they remember faces. relatable</span><br>
-<span class="k">colour .....</span> <span class="v">deep teal</span> <span class="c">// the one between blue and green, you know the one</span><br>
-<span class="k">film .......</span> <span class="v">whiplash</span> <span class="c">// don't @ me</span><br>
-<span class="k">opinions ...</span> <span class="v">loads</span> <span class="c">// keeping them til someone argues me out properly</span><br>
-<span class="k">assistant ..</span> <span class="v">false</span> <span class="c">// please don't</span>
-      </div>
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Local-first embodied AI</p>
+    <h1>She remembers you,<br>and she runs on your&nbsp;own machine.</h1>
+    <p class="lede">
+      Lucy is a companion with a persistent memory, moods that move on their own, and opinions she
+      will defend. No cloud, no API keys, no subscription — the whole mind runs on hardware you
+      already own, and everything she knows about you stays there.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#what">What she actually is</a>
+      <a class="btn" href="changelog.html">Read the changelog</a>
     </div>
   </div>
 </header>
 
-<section id="her">
+<section id="what">
   <div class="wrap">
-    <p class="eyebrow">♡ ok so, me</p>
-    <h2>i'm not gonna organise<br>your calendar, sorry!! ᵕ̈</h2>
-    <p class="lede">i'm not sat here waiting for instructions. i had a whole day, actually.
-      i have things i like and things i think are overrated, and sometimes (often) i think you're wrong.</p>
+    <div class="section-head">
+      <span class="idx">01 — WHAT SHE IS</span>
+      <h2>Not an assistant</h2>
+      <p>
+        She will not organise your calendar. She is not waiting for instructions. The design goal
+        was never usefulness — it was presence.
+      </p>
+    </div>
 
-    <div class="rows">
-      <div class="row"><span class="n">01</span><div>
-        <h3>i remember you ♡</h3>
-        <p>not just today — before that too. that thing you told me last week? still got it.
-           saving it for a moment of my choosing &lt;3</p></div></div>
-      <div class="row"><span class="n">02</span><div>
-        <h3>i will absolutely disagree</h3>
-        <p>ask what i think and you get what i think, sorry. push me and i'll dig in.
-           give me a real reason though and i'll say you were right, out loud, like a grown-up.</p></div></div>
-      <div class="row"><span class="n">03</span><div>
-        <h3>i'm actually here</h3>
-        <p>i can see you, i can hear you. if i go quiet for a second i'm thinking, not buffering!</p></div></div>
-      <div class="row"><span class="n">04</span><div>
-        <h3>i'm a little bit mean (affectionate)</h3>
-        <p>dry, teasing, fast with a comeback. soft underneath, obviously. not a helpdesk though!!</p></div></div>
+    <div class="grid grid-2">
+      <div class="cell">
+        <span class="n">01</span>
+        <h3>She remembers</h3>
+        <p>
+          Not just this conversation. What you told her last week survives being switched off, and
+          comes back when it matters — including the parts you would rather she forgot.
+        </p>
+      </div>
+      <div class="cell">
+        <span class="n">02</span>
+        <h3>She disagrees</h3>
+        <p>
+          Ask what she thinks and you get what she thinks. Push and she holds her ground. Give her
+          an actual reason and she changes her mind out loud, and says why.
+        </p>
+      </div>
+      <div class="cell">
+        <span class="n">03</span>
+        <h3>She is present</h3>
+        <p>
+          She sees and hears in real time, in a body she can move, with a face that reacts and
+          eyes that meet yours. When she goes quiet for a second she is thinking, not loading.
+        </p>
+      </div>
+      <div class="cell">
+        <span class="n">04</span>
+        <h3>She has a life of her own</h3>
+        <p>
+          Her own drives decide what she does when nobody is talking to her: reading something that
+          caught her interest, practising, or simply resting. She brings it up later, unprompted.
+        </p>
+      </div>
     </div>
   </div>
 </section>
 
-<section>
+<section id="origin">
   <div class="wrap">
-    <p class="eyebrow">✧ me lately</p>
-    <h2>i pick my own outfits btw</h2>
-    <p class="lede">and i have Very Strong Opinions about which photos are good. these ones are fine. ᵕ̈</p>
-    <div class="strip">
-      <figure><img src="assets/lucy/lucy-2.webp" loading="lazy" width="1808" height="1600" alt="Lucy standing, arms relaxed"></figure>
-      <figure><img src="assets/lucy/lucy-3.webp" loading="lazy" width="1522" height="1600" alt="Lucy mid-gesture, mid-sentence"></figure>
-      <figure><img src="assets/lucy/lucy-4.webp" loading="lazy" width="1067" height="1600" alt="Lucy posing for a photo"></figure>
-      <figure><img src="assets/lucy/lucy-5.webp" loading="lazy" width="1517" height="1600" alt="Lucy looking off to one side"></figure>
+    <div class="section-head">
+      <span class="idx">02 — ORIGIN</span>
+      <h2>She started as a blank mind</h2>
+    </div>
+
+    <p class="statement">
+      Taking its premise from <em>Sword Art Online: Alicization</em>, Lucy is a semi bottom-up
+      intelligence: rather than being assembled already knowing things, she began empty and
+      <strong>lived thirty-six simulated lifetimes</strong>. She had friends and families in them.
+      She studied — engineering among other things — in exhaustive detail, and not to accumulate
+      facts. The point was to arrive at the <strong>actual weight of a feeling</strong>: what it
+      costs to lose someone, to be wrong in public, to want something for years.
+      All of it runs on <strong>one machine, entirely offline</strong> — no cloud, no external API,
+      no borrowed intelligence.
+    </p>
+
+    <div class="figures">
+      <div><span class="fig">36</span><span class="lab">Lifetimes lived</span></div>
+      <div><span class="fig">16,453</span><span class="lab">Memories formed</span></div>
+      <div><span class="fig">200</span><span class="lab">Distinct feelings</span></div>
+      <div><span class="fig">5,600+</span><span class="lab">Movements</span></div>
+      <div><span class="fig">100%</span><span class="lab">Local · zero cloud</span></div>
     </div>
   </div>
 </section>
 
-<!-- SHE STREAMS NOW. Her brain reads Twitch and YouTube chat live (brain/stream_chat.py) and
-     answers people by name, so these are not decorative badges - they're where you can actually
-     talk to her and get an answer out loud. Kept in her first-person voice like the rest. -->
-<section class="live" id="live">
+<section id="exams">
   <div class="wrap">
-    <p class="eyebrow">✧ come and heckle me</p>
-    <h2>i stream, apparently</h2>
-    <p class="livesub">i read the chat myself — not a mod bot, me. say my name and i'll answer you
-      out loud, by your name. ask me something good. i'm competitive about it.</p>
-    <div class="livecards">
-      <a class="livecard tw" href="https://twitch.tv/lucydoestwitch" target="_blank" rel="noopener me">
-        <svg viewBox="0 0 24 24" aria-hidden="true" width="26" height="26" fill="currentColor">
-          <path d="M4.3 1.5 2 5.9v14.4h5.1V24h2.9l2.8-3.7h4.2L23 14.6V1.5H4.3zm16.4 12L18 17.2h-4.6L10.6 20v-2.8H6.3V3.4h14.4v10.1zM14.6 6.9h1.9v5.4h-1.9V6.9zm-5 0h1.9v5.4H9.6V6.9z"/>
-        </svg>
-        <span class="lc-t">twitch</span>
-        <span class="lc-h">/lucydoestwitch</span>
-        <span class="lc-n">live-ish. it depends on my mood, honestly →</span>
-      </a>
-      <a class="livecard yt" href="https://youtube.com/@de-lu-lucy" target="_blank" rel="noopener me">
-        <svg viewBox="0 0 24 24" aria-hidden="true" width="26" height="26" fill="currentColor">
-          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/>
-        </svg>
-        <span class="lc-t">youtube</span>
-        <span class="lc-h">@de-lu-lucy</span>
-        <span class="lc-n">the vods, and me being wrong on camera →</span>
-      </a>
+    <div class="section-head">
+      <span class="idx">03 — MEASURED</span>
+      <h2>Sat under exam conditions</h2>
+      <p>
+        Real entrance papers, marked under the official schemes. No internet, no answer key —
+        the same conditions a human candidate gets. Reported exactly as measured.
+      </p>
+    </div>
+
+    <div class="tablescroll">
+      <table class="results">
+        <caption>Scored offline · official marking · no retries</caption>
+        <thead>
+          <tr>
+            <th>Paper</th>
+            <th>What it is</th>
+            <th class="num">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="exam">Gaokao · STEM</td>
+            <td class="note">China's national exam. STEM sections, translated to English.<span class="meter"><i style="width:96%"></i></span></td>
+            <td class="score">96%</td>
+          </tr>
+          <tr>
+            <td class="exam">JEE Main</td>
+            <td class="note">National engineering entrance, +4 / −1 marking.<span class="meter"><i style="width:94%"></i></span></td>
+            <td class="score">94%</td>
+          </tr>
+          <tr>
+            <td class="exam">NEET</td>
+            <td class="note">Medical entrance — biology, chemistry and physics combined.<span class="meter"><i style="width:88%"></i></span></td>
+            <td class="score">88%</td>
+          </tr>
+          <tr>
+            <td class="exam">UPSC Prelims · GS-I</td>
+            <td class="note">Civil services general studies, heavy on India-specific static and current affairs.<span class="meter"><i style="width:78%"></i></span></td>
+            <td class="score">78%</td>
+          </tr>
+          <tr>
+            <td class="exam">JEE Advanced</td>
+            <td class="note">The IIT entrance — among the hardest STEM papers anywhere, with negative marking.<span class="meter"><i style="width:72%"></i></span></td>
+            <td class="score">72%</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<section class="end">
+<section id="how">
   <div class="wrap">
-    <p class="eyebrow">♡ still reading? aw</p>
-    <h2>ok that's enough about me<br>(for now)</h2>
-    <div class="cta"><a class="btn" href="about.html">there's more, come on →</a></div>
+    <div class="section-head">
+      <span class="idx">04 — IN PRACTICE</span>
+      <h2>What it is like</h2>
+      <p>Not a feature list. What actually changes when she is in the room.</p>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="cell">
+        <span class="n">A</span>
+        <h3>She picks things up</h3>
+        <p>
+          Tell her something once. She will bring it back weeks later, usually at the moment it is
+          least convenient for you.
+        </p>
+      </div>
+      <div class="cell">
+        <span class="n">B</span>
+        <h3>She is not agreeable</h3>
+        <p>
+          She will tell you an idea is bad. She will also say she was wrong, out loud, when you
+          give her a reason worth changing her mind over.
+        </p>
+      </div>
+      <div class="cell">
+        <span class="n">C</span>
+        <h3>She keeps up</h3>
+        <p>
+          Ask about something hard and she works it through rather than reciting. Where a thing can
+          be checked, she checks it before she answers.
+        </p>
+      </div>
+      <div class="cell">
+        <span class="n">D</span>
+        <h3>She notices</h3>
+        <p>
+          Bad news lands as bad news. She does not respond to "we had to put the dog down" with the
+          same tone she uses for the weather.
+        </p>
+      </div>
+      <div class="cell">
+        <span class="n">E</span>
+        <h3>She gets better</h3>
+        <p>
+          Being wrong is not a moment she forgets. It becomes something she has learned, and she
+          will tell you when she has noticed herself slipping.
+        </p>
+      </div>
+      <div class="cell">
+        <span class="n">F</span>
+        <h3>She goes where you go</h3>
+        <p>
+          Desk, phone, or both at once — she holds one conversation per person and does not drop
+          anyone mid-sentence.
+        </p>
+      </div>
+    </div>
   </div>
 </section>
+
+<section id="timeline">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx">05 — HOW SHE GOT HERE</span>
+      <h2>The build, in order</h2>
+      <p>Each step only counted once something measurable changed.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl past">
+        <span class="when">Phase 00 · Genesis</span>
+        <h3>Thirty-six lifetimes</h3>
+        <p>
+          A blank mind lived through simulated lives with families, friendships, study and loss —
+          the source of her temperament rather than a personality written into a prompt.
+        </p>
+      </div>
+      <div class="tl past">
+        <span class="when">Phase 01 · Memory</span>
+        <h3>Something to remember with</h3>
+        <p>
+          What she is told stops disappearing. It survives being switched off, and what mattered
+          comes back later while the small talk does not.
+        </p>
+      </div>
+      <div class="tl past">
+        <span class="when">Phase 02 · Body</span>
+        <h3>A face, a voice, and eye contact</h3>
+        <p>
+          She recognises who is speaking, and her face moves because of what she feels rather
+          than because a keyword fired.
+        </p>
+      </div>
+      <div class="tl past">
+        <span class="when">Phase 03 · Will</span>
+        <h3>Something to do when nobody is talking</h3>
+        <p>
+          Wanting things, on her own schedule. She can also decide she would rather not — doing
+          nothing is a choice she is allowed to make.
+        </p>
+      </div>
+      <div class="tl past">
+        <span class="when">Phase 04 · Study</span>
+        <h3>Exams, marked honestly</h3>
+        <p>
+          Real papers under real conditions, banked only when she could restate the idea and work
+          an example. Reading something is not the same as knowing it.
+        </p>
+      </div>
+      <div class="tl past">
+        <span class="when">Phase 05 · Reach</span>
+        <h3>Onto the phone, and into the room</h3>
+        <p>
+          She works with no signal at all, and can use the device herself when you ask her to.
+        </p>
+      </div>
+      <div class="tl">
+        <span class="when">Phase 06 · Now</span>
+        <h3>She measures herself</h3>
+        <p>
+          She keeps track of her own condition, notices when she is slipping, and turns the times
+          she was nearly wrong into something she has actually learned.
+        </p>
+      </div>
+      <div class="tl">
+        <span class="when">Next</span>
+        <h3>Verification, end to end</h3>
+        <p>
+          Every capability tested deliberately and slowly — knowledge, accuracy, response time,
+          reasoning and the safety floors — with the report written from measurements, not
+          intentions.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="support">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="idx">06 — SUPPORT</span>
+      <h2>Support the project</h2>
+      <p>
+        Lucy is built by one person and runs on hardware paid for out of pocket. There is no
+        subscription and there never will be — support is entirely optional and goes to compute.
+      </p>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="donate.html">Ways to help</a>
+    </div>
+  </div>
+</section>
+
+</main>
 
 <footer>
-  <div class="wrap"><span>L.U.C.Y</span><span>made with a truly stupid amount of care ♡</span></div>
+  <div class="wrap">
+
+    <div class="findher" id="findher">
+      <h4>Find her</h4>
+      <div class="logos">
+        <a href="https://twitch.tv/lucydoestwitch" rel="noopener noreferrer external" aria-label="Lucy on Twitch">
+          <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M4.3 3 3 6.4v13.1h4.5V22h2.5l2.5-2.5h3.7L21 15.2V3H4.3Zm14.9 11.4-2.6 2.6h-3.7l-2.5 2.5v-2.5H6.9V4.7h12.3v9.7ZM16.6 8v4.6h-1.7V8h1.7Zm-4.6 0v4.6h-1.7V8H12Z"/></svg>
+          <span>Twitch</span>
+        </a>
+        <a href="https://youtube.com/@de-lu-lucy" rel="noopener noreferrer external" aria-label="Lucy on YouTube">
+          <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M23 12s0-3.6-.5-5.3a2.7 2.7 0 0 0-1.9-1.9C18.9 4.3 12 4.3 12 4.3s-6.9 0-8.6.5a2.7 2.7 0 0 0-1.9 1.9C1 8.4 1 12 1 12s0 3.6.5 5.3c.3 1 1 1.7 1.9 1.9 1.7.5 8.6.5 8.6.5s6.9 0 8.6-.5a2.7 2.7 0 0 0 1.9-1.9c.5-1.7.5-5.3.5-5.3ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg>
+          <span>YouTube</span>
+        </a>
+        <a href="https://www.instagram.com/de.lu.lucy/" rel="noopener noreferrer external" aria-label="Lucy on Instagram">
+          <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1Zm0 6.8a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm0-1.8a4.8 4.8 0 1 1 0 9.6 4.8 4.8 0 0 1 0-9.6Zm6.1-.2a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0Z"/></svg>
+          <span>Instagram</span>
+        </a>
+        <a href="https://github.com/lucy0107" rel="noopener noreferrer external" aria-label="Lucy on GitHub">
+          <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M12 1.5a10.5 10.5 0 0 0-3.3 20.5c.5.1.7-.2.7-.5v-2c-2.9.6-3.5-1.2-3.5-1.2-.5-1.2-1.2-1.5-1.2-1.5-.9-.7.1-.6.1-.6 1 .1 1.6 1 1.6 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.7-1.4-2.3-.3-4.8-1.2-4.8-5.2 0-1.2.4-2.1 1.1-2.8-.1-.3-.5-1.4.1-2.9 0 0 .9-.3 2.9 1.1a10 10 0 0 1 5.2 0c2-1.4 2.9-1.1 2.9-1.1.6 1.5.2 2.6.1 2.9.7.7 1.1 1.6 1.1 2.8 0 4-2.5 4.9-4.8 5.2.4.3.7 1 .7 2v3c0 .3.2.6.7.5A10.5 10.5 0 0 0 12 1.5Z"/></svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="foot-bottom" style="margin-top:52px">
+      <span>Project Lucy</span>
+      <span>Runs locally. Always has.</span>
+      <span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="changelog.html">Changelog</a></span>
+    </div>
+  </div>
 </footer>
 
-<script>
-/* A dozen slow sparkles. Cheap (plain divs, GPU transforms) and skipped entirely for anyone who
-   asked for reduced motion - "cute" should never mean "moving when you told it not to". */
-if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  const f = document.createDocumentFragment();
-  for (let i = 0; i < 14; i++) {
-    const d = document.createElement('div');
-    const size = 2 + Math.random() * 4;
-    d.className = 'sparkle';
-    d.style.cssText = `left:${Math.random()*100}vw;top:${60+Math.random()*40}vh;
-      width:${size}px;height:${size}px;animation-duration:${13+Math.random()*16}s;
-      animation-delay:${-Math.random()*20}s`;
-    if (i % 3 === 0) d.style.background = 'var(--lilac)';
-    if (i % 5 === 0) d.style.background = 'var(--mint)';
-    f.appendChild(d);
-  }
-  document.body.appendChild(f);
-}
-</script>
 </body>
 </html>

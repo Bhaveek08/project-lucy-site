@@ -1,0 +1,316 @@
+/* Project Lucy — one stylesheet, no imports, no CDNs, no external origins.
+   Everything the site needs is here so the CSP can forbid the whole outside world.
+
+   Direction: an engineered artefact, not a brochure. Hairline rules, monospaced microcopy,
+   numbered sections, very large tight display type — and pink used as a precision instrument
+   (indices, rules, one word at a time) rather than as decoration. */
+
+:root{
+  --ink-0:#070509;      /* page ground - warm-biased black; pure #000 reads cheap beside pink */
+  --ink-1:#0c0910;
+  --ink-2:#120e17;
+  --line:#1e1826;
+  --line-lit:#33293e;
+
+  --text:#f0ebf3;
+  --text-dim:#9b8ea6;
+  --text-faint:#655a70;
+
+  --pink:#ff2d74;
+  --pink-soft:#ff7ba8;
+  --pink-dim:rgba(255,45,116,.18);
+
+  --wrap:1140px;
+  --sans:"Inter","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+
+  --micro:.7rem;
+  --s--1:clamp(.8rem,.78rem + .1vw,.87rem);
+  --s-0:clamp(.97rem,.94rem + .15vw,1.05rem);
+  --s-1:clamp(1.2rem,1.1rem + .45vw,1.45rem);
+  --s-2:clamp(1.7rem,1.4rem + 1.2vw,2.6rem);
+  --s-3:clamp(2.6rem,1.9rem + 3.2vw,5.2rem);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+
+body{
+  margin:0;background:var(--ink-0);color:var(--text);
+  font-family:var(--sans);font-size:var(--s-0);line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* A single fixed hairline grid behind everything — the "engineered" tell, and cheap: two
+   repeating-linear-gradients, no images, no script. */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background:
+    repeating-linear-gradient(to right,var(--line) 0 1px,transparent 1px 25%),
+    radial-gradient(60% 42% at 50% 0%,var(--pink-dim) 0%,transparent 72%);
+  mask-image:linear-gradient(to bottom,#000 0,#000 60vh,transparent 92vh);
+}
+main,header,footer,nav{position:relative;z-index:1}
+
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:clamp(20px,4vw,40px)}
+
+a{color:var(--pink-soft);text-decoration:none;transition:color .15s}
+a:hover{color:var(--pink)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+
+h1,h2,h3{line-height:1.08;text-wrap:balance;margin:0;font-weight:680}
+h1{font-size:var(--s-3);letter-spacing:-.038em}
+h2{font-size:var(--s-2);letter-spacing:-.025em}
+h3{font-size:var(--s-1);letter-spacing:-.012em;font-weight:620;line-height:1.25}
+p{margin:0 0 1em}
+
+.mono{font-family:var(--mono)}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:30;
+  background:rgba(7,5,9,.86);backdrop-filter:blur(16px) saturate(140%);
+  border-bottom:1px solid var(--line);
+}
+.nav .wrap{display:flex;align-items:center;gap:clamp(16px,2.4vw,32px);height:64px}
+.brand{
+  font-family:var(--mono);font-size:.82rem;letter-spacing:.4em;color:var(--text);
+  font-weight:700;margin-right:auto;white-space:nowrap;
+}
+.brand b{color:var(--pink);font-weight:700}   /* the L */
+.nav a:not(.brand){
+  color:var(--text-dim);font-family:var(--mono);font-size:var(--micro);
+  letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;
+  padding:20px 0 19px;border-bottom:2px solid transparent;
+}
+.nav a:not(.brand):hover{color:var(--text)}
+.nav a[aria-current="page"]{color:var(--text);border-bottom-color:var(--pink)}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(80px,15vh,170px) 0 clamp(60px,10vh,110px);position:relative}
+.eyebrow{
+  font-family:var(--mono);font-size:var(--micro);letter-spacing:.34em;color:var(--pink);
+  text-transform:uppercase;margin:0 0 26px;display:flex;align-items:center;gap:14px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line-lit),transparent);max-width:220px}
+.hero .lede{font-size:var(--s-1);color:var(--text-dim);max-width:58ch;margin:30px 0 0;line-height:1.5}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:42px}
+.btn{
+  display:inline-block;padding:14px 30px;font-family:var(--mono);font-size:var(--micro);
+  letter-spacing:.18em;text-transform:uppercase;font-weight:600;
+  border:1px solid var(--line-lit);color:var(--text);
+  transition:border-color .18s,background .18s,color .18s;
+}
+.btn:hover{border-color:var(--pink);color:var(--text)}
+.btn-primary{background:var(--pink);border-color:var(--pink);color:#0d0207}
+.btn-primary:hover{background:var(--pink-soft);border-color:var(--pink-soft);color:#0d0207}
+
+/* ---------- sections ---------- */
+section{padding:clamp(64px,9vh,110px) 0;border-top:1px solid var(--line)}
+.section-head{margin-bottom:52px;max-width:62ch}
+.section-head .idx{
+  font-family:var(--mono);font-size:var(--micro);letter-spacing:.28em;color:var(--pink);
+  display:block;margin-bottom:16px;
+}
+.section-head p{color:var(--text-dim);margin-top:16px;font-size:var(--s-0)}
+
+/* hairline grid of cells — borders come from the gap, so every rule is exactly 1px */
+.grid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.grid-2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(265px,1fr))}
+.cell{background:var(--ink-1);padding:34px 30px;position:relative;transition:background .2s}
+.cell:hover{background:var(--ink-2)}
+.cell .n{
+  font-family:var(--mono);font-size:var(--micro);color:var(--pink);letter-spacing:.24em;
+  display:block;margin-bottom:16px;
+}
+.cell h3{margin-bottom:12px}
+.cell p{color:var(--text-dim);margin:0;font-size:var(--s--1);line-height:1.68}
+
+/* ---------- spec table ---------- */
+.spec{font-family:var(--mono);font-size:var(--s--1);border-top:1px solid var(--line);margin:0}
+.spec div{display:flex;gap:24px;padding:15px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.spec dt{color:var(--text-faint);min-width:190px;letter-spacing:.06em;text-transform:uppercase;font-size:var(--micro);padding-top:2px}
+.spec dd{margin:0;color:var(--text)}
+
+/* ---------- changelog ---------- */
+.log-entry{
+  display:grid;grid-template-columns:150px 1fr;gap:36px;
+  padding:36px 0;border-bottom:1px solid var(--line);
+}
+.log-entry:last-child{border-bottom:0}
+.log-date{font-family:var(--mono);font-size:var(--micro);color:var(--text-faint);letter-spacing:.16em;padding-top:7px}
+.log-body h3{margin-bottom:11px}
+.log-body p{color:var(--text-dim);margin:0 0 .75em;font-size:var(--s--1);line-height:1.7}
+.log-body ul{margin:.6em 0 0;padding-left:1.15em;color:var(--text-dim);font-size:var(--s--1)}
+.log-body li{margin-bottom:.4em}
+.log-body strong{color:var(--text)}
+.tag{
+  display:inline-block;font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--pink);border-left:2px solid var(--pink);
+  padding:1px 0 1px 9px;margin-bottom:13px;
+}
+
+/* ---------- prose / legal ---------- */
+.prose{max-width:74ch}
+.prose h2{margin:52px 0 16px;font-size:var(--s-1)}
+.prose h3{margin:32px 0 10px;font-size:var(--s-0);font-weight:650}
+.prose p,.prose li{color:var(--text-dim);font-size:var(--s--1);line-height:1.75}
+.prose strong{color:var(--text);font-weight:600}
+.prose ul{padding-left:1.2em}
+.prose li{margin-bottom:.5em}
+.prose .updated{
+  font-family:var(--mono);font-size:var(--micro);color:var(--text-faint);
+  letter-spacing:.14em;text-transform:uppercase;
+}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:64px 0 44px}
+.foot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:40px}
+.foot-grid h4{
+  font-family:var(--mono);font-size:var(--micro);letter-spacing:.24em;color:var(--text-faint);
+  text-transform:uppercase;margin:0 0 16px;font-weight:600;
+}
+.foot-grid a{display:block;color:var(--text-dim);font-size:var(--s--1);padding:5px 0}
+.foot-grid a:hover{color:var(--pink)}
+.foot-bottom{
+  margin-top:48px;padding-top:24px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:var(--micro);color:var(--text-faint);letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+@media (max-width:700px){
+  .nav .wrap{gap:16px;overflow-x:auto;scrollbar-width:none}
+  .nav .wrap::-webkit-scrollbar{display:none}
+  .log-entry{grid-template-columns:1fr;gap:12px}
+  .spec div{flex-direction:column;gap:3px}
+  .spec dt{min-width:0}
+  body::before{background:radial-gradient(70% 40% at 50% 0%,var(--pink-dim) 0%,transparent 72%)}
+}
+
+/* ---------- origin statement ---------- */
+.statement{
+  border-left:2px solid var(--pink);padding:6px 0 6px clamp(20px,3vw,40px);
+  max-width:74ch;font-size:var(--s-1);line-height:1.55;color:var(--text-dim);
+}
+.statement strong{color:var(--text);font-weight:620}
+.statement em{color:var(--pink-soft);font-style:italic}
+
+/* ---------- figures: a measured strip, read like an instrument panel ---------- */
+.figures{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:56px;
+  border-top:1px solid var(--line-lit);border-bottom:1px solid var(--line-lit)}
+.figures div{padding:26px 0;border-right:1px solid var(--line)}
+.figures div:last-child{border-right:0}
+.figures .fig{
+  font-family:var(--mono);font-size:clamp(1.7rem,1.2rem + 1.7vw,2.7rem);color:var(--text);
+  letter-spacing:-.045em;line-height:1;font-variant-numeric:tabular-nums;display:block;
+}
+.figures .lab{
+  font-family:var(--mono);font-size:var(--micro);color:var(--text-faint);letter-spacing:.18em;
+  text-transform:uppercase;display:block;margin-top:11px;
+}
+
+/* ---------- exam results: a table, not cards ---------- */
+.results{width:100%;border-collapse:collapse;font-size:var(--s--1)}
+.results caption{
+  font-family:var(--mono);font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--text-faint);text-align:left;padding-bottom:16px;
+}
+.results th{
+  font-family:var(--mono);font-size:var(--micro);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--text-faint);font-weight:600;text-align:left;padding:0 14px 12px 0;
+  border-bottom:1px solid var(--line-lit);
+}
+.results th.num{text-align:right;padding-right:0}
+.results td{padding:17px 14px 17px 0;border-bottom:1px solid var(--line);vertical-align:middle;color:var(--text-dim)}
+.results td.exam{color:var(--text);font-weight:600;white-space:nowrap}
+.results td.score{
+  text-align:right;padding-right:0;font-family:var(--mono);font-variant-numeric:tabular-nums;
+  color:var(--text);font-size:var(--s-1);letter-spacing:-.02em;white-space:nowrap;
+}
+.results .meter{display:block;height:2px;background:var(--line-lit);margin-top:9px;width:100%}
+.results .meter i{display:block;height:100%;background:var(--pink)}
+.results .note{font-size:var(--s--1);line-height:1.6}
+.tablescroll{overflow-x:auto}
+
+/* ---------- timeline ---------- */
+.timeline{position:relative;margin-top:8px;padding-left:clamp(26px,4vw,54px)}
+.timeline::before{
+  content:"";position:absolute;left:0;top:8px;bottom:8px;width:1px;
+  background:linear-gradient(180deg,var(--pink),var(--line-lit) 45%,transparent);
+}
+.tl{position:relative;padding:0 0 42px}
+.tl:last-child{padding-bottom:0}
+.tl::before{
+  content:"";position:absolute;left:calc(-1 * clamp(26px,4vw,54px));top:9px;
+  width:9px;height:9px;border-radius:50%;background:var(--ink-0);
+  border:2px solid var(--pink);transform:translateX(-4px);
+}
+.tl.past::before{border-color:var(--line-lit)}
+.tl .when{
+  font-family:var(--mono);font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--pink);display:block;margin-bottom:8px;
+}
+.tl.past .when{color:var(--text-faint)}
+.tl h3{margin-bottom:8px}
+.tl p{color:var(--text-dim);font-size:var(--s--1);margin:0;max-width:62ch;line-height:1.7}
+
+@media (max-width:700px){
+  .figures div{border-right:0;border-bottom:1px solid var(--line);padding:20px 0}
+  .figures div:last-child{border-bottom:0}
+}
+
+/* ---------- find her: logo row at the foot of the page ---------- */
+.findher{padding-top:8px;text-align:center}
+.findher h4{
+  font-family:var(--mono);font-size:var(--micro);letter-spacing:.3em;text-transform:uppercase;
+  color:var(--text-faint);margin:0 0 28px;font-weight:600;
+}
+.logos{display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(20px,5vw,58px)}
+.logos a{
+  display:flex;flex-direction:column;align-items:center;gap:11px;
+  color:var(--text-faint);transition:color .18s,transform .18s;
+}
+.logos a:hover{color:var(--pink);transform:translateY(-2px)}
+.logos svg{width:26px;height:26px;fill:currentColor;display:block}
+.logos span{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+}
+
+/* ---------- phones: measured, not assumed ----------
+   The nav scrolled to 573px inside a 375px viewport, so "Support" sat off-screen behind a hidden
+   scrollbar - present in the DOM, invisible to a thumb. The two in-page anchors are only scroll
+   shortcuts, so on a phone they go and the real destinations stay. */
+@media (max-width:620px){
+  .nav .wrap{overflow:visible;gap:18px;justify-content:space-between}
+  .nav a.jump{display:none}
+  .brand{margin-right:0;font-size:.78rem;letter-spacing:.34em}
+  .nav a:not(.brand){padding:21px 0 20px;font-size:.66rem;letter-spacing:.12em}
+
+  .hero{padding-top:clamp(48px,9vh,80px)}
+  h1{letter-spacing:-.03em}
+  .cta-row .btn{flex:1 1 100%;text-align:center}
+
+  /* Exam results read as stacked records rather than a table squeezed into a phone. */
+  .results thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .results tr{display:block;padding:20px 0;border-bottom:1px solid var(--line)}
+  .results tr:last-child{border-bottom:0}
+  .results td{display:block;border:0;padding:0}
+  .results td.exam{font-size:var(--s-0);margin-bottom:2px}
+  .results td.score{
+    text-align:left;font-size:var(--s-2);line-height:1.1;margin:6px 0 10px;color:var(--pink);
+  }
+  .results td.note{color:var(--text-dim)}
+  .results .meter{margin-top:12px}
+
+  .statement{padding-left:18px;font-size:var(--s-0)}
+  .logos{gap:26px}
+  .foot-bottom{flex-direction:column;gap:10px;text-align:center;justify-content:center}
+  .findher h4{letter-spacing:.24em}
+}
