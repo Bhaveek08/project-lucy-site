@@ -17,13 +17,6 @@ body {
 /* 3D Canvas */
 #webgl-container { position: absolute; inset: 0; z-index: 1; }
 
-/* Film Grain Overlay */
-.grain {
-  position: absolute; inset: 0; z-index: 100;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.05; pointer-events: none;
-}
-
 /* UI Overlay Layer */
 .ui-layer {
   position: absolute; inset: 0; z-index: 10;
@@ -33,25 +26,25 @@ body {
 
 /* Typography */
 .text-element {
-  position: absolute; width: 100%; opacity: 0; filter: blur(10px);
-  transform: translateZ(-50px) scale(0.9);
+  position: absolute; width: 100%; opacity: 0; filter: blur(5px);
+  transform: translateZ(-20px) scale(0.95);
 }
 
 .text-element.active {
-  animation: txtIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: txtIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .text-element.exit {
-  animation: txtOut 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: txtOut 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 h1 {
-  font-size: clamp(3rem, 12vw, 6rem); font-weight: 800; line-height: 1;
-  letter-spacing: -0.04em; margin-bottom: 8px;
+  font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.02em; margin-bottom: 12px;
 }
 p {
-  font-size: clamp(1rem, 4vw, 1.5rem); color: rgba(255,255,255,0.7);
-  letter-spacing: 0.05em; font-weight: 500;
+  font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,0.6);
+  letter-spacing: 0.02em; font-weight: 400;
 }
 
 .pink { color: #ff2d74; }
@@ -69,16 +62,16 @@ p {
 
 /* Keyframes */
 @keyframes txtIn {
-  0% { opacity: 0; filter: blur(10px); transform: translateZ(-50px) scale(0.9); }
+  0% { opacity: 0; filter: blur(5px); transform: translateZ(-20px) scale(0.95); }
   100% { opacity: 1; filter: blur(0); transform: translateZ(0) scale(1); }
 }
 @keyframes txtOut {
   0% { opacity: 1; filter: blur(0); transform: translateZ(0) scale(1); }
-  100% { opacity: 0; filter: blur(10px); transform: translateZ(50px) scale(1.1); }
+  100% { opacity: 0; filter: blur(5px); transform: translateZ(20px) scale(1.05); }
 }
 @keyframes fadeUp {
-  0% { opacity: 0; transform: translateY(20px); filter: blur(4px); }
-  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* Loading Screen */
@@ -93,7 +86,6 @@ p {
 <body>
 
 <div id="loader">INITIALIZING NEURAL CORE...</div>
-<div class="grain"></div>
 <div id="webgl-container"></div>
 
 <div class="ui-layer">
@@ -143,21 +135,17 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.2;
 container.appendChild(renderer.domElement);
 
-// Lighting - Dramatic Cinematic Lighting
-const ambientLight = new THREE.AmbientLight(0x201530, 1.5);
+// Lighting - Dramatic Stark Lighting
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
 scene.add(ambientLight);
 
-const pinkRim = new THREE.DirectionalLight(0xff2d74, 5);
-pinkRim.position.set(5, 5, -5);
-scene.add(pinkRim);
+const whiteRim = new THREE.DirectionalLight(0xffffff, 4);
+whiteRim.position.set(5, 5, -5);
+scene.add(whiteRim);
 
-const purpleFill = new THREE.DirectionalLight(0x9d4edd, 3);
-purpleFill.position.set(-5, 0, 5);
-scene.add(purpleFill);
-
-const blueKick = new THREE.PointLight(0x4ea8de, 2, 20);
-blueKick.position.set(0, -5, 0);
-scene.add(blueKick);
+const pinkFill = new THREE.DirectionalLight(0xff2d74, 5);
+pinkFill.position.set(-5, 0, 5);
+scene.add(pinkFill);
 
 // Load GLTF Model (The Brain)
 let brainModel;
@@ -248,41 +236,40 @@ function startCinematicSequence() {
   const t5 = document.getElementById('t5');
   
   const timeline = [
-    // 0.5s: "I pulled the plug."
-    { t: 500, act: () => { t1.classList.add('active'); targetCamZ = 6; } },
+    // Hook: Extremely fast and crisp
+    { t: 300, act: () => { t1.classList.add('active'); targetCamZ = 5.5; } },
     
-    // 2.5s: Exit T1, Enter T2 "She kept talking." (Dramatically spin brain)
-    { t: 2500, act: () => { 
+    // Switch to pink line immediately
+    { t: 1800, act: () => { 
         t1.classList.remove('active'); t1.classList.add('exit');
         t2.classList.add('active'); 
-        brainRotSpeed = 0.05; 
-        targetCamZ = 4;
-        pinkRim.intensity = 15;
+        brainRotSpeed = 0.08; 
+        targetCamZ = 3.5;
+        whiteRim.intensity = 10;
     }},
     
-    // 4.5s: Exit T2, Enter T3 "100% Local"
-    { t: 4500, act: () => {
+    // Stats Reveal
+    { t: 3800, act: () => {
         t2.classList.remove('active'); t2.classList.add('exit');
         t3.classList.add('active');
-        brainRotSpeed = 0.01;
-        targetCamZ = 6.5; targetCamY = -1;
-        pinkRim.intensity = 5;
+        brainRotSpeed = 0.005;
+        targetCamZ = 6; targetCamY = -0.5;
+        whiteRim.intensity = 4;
     }},
     
-    // 7.0s: Exit T3, Enter T4 "She thinks"
-    { t: 7000, act: () => {
+    // Feature Reveal
+    { t: 6500, act: () => {
         t3.classList.remove('active'); t3.classList.add('exit');
         t4.classList.add('active');
-        targetCamZ = 5; targetCamY = 1;
-        purpleFill.intensity = 8;
+        targetCamZ = 4.5; targetCamY = 0.5;
+        pinkFill.intensity = 8;
     }},
     
-    // 9.5s: Exit T4, Show Brand Logo
-    { t: 9500, act: () => {
+    // Brand
+    { t: 9000, act: () => {
         t4.classList.remove('active'); t4.classList.add('exit');
         t5.classList.add('active');
-        targetCamZ = 8; targetCamY = 0;
-        brainRotSpeed = 0.002;
+        targetCamZ = 7; targetCamY = 0;
     }}
   ];
 
