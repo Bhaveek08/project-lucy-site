@@ -47,8 +47,11 @@ body {
 }
 
 /* Utilities */
+#particle-canvas {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+}
 .wrap {
-  width: 90%; max-width: var(--wrap); margin: 0 auto; position: relative;
+  width: 90%; max-width: var(--wrap); margin: 0 auto; position: relative; z-index: 10;
 }
 .reveal {
   opacity: 0; transform: translateY(15px);
