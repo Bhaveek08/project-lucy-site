@@ -3,289 +3,268 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lucy Ad</title>
+<title>Lucy Cinematic Ad</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-
-body{
-  background:#070509;color:#f0ebf3;font-family:'Inter',system-ui,sans-serif;
-  overflow:hidden;width:100vw;height:100vh;position:relative;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+/* System UI font stack for premium look without external requests */
+body {
+  background: #000; color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  overflow: hidden; width: 100vw; height: 100vh;
+  position: relative; perspective: 1000px;
 }
 
-canvas#bg{position:fixed;inset:0;z-index:0}
+/* Background Particle Core */
+#bg-canvas { position: fixed; inset: 0; z-index: 0; opacity: 0.8; filter: blur(1px); }
 
-.scene{
-  position:absolute;inset:0;z-index:1;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:80px 60px;text-align:center;
-  opacity:0;transform:scale(.96);
-  transition:opacity .6s cubic-bezier(.23,1,.32,1),transform .6s cubic-bezier(.23,1,.32,1);
-  pointer-events:none;
-}
-.scene.active{opacity:1;transform:scale(1);pointer-events:auto}
-.scene.exit{opacity:0;transform:scale(1.04)}
-
-/* Scene 1: Logo reveal */
-.s1 .brand{
-  font-family:ui-monospace,'SF Mono',monospace;font-size:clamp(2rem,6vw,4rem);letter-spacing:.5em;
-  font-weight:700;opacity:0;
-}
-.s1.active .brand{animation:brandReveal 1.2s .3s ease forwards}
-.s1 .brand b{color:#ff2d74}
-.s1 .tagline{
-  font-size:clamp(.8rem,2.5vw,1.4rem);color:#9b8ea6;margin-top:30px;letter-spacing:.05em;
-  opacity:0;
-}
-.s1.active .tagline{animation:fadeUp .8s .8s ease forwards}
-
-@keyframes brandReveal{
-  0%{opacity:0;letter-spacing:1.5em;filter:blur(8px)}
-  100%{opacity:1;letter-spacing:.5em;filter:blur(0)}
+/* Cinematic Scenes */
+.scene {
+  position: absolute; inset: 0; z-index: 10;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 40px; text-align: center;
+  opacity: 0; pointer-events: none;
 }
 
-/* Scene 2: Hero statement */
-.s2 h1{
-  font-size:clamp(1.8rem,5.5vw,3.6rem);font-weight:800;line-height:1.05;letter-spacing:-.04em;
-  max-width:900px;
+/* Hook Scene: I PULLED THE PLUG */
+.s-hook { z-index: 20; }
+.hook-text {
+  font-family: "SF Mono", "Cascadia Code", monospace;
+  font-size: clamp(3rem, 10vw, 5rem); font-weight: 800;
+  line-height: 1; text-transform: uppercase;
+  opacity: 0; transform: scale(1.5) translateZ(100px);
+  filter: blur(10px); color: #ff2d74;
 }
-.s2 h1 em{color:#ff2d74;font-style:normal}
-.s2 .sub{
-  font-size:clamp(.8rem,2vw,1.3rem);color:#9b8ea6;margin-top:40px;max-width:700px;line-height:1.5;
-  opacity:0;
+.s-hook.step1 .hook-text {
+  animation: slamText 0.15s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
 }
-.s2.active h1{animation:fadeUp .8s .1s ease forwards;opacity:0}
-.s2.active .sub{animation:fadeUp .8s .5s ease forwards}
-
-/* Scene 3: Stats */
-.s3 .stat-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:50px 80px;text-align:center;
-}
-.s3 .stat-num{
-  font-family:ui-monospace,monospace;font-size:clamp(2.5rem,8vw,5rem);font-weight:700;
-  color:#ff2d74;line-height:1;letter-spacing:-.04em;
-}
-.s3 .stat-label{
-  font-size:1rem;color:#9b8ea6;margin-top:8px;letter-spacing:.18em;
-  text-transform:uppercase;font-family:ui-monospace,monospace;font-size:.75rem;
-}
-.s3 .stat{opacity:0}
-.s3.active .stat:nth-child(1){animation:fadeUp .6s .1s ease forwards}
-.s3.active .stat:nth-child(2){animation:fadeUp .6s .25s ease forwards}
-.s3.active .stat:nth-child(3){animation:fadeUp .6s .4s ease forwards}
-.s3.active .stat:nth-child(4){animation:fadeUp .6s .55s ease forwards}
-
-/* Scene 4: Capabilities flash */
-.s4 .cap-list{
-  display:flex;flex-direction:column;gap:28px;align-items:center;
-}
-.s4 .cap{
-  font-size:clamp(1rem,3vw,2rem);font-weight:600;letter-spacing:-.02em;opacity:0;
-  display:flex;align-items:center;gap:16px;
-}
-.s4 .cap .emoji{font-size:clamp(1.4rem,4vw,2.8rem)}
-.s4 .cap .hi{color:#ff2d74}
-.s4.active .cap:nth-child(1){animation:fadeUp .5s .05s ease forwards}
-.s4.active .cap:nth-child(2){animation:fadeUp .5s .2s ease forwards}
-.s4.active .cap:nth-child(3){animation:fadeUp .5s .35s ease forwards}
-.s4.active .cap:nth-child(4){animation:fadeUp .5s .5s ease forwards}
-.s4.active .cap:nth-child(5){animation:fadeUp .5s .65s ease forwards}
-.s4.active .cap:nth-child(6){animation:fadeUp .5s .8s ease forwards}
-
-/* Scene 5: Lucy images */
-.s5 .lucy-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:800px;
-}
-.s5 .lucy-img{
-  border-radius:12px;overflow:hidden;border:1px solid #1e1826;
-  opacity:0;
-}
-.s5 .lucy-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.9) contrast(1.05)}
-.s5.active .lucy-img:nth-child(1){animation:scaleIn .6s .1s ease forwards}
-.s5.active .lucy-img:nth-child(2){animation:scaleIn .6s .25s ease forwards}
-.s5.active .lucy-img:nth-child(3){animation:scaleIn .6s .4s ease forwards}
-.s5.active .lucy-img:nth-child(4){animation:scaleIn .6s .55s ease forwards}
-.s5 .overlay-text{
-  position:absolute;bottom:160px;left:0;right:0;text-align:center;
-  font-size:1.6rem;font-weight:600;color:#ff7ba8;opacity:0;
-  text-shadow:0 2px 20px rgba(0,0,0,.8);
-}
-.s5.active .overlay-text{animation:fadeUp .6s .8s ease forwards}
-
-/* Scene 6: CTA */
-.s6 .cta-brand{
-  font-family:ui-monospace,monospace;font-size:clamp(1.8rem,5vw,3.2rem);letter-spacing:.4em;
-  font-weight:700;opacity:0;
-}
-.s6 .cta-brand b{color:#ff2d74}
-.s6 .cta-url{
-  font-size:clamp(.9rem,2.5vw,1.6rem);color:#ff7ba8;margin-top:30px;opacity:0;
-  font-family:ui-monospace,monospace;letter-spacing:.08em;
-}
-.s6 .cta-tagline{
-  font-size:1.1rem;color:#655a70;margin-top:20px;opacity:0;
-  font-family:ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;
-}
-.s6.active .cta-brand{animation:brandReveal 1s .1s ease forwards}
-.s6.active .cta-url{animation:fadeUp .6s .6s ease forwards}
-.s6.active .cta-tagline{animation:fadeUp .6s .9s ease forwards}
-
-/* glowing line */
-.glow-line{
-  width:200px;height:2px;margin:40px auto;
-  background:linear-gradient(90deg,transparent,#ff2d74,transparent);
-  opacity:0;
-}
-.active .glow-line{animation:fadeUp .5s .3s ease forwards}
-
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-@keyframes scaleIn{
-  from{opacity:0;transform:scale(.85)}
-  to{opacity:1;transform:scale(1)}
+@keyframes slamText {
+  to { opacity: 1; transform: scale(1) translateZ(0); filter: blur(0); }
 }
 
-/* vignette */
-body::after{
-  content:"";position:fixed;inset:0;z-index:2;pointer-events:none;
-  background:radial-gradient(ellipse at center,transparent 50%,rgba(7,5,9,.7) 100%);
+.s-hook.step2 .hook-text {
+  animation: glitchOut 0.2s forwards;
+}
+@keyframes glitchOut {
+  0% { transform: translate(2px, -2px); opacity: 1; filter: invert(1); }
+  50% { transform: translate(-2px, 2px); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0; filter: blur(10px); }
+}
+
+.s-hook .hook-text-2 {
+  font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800;
+  line-height: 1; text-transform: uppercase; margin-top: 20px;
+  opacity: 0; color: #fff;
+}
+.s-hook.step2 .hook-text-2 {
+  animation: slamText 0.15s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+.s-hook.step3 .hook-text-2 {
+  animation: fadeOut 0.5s ease forwards;
+}
+
+/* Scene 1: The Machine */
+.s-machine h2 {
+  font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700;
+  line-height: 1.1; letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #fff, #9b8ea6);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  transform: translateY(40px); opacity: 0;
+}
+.s-machine p {
+  font-size: clamp(1rem, 4vw, 1.5rem); color: #9b8ea6;
+  margin-top: 20px; max-width: 400px;
+  transform: translateY(20px); opacity: 0;
+}
+.s-machine.active h2 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.s-machine.active p { animation: fadeUp 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* Scene 2: 100% Local Grid */
+.s-grid .stat-box {
+  background: rgba(255, 45, 116, 0.1); border: 1px solid rgba(255, 45, 116, 0.3);
+  padding: 30px; border-radius: 16px; margin: 10px;
+  transform: scale(0.8) rotateX(20deg); opacity: 0;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.s-grid.active .stat-box {
+  animation: pop3D 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes pop3D {
+  to { transform: scale(1) rotateX(0deg); opacity: 1; }
+}
+.stat-box h3 {
+  font-family: "SF Mono", monospace; font-size: 3.5rem; color: #ff2d74; line-height: 1;
+}
+.stat-box p { font-size: 1rem; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 10px; }
+
+/* Scene 3: She works */
+.s-work h2 {
+  font-size: 3rem; font-weight: 800; color: #fff; text-shadow: 0 0 20px rgba(255,45,116,0.8);
+  opacity: 0; transform: translateY(20px);
+}
+.s-work.active h2 { animation: fadeUp 0.5s ease forwards; }
+
+/* Final Scene: CTA */
+.s-cta .brand {
+  font-family: "SF Mono", monospace; font-size: 3rem; font-weight: 800; letter-spacing: 0.3em;
+  color: #fff; opacity: 0;
+}
+.s-cta .brand b { color: #ff2d74; }
+.s-cta .url {
+  font-size: 1.2rem; color: #9b8ea6; margin-top: 20px; opacity: 0;
+}
+.s-cta.active .brand { animation: fadeUp 0.8s ease forwards; }
+.s-cta.active .url { animation: fadeUp 0.8s 0.2s ease forwards; }
+
+/* Utils */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+  to { opacity: 0; transform: scale(1.05); }
+}
+
+/* Flash Overlay */
+#flash {
+  position: fixed; inset: 0; background: #fff; z-index: 999;
+  opacity: 0; pointer-events: none;
+}
+.do-flash { animation: flashAnim 0.2s ease-out; }
+@keyframes flashAnim {
+  0% { opacity: 1; } 100% { opacity: 0; }
 }
 </style>
 </head>
 <body>
 
-<canvas id="bg"></canvas>
+<div id="flash"></div>
+<canvas id="bg-canvas"></canvas>
 
-<!-- Scene 1: Logo Reveal (0-4s) -->
-<div class="scene s1" id="scene1">
+<!-- HOOK -->
+<div class="scene s-hook" id="s-hook">
+  <div class="hook-text" id="h-txt1">I pulled the plug.</div>
+  <div class="hook-text-2" id="h-txt2">She kept talking.</div>
+</div>
+
+<!-- SCENE 1 -->
+<div class="scene s-machine" id="s-machine">
+  <h2>Every part of her runs on one machine.</h2>
+  <p>No cloud. No API calls. No subscription.</p>
+</div>
+
+<!-- SCENE 2 -->
+<div class="scene s-grid" id="s-grid">
+  <div class="stat-box">
+    <h3>14k</h3>
+    <p>Memories Local</p>
+  </div>
+  <div class="stat-box" style="animation-delay: 0.15s">
+    <h3>0%</h3>
+    <p>Cloud Dependency</p>
+  </div>
+</div>
+
+<!-- SCENE 3 -->
+<div class="scene s-work" id="s-work">
+  <h2>She checks her own code.</h2>
+</div>
+
+<!-- SCENE 4 -->
+<div class="scene s-cta" id="s-cta">
   <div class="brand"><b>L</b>UCY</div>
-  <div class="glow-line"></div>
-  <div class="tagline">Local-first embodied AI</div>
-</div>
-
-<!-- Scene 2: Hero Statement (4-9s) -->
-<div class="scene s2" id="scene2">
-  <h1>She <em>remembers</em> you, and she runs on <em>your own</em> machine.</h1>
-  <div class="sub">No cloud. No API keys. No subscription. The whole mind runs on hardware you already own.</div>
-</div>
-
-<!-- Scene 3: Stats (9-15s) -->
-<div class="scene s3" id="scene3">
-  <div class="stat-grid">
-    <div class="stat"><div class="stat-num">36</div><div class="stat-label">Lifetimes Lived</div></div>
-    <div class="stat"><div class="stat-num">16,453</div><div class="stat-label">Memories Formed</div></div>
-    <div class="stat"><div class="stat-num">170</div><div class="stat-label">Capabilities</div></div>
-    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Local · Zero Cloud</div></div>
-  </div>
-</div>
-
-<!-- Scene 4: Capabilities (15-21s) -->
-<div class="scene s4" id="scene4">
-  <div class="cap-list">
-    <div class="cap"><span class="emoji">🧠</span> She <span class="hi">remembers</span> everything</div>
-    <div class="cap"><span class="emoji">👁️</span> She <span class="hi">sees</span> and hears you</div>
-    <div class="cap"><span class="emoji">🗣️</span> She <span class="hi">speaks</span> her mind</div>
-    <div class="cap"><span class="emoji">💃</span> She <span class="hi">moves</span> in a 3D body</div>
-    <div class="cap"><span class="emoji">💰</span> She <span class="hi">earns</span> real money</div>
-    <div class="cap"><span class="emoji">🛡️</span> She has <span class="hi">hard limits</span></div>
-  </div>
-</div>
-
-<!-- Scene 5: Lucy Images (21-26s) -->
-<div class="scene s5" id="scene5">
-  <div class="lucy-grid">
-    <div class="lucy-img"><img src="assets/lucy/lucy-1.webp" alt="Lucy"></div>
-    <div class="lucy-img"><img src="assets/lucy/lucy-2.webp" alt="Lucy"></div>
-    <div class="lucy-img"><img src="assets/lucy/lucy-3.webp" alt="Lucy"></div>
-    <div class="lucy-img"><img src="assets/lucy/lucy-4.webp" alt="Lucy"></div>
-  </div>
-  <div class="overlay-text">Meet Lucy.</div>
-</div>
-
-<!-- Scene 6: CTA (26-30s) -->
-<div class="scene s6" id="scene6">
-  <div class="cta-brand"><b>L</b>UCY</div>
-  <div class="glow-line"></div>
-  <div class="cta-url">project-lucy.me</div>
-  <div class="cta-tagline">Runs locally. Always has.</div>
+  <div class="url">project-lucy.me</div>
 </div>
 
 <script>
-// Particle background
-(function(){
-  var c=document.getElementById('bg');
-  var ctx=c.getContext('2d');
-  var W=c.width=window.innerWidth;
-  var H=c.height=window.innerHeight;
-  window.addEventListener('resize',function(){W=c.width=window.innerWidth;H=c.height=window.innerHeight});
-  var particles=[];
-  for(var i=0;i<80;i++){
+/* Particle Background Logic */
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let w, h, particles = [];
+
+function init() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+  for(let i=0; i<80; i++) {
     particles.push({
-      x:Math.random()*W,y:Math.random()*H,
-      vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.3,
-      r:Math.random()*2+.5,o:.1+Math.random()*.3
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 2, vy: (Math.random() - 0.5) * 2,
+      size: Math.random() * 2 + 1,
+      color: Math.random() > 0.5 ? '#ff2d74' : '#9d4edd'
     });
   }
-  function tick(){
-    ctx.clearRect(0,0,W,H);
-    for(var i=0;i<particles.length;i++){
-      var p=particles[i];
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
-      if(p.y<0)p.y=H;if(p.y>H)p.y=0;
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(255,45,116,'+p.o+')';ctx.fill();
-    }
-    for(var i=0;i<particles.length;i++){
-      for(var j=i+1;j<particles.length;j++){
-        var dx=particles[i].x-particles[j].x;
-        var dy=particles[i].y-particles[j].y;
-        var d=Math.sqrt(dx*dx+dy*dy);
-        if(d<150){
-          ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);
-          ctx.lineTo(particles[j].x,particles[j].y);
-          ctx.strokeStyle='rgba(255,45,116,'+(0.06*(1-d/150))+')';
-          ctx.lineWidth=.5;ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(tick);
-  }
-  tick();
-})();
-
-// Scene sequencer
-var scenes=[
-  {id:'scene1',start:0,end:4000},
-  {id:'scene2',start:4000,end:9000},
-  {id:'scene3',start:9000,end:15000},
-  {id:'scene4',start:15000,end:21000},
-  {id:'scene5',start:21000,end:26000},
-  {id:'scene6',start:26000,end:31000},
-];
-
-var startTime=performance.now();
-
-function runSequence(){
-  var elapsed=performance.now()-startTime;
-  scenes.forEach(function(s){
-    var el=document.getElementById(s.id);
-    if(elapsed>=s.start && elapsed<s.end){
-      el.classList.add('active');
-      el.classList.remove('exit');
-    } else if(elapsed>=s.end){
-      el.classList.remove('active');
-      el.classList.add('exit');
-    } else {
-      el.classList.remove('active');
-      el.classList.remove('exit');
-    }
-  });
-  if(elapsed<32000)requestAnimationFrame(runSequence);
 }
-runSequence();
+function draw() {
+  ctx.fillStyle = 'rgba(5, 3, 8, 0.2)';
+  ctx.fillRect(0, 0, w, h);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if(p.x < 0 || p.x > w) p.vx *= -1;
+    if(p.y < 0 || p.y > h) p.vy *= -1;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+init(); draw();
+window.addEventListener('resize', init);
+
+/* Timeline Engine */
+const flash = document.getElementById('flash');
+const hook = document.getElementById('s-hook');
+const m1 = document.getElementById('s-machine');
+const m2 = document.getElementById('s-grid');
+const m3 = document.getElementById('s-work');
+const cta = document.getElementById('s-cta');
+
+function triggerFlash() {
+  flash.classList.remove('do-flash');
+  void flash.offsetWidth; // trigger reflow
+  flash.classList.add('do-flash');
+}
+
+// 0.0s - Start
+setTimeout(() => {
+  hook.style.opacity = '1';
+  hook.classList.add('step1');
+  triggerFlash();
+}, 200);
+
+// 1.5s - Second phrase
+setTimeout(() => {
+  hook.classList.add('step2');
+  triggerFlash();
+}, 1700);
+
+// 3.0s - Exit hook, enter Scene 1
+setTimeout(() => {
+  hook.classList.add('step3');
+}, 3000);
+
+setTimeout(() => {
+  hook.style.display = 'none';
+  m1.classList.add('active');
+}, 3500);
+
+// 6.0s - Scene 2
+setTimeout(() => {
+  m1.style.opacity = '0';
+  setTimeout(() => m2.classList.add('active'), 400);
+}, 6000);
+
+// 8.5s - Scene 3
+setTimeout(() => {
+  m2.style.opacity = '0';
+  setTimeout(() => m3.classList.add('active'), 400);
+  triggerFlash();
+}, 8500);
+
+// 10.5s - CTA
+setTimeout(() => {
+  m3.style.opacity = '0';
+  setTimeout(() => cta.classList.add('active'), 400);
+}, 10500);
 </script>
+
 </body>
 </html>
