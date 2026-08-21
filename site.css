@@ -225,8 +225,12 @@ section { padding: clamp(80px, 15vh, 160px) 0; position: relative; }
 /* Footer */
 footer { padding: 80px 0 60px; border-top: 1px solid var(--line); margin-top: 60px; }
 .foot-wrap { display: flex; justify-content: space-between; align-items: center; }
-.foot-socials a { font-family: var(--sans); font-size: var(--s--1); color: var(--text-faint); transition: color 0.2s; }
+
+.foot-socials { display: flex; gap: 40px; align-items: center; justify-content: center; flex: 1; }
+.foot-socials a { font-family: var(--sans); font-size: var(--s--1); color: var(--text-faint); transition: color 0.3s ease; display: flex; align-items: center; justify-content: center; }
+.foot-socials svg { width: 22px; height: 22px; }
 .foot-socials a:hover { color: var(--brand-cyan); }
+
 .foot-links a { font-family: var(--sans); margin-left: 32px; font-size: var(--s--1); color: var(--text-faint); transition: color 0.2s; }
 .foot-links a:hover { color: var(--brand-pink); }
 
