@@ -6,7 +6,7 @@
    (indices, rules, one word at a time) rather than as decoration. */
 
 :root{
-  --ink-0:#070509;      /* page ground - warm-biased black; pure #000 reads cheap beside pink */
+  --ink-0:#070509;
   --ink-1:#0c0910;
   --ink-2:#120e17;
   --line:#1e1826;
@@ -45,8 +45,12 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-/* A single fixed hairline grid behind everything — the "engineered" tell, and cheap: two
-   repeating-linear-gradients, no images, no script. */
+/* ── particle canvas ── */
+#particle-canvas{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+}
+
+/* A single fixed hairline grid behind everything */
 body::before{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
   background:
@@ -70,7 +74,14 @@ p{margin:0 0 1em}
 
 .mono{font-family:var(--mono)}
 
-/* ---------- nav ---------- */
+/* ── scroll reveal ── */
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .7s cubic-bezier(.23,1,.32,1),transform .7s cubic-bezier(.23,1,.32,1);
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── nav ── */
 .nav{
   position:sticky;top:0;z-index:30;
   background:rgba(7,5,9,.86);backdrop-filter:blur(16px) saturate(140%);
@@ -81,16 +92,29 @@ p{margin:0 0 1em}
   font-family:var(--mono);font-size:.82rem;letter-spacing:.4em;color:var(--text);
   font-weight:700;margin-right:auto;white-space:nowrap;
 }
-.brand b{color:var(--pink);font-weight:700}   /* the L */
-.nav a:not(.brand){
+.brand b{color:var(--pink);font-weight:700}
+.nav-links a{
   color:var(--text-dim);font-family:var(--mono);font-size:var(--micro);
   letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;
   padding:20px 0 19px;border-bottom:2px solid transparent;
 }
-.nav a:not(.brand):hover{color:var(--text)}
-.nav a[aria-current="page"]{color:var(--text);border-bottom-color:var(--pink)}
+.nav-links a:hover{color:var(--text)}
+.nav-links a[aria-current="page"]{color:var(--text);border-bottom-color:var(--pink)}
 
-/* ---------- hero ---------- */
+/* hamburger */
+.nav-hamburger{
+  display:none;flex-direction:column;gap:5px;padding:8px;
+  background:none;border:none;cursor:pointer;z-index:35;
+}
+.nav-hamburger span{
+  display:block;width:22px;height:2px;background:var(--text);
+  transition:transform .3s,opacity .3s;
+}
+.nav-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* ── hero ── */
 .hero{padding:clamp(80px,15vh,170px) 0 clamp(60px,10vh,110px);position:relative}
 .eyebrow{
   font-family:var(--mono);font-size:var(--micro);letter-spacing:.34em;color:var(--pink);
@@ -99,18 +123,41 @@ p{margin:0 0 1em}
 .eyebrow::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line-lit),transparent);max-width:220px}
 .hero .lede{font-size:var(--s-1);color:var(--text-dim);max-width:58ch;margin:30px 0 0;line-height:1.5}
 
+/* hero title typewriter */
+.hero-title-anim{opacity:0;animation:heroFadeIn .8s .2s ease forwards}
+@keyframes heroFadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:42px}
 .btn{
   display:inline-block;padding:14px 30px;font-family:var(--mono);font-size:var(--micro);
   letter-spacing:.18em;text-transform:uppercase;font-weight:600;
   border:1px solid var(--line-lit);color:var(--text);
-  transition:border-color .18s,background .18s,color .18s;
+  transition:border-color .18s,background .18s,color .18s,transform .18s;
 }
-.btn:hover{border-color:var(--pink);color:var(--text)}
+.btn:hover{border-color:var(--pink);color:var(--text);transform:translateY(-1px)}
 .btn-primary{background:var(--pink);border-color:var(--pink);color:#0d0207}
-.btn-primary:hover{background:var(--pink-soft);border-color:var(--pink-soft);color:#0d0207}
+.btn-primary:hover{background:var(--pink-soft);border-color:var(--pink-soft);color:#0d0207;transform:translateY(-1px)}
 
-/* ---------- sections ---------- */
+/* ── showcase ── */
+.showcase-section{padding:0;border-top:1px solid var(--line);overflow:hidden}
+.showcase-strip{
+  display:flex;gap:16px;padding:32px 0;
+  overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--line-lit) transparent;
+  -webkit-overflow-scrolling:touch;
+}
+.showcase-strip::-webkit-scrollbar{height:4px}
+.showcase-strip::-webkit-scrollbar-thumb{background:var(--line-lit);border-radius:2px}
+.showcase-img{
+  flex:0 0 auto;width:clamp(200px,30vw,320px);border-radius:8px;overflow:hidden;
+  border:1px solid var(--line);transition:transform .4s,box-shadow .4s;
+}
+.showcase-img:hover{transform:scale(1.03);box-shadow:0 8px 40px rgba(255,45,116,.15)}
+.showcase-img img{width:100%;height:auto;display:block;filter:brightness(.92) contrast(1.05)}
+
+/* ── sections ── */
 section{padding:clamp(64px,9vh,110px) 0;border-top:1px solid var(--line)}
 .section-head{margin-bottom:52px;max-width:62ch}
 .section-head .idx{
@@ -119,12 +166,12 @@ section{padding:clamp(64px,9vh,110px) 0;border-top:1px solid var(--line)}
 }
 .section-head p{color:var(--text-dim);margin-top:16px;font-size:var(--s-0)}
 
-/* hairline grid of cells — borders come from the gap, so every rule is exactly 1px */
+/* hairline grid of cells */
 .grid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
 .grid-2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
 .grid-3{grid-template-columns:repeat(auto-fit,minmax(265px,1fr))}
-.cell{background:var(--ink-1);padding:34px 30px;position:relative;transition:background .2s}
-.cell:hover{background:var(--ink-2)}
+.cell{background:var(--ink-1);padding:34px 30px;position:relative;transition:background .2s,transform .2s}
+.cell:hover{background:var(--ink-2);transform:translateY(-2px)}
 .cell .n{
   font-family:var(--mono);font-size:var(--micro);color:var(--pink);letter-spacing:.24em;
   display:block;margin-bottom:16px;
@@ -132,13 +179,41 @@ section{padding:clamp(64px,9vh,110px) 0;border-top:1px solid var(--line)}
 .cell h3{margin-bottom:12px}
 .cell p{color:var(--text-dim);margin:0;font-size:var(--s--1);line-height:1.68}
 
-/* ---------- spec table ---------- */
+/* ── capability cards ── */
+.cap-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:20px;
+}
+.cap-card{
+  background:var(--ink-1);border:1px solid var(--line);padding:32px 28px;
+  position:relative;overflow:hidden;
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+}
+.cap-card:hover{
+  border-color:var(--pink);transform:translateY(-4px);
+  box-shadow:0 12px 40px rgba(255,45,116,.08);
+}
+.cap-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--pink),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.cap-card:hover::before{opacity:1}
+.cap-icon{font-size:1.8rem;margin-bottom:16px;display:block}
+.cap-card h3{margin-bottom:10px;font-size:var(--s-0);font-weight:620}
+.cap-card p{color:var(--text-dim);font-size:var(--s--1);line-height:1.7;margin:0 0 14px}
+.cap-tag{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;
+  color:var(--text-faint);text-transform:uppercase;
+}
+
+/* ── spec table ── */
 .spec{font-family:var(--mono);font-size:var(--s--1);border-top:1px solid var(--line);margin:0}
 .spec div{display:flex;gap:24px;padding:15px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .spec dt{color:var(--text-faint);min-width:190px;letter-spacing:.06em;text-transform:uppercase;font-size:var(--micro);padding-top:2px}
 .spec dd{margin:0;color:var(--text)}
 
-/* ---------- changelog ---------- */
+/* ── changelog ── */
 .log-entry{
   display:grid;grid-template-columns:150px 1fr;gap:36px;
   padding:36px 0;border-bottom:1px solid var(--line);
@@ -156,7 +231,7 @@ section{padding:clamp(64px,9vh,110px) 0;border-top:1px solid var(--line)}
   padding:1px 0 1px 9px;margin-bottom:13px;
 }
 
-/* ---------- prose / legal ---------- */
+/* ── prose / legal ── */
 .prose{max-width:74ch}
 .prose h2{margin:52px 0 16px;font-size:var(--s-1)}
 .prose h3{margin:32px 0 10px;font-size:var(--s-0);font-weight:650}
@@ -169,7 +244,7 @@ section{padding:clamp(64px,9vh,110px) 0;border-top:1px solid var(--line)}
   letter-spacing:.14em;text-transform:uppercase;
 }
 
-/* ---------- footer ---------- */
+/* ── footer ── */
 footer{border-top:1px solid var(--line);padding:64px 0 44px}
 .foot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:40px}
 .foot-grid h4{
@@ -185,16 +260,7 @@ footer{border-top:1px solid var(--line);padding:64px 0 44px}
   text-transform:uppercase;
 }
 
-@media (max-width:700px){
-  .nav .wrap{gap:16px;overflow-x:auto;scrollbar-width:none}
-  .nav .wrap::-webkit-scrollbar{display:none}
-  .log-entry{grid-template-columns:1fr;gap:12px}
-  .spec div{flex-direction:column;gap:3px}
-  .spec dt{min-width:0}
-  body::before{background:radial-gradient(70% 40% at 50% 0%,var(--pink-dim) 0%,transparent 72%)}
-}
-
-/* ---------- origin statement ---------- */
+/* ── origin statement ── */
 .statement{
   border-left:2px solid var(--pink);padding:6px 0 6px clamp(20px,3vw,40px);
   max-width:74ch;font-size:var(--s-1);line-height:1.55;color:var(--text-dim);
@@ -202,7 +268,7 @@ footer{border-top:1px solid var(--line);padding:64px 0 44px}
 .statement strong{color:var(--text);font-weight:620}
 .statement em{color:var(--pink-soft);font-style:italic}
 
-/* ---------- figures: a measured strip, read like an instrument panel ---------- */
+/* ── figures: animated strip ── */
 .figures{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:56px;
   border-top:1px solid var(--line-lit);border-bottom:1px solid var(--line-lit)}
 .figures div{padding:26px 0;border-right:1px solid var(--line)}
@@ -216,7 +282,7 @@ footer{border-top:1px solid var(--line);padding:64px 0 44px}
   text-transform:uppercase;display:block;margin-top:11px;
 }
 
-/* ---------- exam results: a table, not cards ---------- */
+/* ── exam results ── */
 .results{width:100%;border-collapse:collapse;font-size:var(--s--1)}
 .results caption{
   font-family:var(--mono);font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;
@@ -235,11 +301,12 @@ footer{border-top:1px solid var(--line);padding:64px 0 44px}
   color:var(--text);font-size:var(--s-1);letter-spacing:-.02em;white-space:nowrap;
 }
 .results .meter{display:block;height:2px;background:var(--line-lit);margin-top:9px;width:100%}
-.results .meter i{display:block;height:100%;background:var(--pink)}
+.results .meter i{display:block;height:100%;background:var(--pink);width:0;transition:width 1.2s cubic-bezier(.23,1,.32,1)}
+.results .meter i.filled{width:var(--bar-w)}
 .results .note{font-size:var(--s--1);line-height:1.6}
 .tablescroll{overflow-x:auto}
 
-/* ---------- timeline ---------- */
+/* ── timeline ── */
 .timeline{position:relative;margin-top:8px;padding-left:clamp(26px,4vw,54px)}
 .timeline::before{
   content:"";position:absolute;left:0;top:8px;bottom:8px;width:1px;
@@ -261,12 +328,7 @@ footer{border-top:1px solid var(--line);padding:64px 0 44px}
 .tl h3{margin-bottom:8px}
 .tl p{color:var(--text-dim);font-size:var(--s--1);margin:0;max-width:62ch;line-height:1.7}
 
-@media (max-width:700px){
-  .figures div{border-right:0;border-bottom:1px solid var(--line);padding:20px 0}
-  .figures div:last-child{border-bottom:0}
-}
-
-/* ---------- find her: logo row at the foot of the page ---------- */
+/* ── find her: logo row ── */
 .findher{padding-top:8px;text-align:center}
 .findher h4{
   font-family:var(--mono);font-size:var(--micro);letter-spacing:.3em;text-transform:uppercase;
@@ -277,27 +339,45 @@ footer{border-top:1px solid var(--line);padding:64px 0 44px}
   display:flex;flex-direction:column;align-items:center;gap:11px;
   color:var(--text-faint);transition:color .18s,transform .18s;
 }
-.logos a:hover{color:var(--pink);transform:translateY(-2px)}
+.logos a:hover{color:var(--pink);transform:translateY(-4px)}
 .logos svg{width:26px;height:26px;fill:currentColor;display:block}
 .logos span{
   font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
 }
 
-/* ---------- phones: measured, not assumed ----------
-   The nav scrolled to 573px inside a 375px viewport, so "Support" sat off-screen behind a hidden
-   scrollbar - present in the DOM, invisible to a thumb. The two in-page anchors are only scroll
-   shortcuts, so on a phone they go and the real destinations stay. */
+/* ── mobile ── */
+@media (max-width:700px){
+  .nav .wrap{gap:16px;overflow-x:auto;scrollbar-width:none}
+  .nav .wrap::-webkit-scrollbar{display:none}
+  .log-entry{grid-template-columns:1fr;gap:12px}
+  .spec div{flex-direction:column;gap:3px}
+  .spec dt{min-width:0}
+  body::before{background:radial-gradient(70% 40% at 50% 0%,var(--pink-dim) 0%,transparent 72%)}
+  .figures div{border-right:0;border-bottom:1px solid var(--line);padding:20px 0}
+  .figures div:last-child{border-bottom:0}
+}
+
 @media (max-width:620px){
-  .nav .wrap{overflow:visible;gap:18px;justify-content:space-between}
-  .nav a.jump{display:none}
-  .brand{margin-right:0;font-size:.78rem;letter-spacing:.34em}
-  .nav a:not(.brand){padding:21px 0 20px;font-size:.66rem;letter-spacing:.12em}
+  .nav-hamburger{display:flex}
+  .nav-links{
+    display:none;flex-direction:column;
+    position:fixed;top:64px;left:0;right:0;bottom:0;
+    background:rgba(7,5,9,.96);backdrop-filter:blur(20px);
+    padding:32px clamp(20px,4vw,40px);gap:0;z-index:29;
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{
+    display:block;padding:16px 0;border-bottom:1px solid var(--line);
+    font-family:var(--mono);font-size:.8rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--text-dim);
+  }
+  .nav-links a:hover{color:var(--pink)}
+  .brand{margin-right:auto;font-size:.78rem;letter-spacing:.34em}
 
   .hero{padding-top:clamp(48px,9vh,80px)}
   h1{letter-spacing:-.03em}
   .cta-row .btn{flex:1 1 100%;text-align:center}
 
-  /* Exam results read as stacked records rather than a table squeezed into a phone. */
   .results thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
   .results tr{display:block;padding:20px 0;border-bottom:1px solid var(--line)}
   .results tr:last-child{border-bottom:0}
@@ -313,4 +393,6 @@ footer{border-top:1px solid var(--line);padding:64px 0 44px}
   .logos{gap:26px}
   .foot-bottom{flex-direction:column;gap:10px;text-align:center;justify-content:center}
   .findher h4{letter-spacing:.24em}
+
+  .cap-grid{grid-template-columns:1fr}
 }
