@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const files = ['changelog.html', 'privacy.html', 'terms.html'];
+const files = ['changelog.html', 'privacy.html', 'terms.html', 'donate.html'];
 
 const navContent = `<nav class="nav">
   <div class="wrap">
@@ -19,6 +19,12 @@ const footerContent = `<footer>
   <div class="wrap foot-wrap">
     <div>
       <a class="brand" href="/"><b>L</b>UCY</a>
+    </div>
+    <div class="foot-socials" style="display: flex; gap: 16px;">
+      <a href="https://instagram.com/lucy" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://youtube.com/lucy" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://github.com/lucy" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://twitch.tv/lucy" target="_blank" rel="noopener">Twitch</a>
     </div>
     <div class="foot-links">
       <a href="/privacy">Privacy</a>
