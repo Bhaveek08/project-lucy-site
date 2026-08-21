@@ -3,268 +3,287 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lucy Cinematic Ad</title>
+<title>Lucy - Cinematic Ad V2</title>
 <style>
+/* Reset & Base */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-/* System UI font stack for premium look without external requests */
 body {
   background: #000; color: #fff;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
   overflow: hidden; width: 100vw; height: 100vh;
-  position: relative; perspective: 1000px;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Background Particle Core */
-#bg-canvas { position: fixed; inset: 0; z-index: 0; opacity: 0.8; filter: blur(1px); }
+/* 1. Ambient Lighting (Aurora) */
+.aurora {
+  position: absolute; inset: 0; z-index: 1; opacity: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 45, 116, 0.15) 0%, transparent 60%);
+  transition: opacity 2s ease;
+}
+.aurora.active { opacity: 1; }
 
-/* Cinematic Scenes */
-.scene {
+/* 2. Film Grain Overlay */
+.grain {
+  position: absolute; inset: 0; z-index: 100;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04; pointer-events: none;
+}
+
+/* 3. Cinematic Canvas (Particles & Fluid) */
+#scene-canvas {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+}
+
+/* 4. Global Scene Wrapper */
+.scene-container {
   position: absolute; inset: 0; z-index: 10;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 40px; text-align: center;
-  opacity: 0; pointer-events: none;
+  perspective: 1200px; padding: 20px;
 }
 
-/* Hook Scene: I PULLED THE PLUG */
-.s-hook { z-index: 20; }
-.hook-text {
-  font-family: "SF Mono", "Cascadia Code", monospace;
-  font-size: clamp(3rem, 10vw, 5rem); font-weight: 800;
-  line-height: 1; text-transform: uppercase;
-  opacity: 0; transform: scale(1.5) translateZ(100px);
-  filter: blur(10px); color: #ff2d74;
+/* Typography Rules */
+h1, h2, h3 { line-height: 1.1; text-align: center; font-weight: 700; letter-spacing: -0.04em; }
+
+/* --- SCENE 1: THE HOOK --- */
+.s-hook {
+  position: absolute; display: flex; flex-direction: column; align-items: center;
 }
-.s-hook.step1 .hook-text {
-  animation: slamText 0.15s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+.h-word {
+  font-size: clamp(3rem, 12vw, 6rem);
+  opacity: 0; transform: translateY(40px) scale(0.95);
 }
-@keyframes slamText {
-  to { opacity: 1; transform: scale(1) translateZ(0); filter: blur(0); }
+.h-word.in {
+  animation: glideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.h-word.out {
+  animation: glideOut 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.s-hook.step2 .hook-text {
-  animation: glitchOut 0.2s forwards;
+/* --- SCENE 2: REVEAL --- */
+.s-reveal {
+  position: absolute; display: flex; flex-direction: column; align-items: center;
 }
-@keyframes glitchOut {
-  0% { transform: translate(2px, -2px); opacity: 1; filter: invert(1); }
-  50% { transform: translate(-2px, 2px); opacity: 1; }
-  100% { transform: scale(0.9); opacity: 0; filter: blur(10px); }
-}
-
-.s-hook .hook-text-2 {
-  font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800;
-  line-height: 1; text-transform: uppercase; margin-top: 20px;
-  opacity: 0; color: #fff;
-}
-.s-hook.step2 .hook-text-2 {
-  animation: slamText 0.15s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
-}
-.s-hook.step3 .hook-text-2 {
-  animation: fadeOut 0.5s ease forwards;
-}
-
-/* Scene 1: The Machine */
-.s-machine h2 {
-  font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700;
-  line-height: 1.1; letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #fff, #9b8ea6);
+.r-text {
+  font-size: clamp(2rem, 8vw, 4rem); max-width: 900px;
+  background: linear-gradient(135deg, #fff 30%, rgba(255, 255, 255, 0.4) 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  transform: translateY(40px); opacity: 0;
+  opacity: 0; transform: translateZ(-100px); filter: blur(10px);
 }
-.s-machine p {
-  font-size: clamp(1rem, 4vw, 1.5rem); color: #9b8ea6;
-  margin-top: 20px; max-width: 400px;
-  transform: translateY(20px); opacity: 0;
+.r-text.in {
+  animation: popIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-.s-machine.active h2 { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-.s-machine.active p { animation: fadeUp 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-/* Scene 2: 100% Local Grid */
-.s-grid .stat-box {
-  background: rgba(255, 45, 116, 0.1); border: 1px solid rgba(255, 45, 116, 0.3);
-  padding: 30px; border-radius: 16px; margin: 10px;
-  transform: scale(0.8) rotateX(20deg); opacity: 0;
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-}
-.s-grid.active .stat-box {
-  animation: pop3D 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-@keyframes pop3D {
-  to { transform: scale(1) rotateX(0deg); opacity: 1; }
-}
-.stat-box h3 {
-  font-family: "SF Mono", monospace; font-size: 3.5rem; color: #ff2d74; line-height: 1;
-}
-.stat-box p { font-size: 1rem; color: #fff; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 10px; }
-
-/* Scene 3: She works */
-.s-work h2 {
-  font-size: 3rem; font-weight: 800; color: #fff; text-shadow: 0 0 20px rgba(255,45,116,0.8);
-  opacity: 0; transform: translateY(20px);
-}
-.s-work.active h2 { animation: fadeUp 0.5s ease forwards; }
-
-/* Final Scene: CTA */
-.s-cta .brand {
-  font-family: "SF Mono", monospace; font-size: 3rem; font-weight: 800; letter-spacing: 0.3em;
-  color: #fff; opacity: 0;
-}
-.s-cta .brand b { color: #ff2d74; }
-.s-cta .url {
-  font-size: 1.2rem; color: #9b8ea6; margin-top: 20px; opacity: 0;
-}
-.s-cta.active .brand { animation: fadeUp 0.8s ease forwards; }
-.s-cta.active .url { animation: fadeUp 0.8s 0.2s ease forwards; }
-
-/* Utils */
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeOut {
-  to { opacity: 0; transform: scale(1.05); }
+.r-text.out {
+  animation: fadeUpOut 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Flash Overlay */
-#flash {
-  position: fixed; inset: 0; background: #fff; z-index: 999;
-  opacity: 0; pointer-events: none;
+/* --- SCENE 3: STATS --- */
+.s-stats {
+  position: absolute; display: grid; grid-template-columns: 1fr; gap: 40px; text-align: center;
 }
-.do-flash { animation: flashAnim 0.2s ease-out; }
-@keyframes flashAnim {
-  0% { opacity: 1; } 100% { opacity: 0; }
+.stat-item {
+  opacity: 0; transform: translateY(30px);
 }
+.stat-item.in {
+  animation: glideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.stat-item.out {
+  animation: glideOut 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.stat-num {
+  font-family: "SF Mono", ui-monospace, monospace; font-size: clamp(3rem, 12vw, 5rem);
+  color: #ff2d74; font-weight: 800; letter-spacing: -0.02em; line-height: 1;
+}
+.stat-lbl {
+  font-size: clamp(1rem, 4vw, 1.5rem); color: rgba(255,255,255,0.6);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-top: 8px; font-weight: 500;
+}
+
+/* --- SCENE 4: CTA --- */
+.s-cta {
+  position: absolute; display: flex; flex-direction: column; align-items: center;
+}
+.cta-brand {
+  font-family: "SF Mono", ui-monospace, monospace; font-size: clamp(2.5rem, 10vw, 4rem);
+  font-weight: 800; letter-spacing: 0.4em; color: #fff;
+  opacity: 0; filter: blur(5px);
+}
+.cta-brand b { color: #ff2d74; }
+.cta-brand.in {
+  animation: logoIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.cta-url {
+  font-size: 1.2rem; color: rgba(255,255,255,0.5); margin-top: 16px; opacity: 0;
+}
+.cta-url.in {
+  animation: glideIn 1s 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Keyframes */
+@keyframes glideIn {
+  0% { opacity: 0; transform: translateY(40px) scale(0.95); filter: blur(8px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+@keyframes glideOut {
+  0% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  100% { opacity: 0; transform: translateY(-40px) scale(1.05); filter: blur(8px); }
+}
+@keyframes popIn {
+  0% { opacity: 0; transform: translateZ(-200px) scale(0.8); filter: blur(20px); }
+  100% { opacity: 1; transform: translateZ(0) scale(1); filter: blur(0); }
+}
+@keyframes fadeUpOut {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-50px); filter: blur(5px); }
+}
+@keyframes logoIn {
+  0% { opacity: 0; transform: scale(0.9); filter: blur(10px); letter-spacing: 1em; }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); letter-spacing: 0.4em; }
+}
+
 </style>
 </head>
 <body>
 
-<div id="flash"></div>
-<canvas id="bg-canvas"></canvas>
+<div class="grain"></div>
+<div class="aurora" id="aurora"></div>
+<canvas id="scene-canvas"></canvas>
 
-<!-- HOOK -->
-<div class="scene s-hook" id="s-hook">
-  <div class="hook-text" id="h-txt1">I pulled the plug.</div>
-  <div class="hook-text-2" id="h-txt2">She kept talking.</div>
-</div>
-
-<!-- SCENE 1 -->
-<div class="scene s-machine" id="s-machine">
-  <h2>Every part of her runs on one machine.</h2>
-  <p>No cloud. No API calls. No subscription.</p>
-</div>
-
-<!-- SCENE 2 -->
-<div class="scene s-grid" id="s-grid">
-  <div class="stat-box">
-    <h3>14k</h3>
-    <p>Memories Local</p>
+<div class="scene-container">
+  
+  <!-- SCENE 1 -->
+  <div class="s-hook">
+    <h1 class="h-word" id="w1" style="color:#fff; margin-bottom:10px;">I pulled the plug.</h1>
+    <h1 class="h-word" id="w2" style="color:#ff2d74;">She kept talking.</h1>
   </div>
-  <div class="stat-box" style="animation-delay: 0.15s">
-    <h3>0%</h3>
-    <p>Cloud Dependency</p>
+
+  <!-- SCENE 2 -->
+  <div class="s-reveal">
+    <h2 class="r-text" id="r1">Every part of her</h2>
+    <h2 class="r-text" id="r2">runs on that machine.</h2>
   </div>
-</div>
 
-<!-- SCENE 3 -->
-<div class="scene s-work" id="s-work">
-  <h2>She checks her own code.</h2>
-</div>
+  <!-- SCENE 3 -->
+  <div class="s-stats">
+    <div class="stat-item" id="st1">
+      <div class="stat-num">14,000</div>
+      <div class="stat-lbl">Memories Local</div>
+    </div>
+    <div class="stat-item" id="st2">
+      <div class="stat-num">111</div>
+      <div class="stat-lbl">Self-Tests</div>
+    </div>
+  </div>
 
-<!-- SCENE 4 -->
-<div class="scene s-cta" id="s-cta">
-  <div class="brand"><b>L</b>UCY</div>
-  <div class="url">project-lucy.me</div>
+  <!-- SCENE 4 -->
+  <div class="s-cta">
+    <div class="cta-brand" id="brand"><b>L</b>UCY</div>
+    <div class="cta-url" id="url">project-lucy.me</div>
+  </div>
+
 </div>
 
 <script>
-/* Particle Background Logic */
-const canvas = document.getElementById('bg-canvas');
-const ctx = canvas.getContext('2d');
-let w, h, particles = [];
+/* High-End Canvas Engine (Vortex / Particles) */
+const canvas = document.getElementById('scene-canvas');
+const ctx = canvas.getContext('2d', { alpha: true });
+let w, h;
+let particles = [];
+let mode = 0; // 0=idle, 1=suck-in, 2=explode
 
-function init() {
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-  for(let i=0; i<80; i++) {
-    particles.push({
-      x: Math.random() * w, y: Math.random() * h,
-      vx: (Math.random() - 0.5) * 2, vy: (Math.random() - 0.5) * 2,
-      size: Math.random() * 2 + 1,
-      color: Math.random() > 0.5 ? '#ff2d74' : '#9d4edd'
-    });
+function initCanvas() {
+  w = canvas.width = window.innerWidth * window.devicePixelRatio;
+  h = canvas.height = window.innerHeight * window.devicePixelRatio;
+  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  w = window.innerWidth; h = window.innerHeight;
+}
+window.addEventListener('resize', initCanvas);
+initCanvas();
+
+class Particle {
+  constructor() {
+    this.x = (Math.random() - 0.5) * w * 2 + w/2;
+    this.y = (Math.random() - 0.5) * h * 2 + h/2;
+    this.size = Math.random() * 2;
+    this.baseX = this.x; this.baseY = this.y;
+    this.speed = Math.random() * 0.02 + 0.01;
+    this.angle = Math.random() * Math.PI * 2;
+    this.dist = Math.random() * 400 + 100;
+  }
+  update() {
+    if(mode === 1) {
+      // Suck into center
+      this.x += (w/2 - this.x) * 0.08;
+      this.y += (h/2 - this.y) * 0.08;
+    } else if(mode === 2) {
+      // Explode slowly
+      this.angle += 0.01;
+      this.x = w/2 + Math.cos(this.angle) * this.dist;
+      this.y = h/2 + Math.sin(this.angle) * this.dist;
+      this.dist += 1.5; // Expand outward
+    } else {
+      // Float
+      this.x += Math.sin(this.angle) * 0.5;
+      this.y += Math.cos(this.angle) * 0.5;
+      this.angle += this.speed;
+    }
+  }
+  draw() {
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
   }
 }
-function draw() {
-  ctx.fillStyle = 'rgba(5, 3, 8, 0.2)';
-  ctx.fillRect(0, 0, w, h);
-  particles.forEach(p => {
-    p.x += p.vx; p.y += p.vy;
-    if(p.x < 0 || p.x > w) p.vx *= -1;
-    if(p.y < 0 || p.y > h) p.vy *= -1;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fillStyle = p.color;
-    ctx.fill();
-  });
-  requestAnimationFrame(draw);
+for(let i=0; i<150; i++) particles.push(new Particle());
+
+function render() {
+  ctx.clearRect(0, 0, w, h);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(render);
 }
-init(); draw();
-window.addEventListener('resize', init);
+render();
 
-/* Timeline Engine */
-const flash = document.getElementById('flash');
-const hook = document.getElementById('s-hook');
-const m1 = document.getElementById('s-machine');
-const m2 = document.getElementById('s-grid');
-const m3 = document.getElementById('s-work');
-const cta = document.getElementById('s-cta');
+/* Cinematic Timeline Sequence */
+const aurora = document.getElementById('aurora');
 
-function triggerFlash() {
-  flash.classList.remove('do-flash');
-  void flash.offsetWidth; // trigger reflow
-  flash.classList.add('do-flash');
-}
+// DOM Elements
+const w1 = document.getElementById('w1');
+const w2 = document.getElementById('w2');
+const r1 = document.getElementById('r1');
+const r2 = document.getElementById('r2');
+const st1 = document.getElementById('st1');
+const st2 = document.getElementById('st2');
+const brand = document.getElementById('brand');
+const url = document.getElementById('url');
 
-// 0.0s - Start
-setTimeout(() => {
-  hook.style.opacity = '1';
-  hook.classList.add('step1');
-  triggerFlash();
-}, 200);
+const timeline = [
+  // Scene 1: Hook
+  { t: 500, act: () => w1.classList.add('in') },
+  { t: 1400, act: () => { w2.classList.add('in'); mode = 1; aurora.classList.add('active'); } }, // Suck particles
+  
+  // Exit Hook
+  { t: 3200, act: () => { w1.classList.add('out'); w2.classList.add('out'); mode = 2; } }, // Explode particles
+  
+  // Scene 2: Reveal
+  { t: 3800, act: () => r1.classList.add('in') },
+  { t: 4400, act: () => r2.classList.add('in') },
+  { t: 6500, act: () => { r1.classList.add('out'); r2.classList.add('out'); } },
+  
+  // Scene 3: Stats
+  { t: 7200, act: () => { st1.classList.add('in'); aurora.style.background = 'radial-gradient(circle at 50% 50%, rgba(157, 78, 221, 0.15) 0%, transparent 60%)'; } },
+  { t: 8000, act: () => st2.classList.add('in') },
+  { t: 10500, act: () => { st1.classList.add('out'); st2.classList.add('out'); } },
+  
+  // Scene 4: CTA
+  { t: 11200, act: () => { brand.classList.add('in'); url.classList.add('in'); mode = 0; } }
+];
 
-// 1.5s - Second phrase
-setTimeout(() => {
-  hook.classList.add('step2');
-  triggerFlash();
-}, 1700);
+// Execute timeline
+timeline.forEach(event => {
+  setTimeout(event.act, event.t);
+});
 
-// 3.0s - Exit hook, enter Scene 1
-setTimeout(() => {
-  hook.classList.add('step3');
-}, 3000);
-
-setTimeout(() => {
-  hook.style.display = 'none';
-  m1.classList.add('active');
-}, 3500);
-
-// 6.0s - Scene 2
-setTimeout(() => {
-  m1.style.opacity = '0';
-  setTimeout(() => m2.classList.add('active'), 400);
-}, 6000);
-
-// 8.5s - Scene 3
-setTimeout(() => {
-  m2.style.opacity = '0';
-  setTimeout(() => m3.classList.add('active'), 400);
-  triggerFlash();
-}, 8500);
-
-// 10.5s - CTA
-setTimeout(() => {
-  m3.style.opacity = '0';
-  setTimeout(() => cta.classList.add('active'), 400);
-}, 10500);
 </script>
-
 </body>
 </html>

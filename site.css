@@ -170,7 +170,7 @@ a:hover { color: var(--brand-pink-glow); text-shadow: 0 0 12px rgba(255, 45, 116
 .cta-row { display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap; }
 
 /* Sections */
-section { padding: clamp(80px, 12vh, 160px) 0; position: relative; }
+section { padding: clamp(60px, 10vh, 120px) 0; position: relative; }
 .section-head { max-width: 800px; margin-bottom: 60px; }
 .section-head .idx {
   display: inline-block; font-family: var(--mono); font-size: var(--s-micro);
@@ -179,7 +179,7 @@ section { padding: clamp(80px, 12vh, 160px) 0; position: relative; }
 }
 
 /* Hero Section */
-.hero { padding: clamp(140px, 20vh, 220px) 0 clamp(80px, 15vh, 120px); text-align: center; }
+.hero { padding: clamp(100px, 15vh, 160px) 0 clamp(40px, 8vh, 80px); text-align: center; }
 .hero h1 {
   font-size: var(--s-3); max-width: 900px; margin: 0 auto;
   background: linear-gradient(to right, #fff, #a69bb3);
@@ -288,6 +288,15 @@ footer { padding: 80px 0 40px; border-top: 1px solid var(--line); margin-top: 80
 .foot-wrap { display: flex; justify-content: space-between; align-items: center; }
 .foot-links a { margin-left: 24px; font-size: var(--s--1); color: var(--text-dim); }
 .foot-links a:hover { color: var(--brand-pink); }
+
+/* Changelog */
+.log-entry { display: grid; grid-template-columns: 120px 1fr; gap: 40px; padding: 40px 0; border-bottom: 1px solid var(--line); }
+.log-entry:last-child { border-bottom: none; }
+.log-date { font-family: var(--mono); font-size: var(--s-micro); color: var(--text-faint); letter-spacing: 0.1em; padding-top: 6px; }
+.tag { display: inline-block; font-family: var(--mono); font-size: var(--s-micro); color: var(--brand-pink); background: rgba(255, 45, 116, 0.1); padding: 4px 8px; border-radius: 4px; margin-bottom: 12px; }
+.log-body h3 { font-size: var(--s-1); margin-bottom: 16px; }
+.log-body p { margin-bottom: 0; }
+.eyebrow { font-family: var(--mono); font-size: var(--s-micro); color: var(--brand-pink); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; }
 
 /* Mobile Adaptations */
 @media (max-width: 900px) {

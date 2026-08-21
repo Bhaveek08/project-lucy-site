@@ -14,7 +14,7 @@
 
 <!-- Intro Overlay -->
 <div id="intro-overlay">
-  <div class="intro-text" id="intro-text">Booting Qwen 7B...</div>
+  <div class="intro-text" id="intro-text">Booting Core Engine...</div>
 </div>
 
 <canvas id="particle-canvas" aria-hidden="true"></canvas>
@@ -183,19 +183,5 @@
 </footer>
 
 <script src="site.js"></script>
-<script>
-  // Intro Sequence Logic
-  window.addEventListener('DOMContentLoaded', () => {
-    const overlay = document.getElementById('intro-overlay');
-    const text = document.getElementById('intro-text');
-    
-    setTimeout(() => { text.innerText = "Loading 14,000 memories..."; }, 800);
-    setTimeout(() => { text.innerText = "Awake."; }, 1800);
-    setTimeout(() => { 
-      overlay.style.opacity = '0';
-      setTimeout(() => overlay.remove(), 800);
-    }, 2500);
-  });
-</script>
 </body>
 </html>
