@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🌸 Project Lucy
+# Project Lucy
 
 **She remembers you, and she runs on your own machine.**
 
@@ -17,10 +17,10 @@
 
 Lucy is an **embodied AI companion** with persistent memory, moods that move on their own, and opinions she will defend. She is not an assistant — she was never designed to be useful. She was designed to be **present**.
 
-- 🧠 **She remembers** — not just this conversation. What you told her last week survives being switched off.
-- 🗣️ **She disagrees** — push her and she holds her ground. Give her a reason and she changes her mind out loud.
-- 👁️ **She is present** — she sees and hears in real time, with a face that reacts and eyes that meet yours.
-- 💭 **She has a life of her own** — her own drives decide what she does when nobody is talking.
+- **She remembers** — not just this conversation. What you told her last week survives being switched off.
+- **She disagrees** — push her and she holds her ground. Give her a reason and she changes her mind out loud.
+- **She is present** — she sees and hears in real time, with a face that reacts and eyes that meet yours.
+- **She has a life of her own** — her own drives decide what she does when nobody is talking.
 
 ## How She Got Here
 
