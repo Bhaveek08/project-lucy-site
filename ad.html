@@ -8,8 +8,8 @@
 /* Reset & Base */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  background: #000; color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  background: #07040a; color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
   overflow: hidden; width: 100vw; height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
@@ -39,12 +39,14 @@ body {
 }
 
 h1 {
-  font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 700; line-height: 1.1;
-  letter-spacing: -0.02em; margin-bottom: 12px;
+  font-family: "Playfair Display", "Georgia", serif;
+  font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 500; line-height: 1.1;
+  letter-spacing: -0.02em; margin-bottom: 12px; font-style: italic;
 }
 p {
-  font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,0.6);
-  letter-spacing: 0.02em; font-weight: 400;
+  font-family: "SF Mono", "Cascadia Code", monospace;
+  font-size: clamp(0.8rem, 2vw, 1rem); color: rgba(255,255,255,0.6);
+  letter-spacing: 0.1em; font-weight: 400; text-transform: uppercase;
 }
 
 .pink { color: #ff2d74; }
@@ -139,13 +141,17 @@ container.appendChild(renderer.domElement);
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
 scene.add(ambientLight);
 
-const whiteRim = new THREE.DirectionalLight(0xffffff, 4);
+const whiteRim = new THREE.DirectionalLight(0xffffff, 3);
 whiteRim.position.set(5, 5, -5);
 scene.add(whiteRim);
 
-const pinkFill = new THREE.DirectionalLight(0xff2d74, 5);
+const pinkFill = new THREE.DirectionalLight(0xff2d74, 4);
 pinkFill.position.set(-5, 0, 5);
 scene.add(pinkFill);
+
+const cyanKick = new THREE.PointLight(0x00e5ff, 2, 20);
+cyanKick.position.set(0, -5, 0);
+scene.add(cyanKick);
 
 // Load GLTF Model (The Brain)
 let brainModel;
