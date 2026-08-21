@@ -180,17 +180,3 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'});
   });
 });
-
-/* ── INTRO SEQUENCE (INDEX.HTML) ── */
-(function(){
-  var overlay = document.getElementById('intro-overlay');
-  var text = document.getElementById('intro-text');
-  if(!overlay || !text) return;
-  
-  setTimeout(function(){ text.innerText = "Loading 14,000 memories..."; }, 800);
-  setTimeout(function(){ text.innerText = "Awake."; }, 1800);
-  setTimeout(function(){ 
-    overlay.style.opacity = '0';
-    setTimeout(function(){ overlay.remove(); }, 800);
-  }, 2500);
-})();

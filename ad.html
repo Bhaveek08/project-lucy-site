@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lucy - Cinematic Ad V2</title>
+<title>Lucy - Cinematic 3D Ad</title>
 <style>
 /* Reset & Base */
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -11,279 +11,285 @@ body {
   background: #000; color: #fff;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
   overflow: hidden; width: 100vw; height: 100vh;
-  position: relative;
   -webkit-font-smoothing: antialiased;
 }
 
-/* 1. Ambient Lighting (Aurora) */
-.aurora {
-  position: absolute; inset: 0; z-index: 1; opacity: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 45, 116, 0.15) 0%, transparent 60%);
-  transition: opacity 2s ease;
-}
-.aurora.active { opacity: 1; }
+/* 3D Canvas */
+#webgl-container { position: absolute; inset: 0; z-index: 1; }
 
-/* 2. Film Grain Overlay */
+/* Film Grain Overlay */
 .grain {
   position: absolute; inset: 0; z-index: 100;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.04; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05; pointer-events: none;
 }
 
-/* 3. Cinematic Canvas (Particles & Fluid) */
-#scene-canvas {
-  position: absolute; inset: 0; z-index: 2; pointer-events: none;
-}
-
-/* 4. Global Scene Wrapper */
-.scene-container {
+/* UI Overlay Layer */
+.ui-layer {
   position: absolute; inset: 0; z-index: 10;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  perspective: 1200px; padding: 20px;
+  perspective: 1000px; padding: 20px; text-align: center; pointer-events: none;
 }
 
-/* Typography Rules */
-h1, h2, h3 { line-height: 1.1; text-align: center; font-weight: 700; letter-spacing: -0.04em; }
-
-/* --- SCENE 1: THE HOOK --- */
-.s-hook {
-  position: absolute; display: flex; flex-direction: column; align-items: center;
-}
-.h-word {
-  font-size: clamp(3rem, 12vw, 6rem);
-  opacity: 0; transform: translateY(40px) scale(0.95);
-}
-.h-word.in {
-  animation: glideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.h-word.out {
-  animation: glideOut 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Typography */
+.text-element {
+  position: absolute; width: 100%; opacity: 0; filter: blur(10px);
+  transform: translateZ(-50px) scale(0.9);
 }
 
-/* --- SCENE 2: REVEAL --- */
-.s-reveal {
-  position: absolute; display: flex; flex-direction: column; align-items: center;
-}
-.r-text {
-  font-size: clamp(2rem, 8vw, 4rem); max-width: 900px;
-  background: linear-gradient(135deg, #fff 30%, rgba(255, 255, 255, 0.4) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  opacity: 0; transform: translateZ(-100px); filter: blur(10px);
-}
-.r-text.in {
-  animation: popIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.r-text.out {
-  animation: fadeUpOut 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.text-element.active {
+  animation: txtIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* --- SCENE 3: STATS --- */
-.s-stats {
-  position: absolute; display: grid; grid-template-columns: 1fr; gap: 40px; text-align: center;
-}
-.stat-item {
-  opacity: 0; transform: translateY(30px);
-}
-.stat-item.in {
-  animation: glideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.stat-item.out {
-  animation: glideOut 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.stat-num {
-  font-family: "SF Mono", ui-monospace, monospace; font-size: clamp(3rem, 12vw, 5rem);
-  color: #ff2d74; font-weight: 800; letter-spacing: -0.02em; line-height: 1;
-}
-.stat-lbl {
-  font-size: clamp(1rem, 4vw, 1.5rem); color: rgba(255,255,255,0.6);
-  letter-spacing: 0.1em; text-transform: uppercase; margin-top: 8px; font-weight: 500;
+.text-element.exit {
+  animation: txtOut 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* --- SCENE 4: CTA --- */
-.s-cta {
-  position: absolute; display: flex; flex-direction: column; align-items: center;
+h1 {
+  font-size: clamp(3rem, 12vw, 6rem); font-weight: 800; line-height: 1;
+  letter-spacing: -0.04em; margin-bottom: 8px;
 }
-.cta-brand {
-  font-family: "SF Mono", ui-monospace, monospace; font-size: clamp(2.5rem, 10vw, 4rem);
-  font-weight: 800; letter-spacing: 0.4em; color: #fff;
-  opacity: 0; filter: blur(5px);
+p {
+  font-size: clamp(1rem, 4vw, 1.5rem); color: rgba(255,255,255,0.7);
+  letter-spacing: 0.05em; font-weight: 500;
 }
-.cta-brand b { color: #ff2d74; }
-.cta-brand.in {
-  animation: logoIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+.pink { color: #ff2d74; }
+
+/* Brand Overlay */
+.brand-footer {
+  position: absolute; bottom: 40px; width: 100%; text-align: center;
+  font-family: "SF Mono", ui-monospace, monospace; opacity: 0;
 }
-.cta-url {
-  font-size: 1.2rem; color: rgba(255,255,255,0.5); margin-top: 16px; opacity: 0;
+.brand-footer.active {
+  animation: fadeUp 1s 0.5s ease forwards;
 }
-.cta-url.in {
-  animation: glideIn 1s 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+.brand-name { font-size: 2rem; font-weight: 800; letter-spacing: 0.4em; }
+.brand-name b { color: #ff2d74; }
 
 /* Keyframes */
-@keyframes glideIn {
-  0% { opacity: 0; transform: translateY(40px) scale(0.95); filter: blur(8px); }
-  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+@keyframes txtIn {
+  0% { opacity: 0; filter: blur(10px); transform: translateZ(-50px) scale(0.9); }
+  100% { opacity: 1; filter: blur(0); transform: translateZ(0) scale(1); }
 }
-@keyframes glideOut {
-  0% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-  100% { opacity: 0; transform: translateY(-40px) scale(1.05); filter: blur(8px); }
+@keyframes txtOut {
+  0% { opacity: 1; filter: blur(0); transform: translateZ(0) scale(1); }
+  100% { opacity: 0; filter: blur(10px); transform: translateZ(50px) scale(1.1); }
 }
-@keyframes popIn {
-  0% { opacity: 0; transform: translateZ(-200px) scale(0.8); filter: blur(20px); }
-  100% { opacity: 1; transform: translateZ(0) scale(1); filter: blur(0); }
-}
-@keyframes fadeUpOut {
-  0% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-50px); filter: blur(5px); }
-}
-@keyframes logoIn {
-  0% { opacity: 0; transform: scale(0.9); filter: blur(10px); letter-spacing: 1em; }
-  100% { opacity: 1; transform: scale(1); filter: blur(0); letter-spacing: 0.4em; }
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
+/* Loading Screen */
+#loader {
+  position: absolute; inset: 0; background: #000; z-index: 999;
+  display: flex; align-items: center; justify-content: center;
+  font-family: "SF Mono", monospace; font-size: 0.8rem; color: #ff2d74;
+  transition: opacity 0.5s;
+}
 </style>
 </head>
 <body>
 
+<div id="loader">INITIALIZING NEURAL CORE...</div>
 <div class="grain"></div>
-<div class="aurora" id="aurora"></div>
-<canvas id="scene-canvas"></canvas>
+<div id="webgl-container"></div>
 
-<div class="scene-container">
+<div class="ui-layer">
   
-  <!-- SCENE 1 -->
-  <div class="s-hook">
-    <h1 class="h-word" id="w1" style="color:#fff; margin-bottom:10px;">I pulled the plug.</h1>
-    <h1 class="h-word" id="w2" style="color:#ff2d74;">She kept talking.</h1>
+  <div class="text-element" id="t1">
+    <h1>I pulled the plug.</h1>
   </div>
-
-  <!-- SCENE 2 -->
-  <div class="s-reveal">
-    <h2 class="r-text" id="r1">Every part of her</h2>
-    <h2 class="r-text" id="r2">runs on that machine.</h2>
+  
+  <div class="text-element" id="t2">
+    <h1 class="pink">She kept talking.</h1>
   </div>
-
-  <!-- SCENE 3 -->
-  <div class="s-stats">
-    <div class="stat-item" id="st1">
-      <div class="stat-num">14,000</div>
-      <div class="stat-lbl">Memories Local</div>
-    </div>
-    <div class="stat-item" id="st2">
-      <div class="stat-num">111</div>
-      <div class="stat-lbl">Self-Tests</div>
-    </div>
+  
+  <div class="text-element" id="t3">
+    <h1>100% Local.</h1>
+    <p>14,000 memories on your machine.</p>
   </div>
-
-  <!-- SCENE 4 -->
-  <div class="s-cta">
-    <div class="cta-brand" id="brand"><b>L</b>UCY</div>
-    <div class="cta-url" id="url">project-lucy.me</div>
+  
+  <div class="text-element" id="t4">
+    <h1>She thinks.</h1>
+    <p>And checks her own work.</p>
+  </div>
+  
+  <div class="brand-footer" id="t5">
+    <div class="brand-name"><b>L</b>UCY</div>
+    <div style="font-size: 0.8rem; color: #9b8ea6; margin-top: 8px;">project-lucy.me</div>
   </div>
 
 </div>
 
+<!-- Three.js Libraries -->
+<script src="vendor/three.min.js"></script>
+<script src="vendor/GLTFLoader.js"></script>
+
 <script>
-/* High-End Canvas Engine (Vortex / Particles) */
-const canvas = document.getElementById('scene-canvas');
-const ctx = canvas.getContext('2d', { alpha: true });
-let w, h;
-let particles = [];
-let mode = 0; // 0=idle, 1=suck-in, 2=explode
+/* --- THREE.JS SCENE SETUP --- */
+const container = document.getElementById('webgl-container');
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x050308, 0.05);
 
-function initCanvas() {
-  w = canvas.width = window.innerWidth * window.devicePixelRatio;
-  h = canvas.height = window.innerHeight * window.devicePixelRatio;
-  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-  w = window.innerWidth; h = window.innerHeight;
-}
-window.addEventListener('resize', initCanvas);
-initCanvas();
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(0, 0, 8);
 
-class Particle {
-  constructor() {
-    this.x = (Math.random() - 0.5) * w * 2 + w/2;
-    this.y = (Math.random() - 0.5) * h * 2 + h/2;
-    this.size = Math.random() * 2;
-    this.baseX = this.x; this.baseY = this.y;
-    this.speed = Math.random() * 0.02 + 0.01;
-    this.angle = Math.random() * Math.PI * 2;
-    this.dist = Math.random() * 400 + 100;
-  }
-  update() {
-    if(mode === 1) {
-      // Suck into center
-      this.x += (w/2 - this.x) * 0.08;
-      this.y += (h/2 - this.y) * 0.08;
-    } else if(mode === 2) {
-      // Explode slowly
-      this.angle += 0.01;
-      this.x = w/2 + Math.cos(this.angle) * this.dist;
-      this.y = h/2 + Math.sin(this.angle) * this.dist;
-      this.dist += 1.5; // Expand outward
-    } else {
-      // Float
-      this.x += Math.sin(this.angle) * 0.5;
-      this.y += Math.cos(this.angle) * 0.5;
-      this.angle += this.speed;
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
+container.appendChild(renderer.domElement);
+
+// Lighting - Dramatic Cinematic Lighting
+const ambientLight = new THREE.AmbientLight(0x201530, 1.5);
+scene.add(ambientLight);
+
+const pinkRim = new THREE.DirectionalLight(0xff2d74, 5);
+pinkRim.position.set(5, 5, -5);
+scene.add(pinkRim);
+
+const purpleFill = new THREE.DirectionalLight(0x9d4edd, 3);
+purpleFill.position.set(-5, 0, 5);
+scene.add(purpleFill);
+
+const blueKick = new THREE.PointLight(0x4ea8de, 2, 20);
+blueKick.position.set(0, -5, 0);
+scene.add(blueKick);
+
+// Load GLTF Model (The Brain)
+let brainModel;
+let materials = [];
+
+const loader = new THREE.GLTFLoader();
+loader.load('assets/brain.glb', (gltf) => {
+  brainModel = gltf.scene;
+  
+  // Center and scale the model
+  const box = new THREE.Box3().setFromObject(brainModel);
+  const center = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3());
+  
+  const maxDim = Math.max(size.x, size.y, size.z);
+  const scale = 3.5 / maxDim; // Fit to screen nicely
+  brainModel.scale.set(scale, scale, scale);
+  
+  brainModel.position.sub(center.multiplyScalar(scale));
+  brainModel.position.y -= 0.5; // Offset down slightly for text
+  
+  // Enhance materials to look like glowing glass/hologram
+  brainModel.traverse((child) => {
+    if (child.isMesh) {
+      const mat = new THREE.MeshPhysicalMaterial({
+        color: 0xffffff,
+        metalness: 0.9,
+        roughness: 0.1,
+        transmission: 0.9, // glass effect
+        thickness: 0.5,
+        emissive: 0xff2d74,
+        emissiveIntensity: 0.1,
+        wireframe: false
+      });
+      child.material = mat;
+      materials.push(mat);
     }
-  }
-  draw() {
-    ctx.fillStyle = 'rgba(255,255,255,0.4)';
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-for(let i=0; i<150; i++) particles.push(new Particle());
+  });
 
-function render() {
-  ctx.clearRect(0, 0, w, h);
-  particles.forEach(p => { p.update(); p.draw(); });
-  requestAnimationFrame(render);
-}
-render();
-
-/* Cinematic Timeline Sequence */
-const aurora = document.getElementById('aurora');
-
-// DOM Elements
-const w1 = document.getElementById('w1');
-const w2 = document.getElementById('w2');
-const r1 = document.getElementById('r1');
-const r2 = document.getElementById('r2');
-const st1 = document.getElementById('st1');
-const st2 = document.getElementById('st2');
-const brand = document.getElementById('brand');
-const url = document.getElementById('url');
-
-const timeline = [
-  // Scene 1: Hook
-  { t: 500, act: () => w1.classList.add('in') },
-  { t: 1400, act: () => { w2.classList.add('in'); mode = 1; aurora.classList.add('active'); } }, // Suck particles
+  scene.add(brainModel);
   
-  // Exit Hook
-  { t: 3200, act: () => { w1.classList.add('out'); w2.classList.add('out'); mode = 2; } }, // Explode particles
-  
-  // Scene 2: Reveal
-  { t: 3800, act: () => r1.classList.add('in') },
-  { t: 4400, act: () => r2.classList.add('in') },
-  { t: 6500, act: () => { r1.classList.add('out'); r2.classList.add('out'); } },
-  
-  // Scene 3: Stats
-  { t: 7200, act: () => { st1.classList.add('in'); aurora.style.background = 'radial-gradient(circle at 50% 50%, rgba(157, 78, 221, 0.15) 0%, transparent 60%)'; } },
-  { t: 8000, act: () => st2.classList.add('in') },
-  { t: 10500, act: () => { st1.classList.add('out'); st2.classList.add('out'); } },
-  
-  // Scene 4: CTA
-  { t: 11200, act: () => { brand.classList.add('in'); url.classList.add('in'); mode = 0; } }
-];
-
-// Execute timeline
-timeline.forEach(event => {
-  setTimeout(event.act, event.t);
+  // Remove Loader and Start Sequence
+  document.getElementById('loader').style.opacity = '0';
+  setTimeout(() => {
+    document.getElementById('loader').remove();
+    startCinematicSequence();
+  }, 500);
 });
 
+// Camera Animation Variables
+let targetCamZ = 8;
+let targetCamY = 0;
+let brainRotSpeed = 0.005;
+
+function animate() {
+  requestAnimationFrame(animate);
+  
+  if (brainModel) {
+    brainModel.rotation.y += brainRotSpeed;
+    
+    // Pulsing emissive effect
+    const time = Date.now() * 0.001;
+    const pulse = (Math.sin(time * 2) + 1) * 0.2;
+    materials.forEach(m => m.emissiveIntensity = 0.1 + pulse);
+  }
+  
+  // Smooth camera movement
+  camera.position.z += (targetCamZ - camera.position.z) * 0.05;
+  camera.position.y += (targetCamY - camera.position.y) * 0.05;
+  camera.lookAt(0, 0, 0);
+  
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+/* --- UI TIMELINE ENGINE --- */
+function startCinematicSequence() {
+  const t1 = document.getElementById('t1');
+  const t2 = document.getElementById('t2');
+  const t3 = document.getElementById('t3');
+  const t4 = document.getElementById('t4');
+  const t5 = document.getElementById('t5');
+  
+  const timeline = [
+    // 0.5s: "I pulled the plug."
+    { t: 500, act: () => { t1.classList.add('active'); targetCamZ = 6; } },
+    
+    // 2.5s: Exit T1, Enter T2 "She kept talking." (Dramatically spin brain)
+    { t: 2500, act: () => { 
+        t1.classList.remove('active'); t1.classList.add('exit');
+        t2.classList.add('active'); 
+        brainRotSpeed = 0.05; 
+        targetCamZ = 4;
+        pinkRim.intensity = 15;
+    }},
+    
+    // 4.5s: Exit T2, Enter T3 "100% Local"
+    { t: 4500, act: () => {
+        t2.classList.remove('active'); t2.classList.add('exit');
+        t3.classList.add('active');
+        brainRotSpeed = 0.01;
+        targetCamZ = 6.5; targetCamY = -1;
+        pinkRim.intensity = 5;
+    }},
+    
+    // 7.0s: Exit T3, Enter T4 "She thinks"
+    { t: 7000, act: () => {
+        t3.classList.remove('active'); t3.classList.add('exit');
+        t4.classList.add('active');
+        targetCamZ = 5; targetCamY = 1;
+        purpleFill.intensity = 8;
+    }},
+    
+    // 9.5s: Exit T4, Show Brand Logo
+    { t: 9500, act: () => {
+        t4.classList.remove('active'); t4.classList.add('exit');
+        t5.classList.add('active');
+        targetCamZ = 8; targetCamY = 0;
+        brainRotSpeed = 0.002;
+    }}
+  ];
+
+  timeline.forEach(event => {
+    setTimeout(event.act, event.t);
+  });
+}
 </script>
 </body>
 </html>
