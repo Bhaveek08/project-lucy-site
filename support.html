@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Support — L.U.C.Y</title>
+<meta name="description" content="Follow Lucy on Instagram, Twitch, YouTube, and GitHub. Join the Discord server. Support the project via Razorpay.">
+<meta name="theme-color" content="#000000">
+<!-- CSP relaxed to allow Razorpay Checkout -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://cdn.razorpay.com; connect-src 'self' https://api.razorpay.com; frame-src https://api.razorpay.com https://checkout.razorpay.com; form-action 'none'; base-uri 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html" id="logo">L.U.C.Y</a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html" id="nav-home">Home</a>
+      <a href="changelog.html" id="nav-changelog">Changelog</a>
+      <a href="support.html" class="active" id="nav-support">Support</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow reveal in">Support</span>
+    <h1 class="reveal in" style="transition-delay:0.08s">Follow. Join. Support.</h1>
+    <p class="reveal in" style="transition-delay:0.16s">
+      Stay connected with Lucy across all platforms. Join the community, watch the streams, and if you'd like — help keep her running.
+    </p>
+  </div>
+</section>
+
+<!-- SOCIAL LINKS -->
+<section style="padding-top: 0;">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="section-label">Find Lucy</span>
+      <h2 class="section-title">Follow &amp; Connect</h2>
+    </div>
+
+    <div class="social-cards">
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/de.lu.lucy/" target="_blank" rel="noopener noreferrer"
+         class="social-card reveal" id="social-instagram" style="transition-delay:0.04s">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+        <span class="social-card-name">Instagram</span>
+        <span class="social-card-handle">@de.lu.lucy</span>
+      </a>
+
+      <!-- Twitch -->
+      <a href="https://www.twitch.tv/lucydoestwitch" target="_blank" rel="noopener noreferrer"
+         class="social-card reveal" id="social-twitch" style="transition-delay:0.08s">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path>
+        </svg>
+        <span class="social-card-name">Twitch</span>
+        <span class="social-card-handle">lucydoestwitch</span>
+      </a>
+
+      <!-- YouTube -->
+      <a href="https://www.youtube.com/@de-lu-lucy" target="_blank" rel="noopener noreferrer"
+         class="social-card reveal" id="social-youtube" style="transition-delay:0.12s">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+          <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+        </svg>
+        <span class="social-card-name">YouTube</span>
+        <span class="social-card-handle">@de-lu-lucy</span>
+      </a>
+
+      <!-- GitHub -->
+      <a href="https://github.com/lucy0107" target="_blank" rel="noopener noreferrer"
+         class="social-card reveal" id="social-github" style="transition-delay:0.16s">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </svg>
+        <span class="social-card-name">GitHub</span>
+        <span class="social-card-handle">lucy0107</span>
+      </a>
+
+      <!-- Discord -->
+      <a href="https://discord.gg/U9yv3KqdXH" target="_blank" rel="noopener noreferrer"
+         class="social-card discord reveal" id="social-discord" style="transition-delay:0.2s">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.054a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"></path>
+        </svg>
+        <span class="social-card-name">Discord</span>
+        <span class="social-card-handle">Join the Server</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- DONATE / SUPPORT -->
+<section style="padding-top:0; padding-bottom: clamp(80px,12vh,140px);">
+  <div class="wrap">
+    <div class="donate-section reveal">
+      <span class="section-label" style="display:block;margin-bottom:12px;">Contribute</span>
+      <h2>Support her compute.</h2>
+      <p>
+        Lucy runs on hardware paid entirely out of pocket. There is no subscription — and there never will be. Support is optional and goes directly to electricity and hardware costs that keep her awake.
+      </p>
+
+      <div class="donate-amounts">
+        <button class="donate-btn" onclick="initRazorpay(500)" id="donate-500" aria-label="Donate 500 rupees">
+          <span class="amt">₹500</span>
+          <span class="lbl">One day</span>
+        </button>
+        <button class="donate-btn" onclick="initRazorpay(1500)" id="donate-1500" aria-label="Donate 1500 rupees">
+          <span class="amt">₹1500</span>
+          <span class="lbl">One week</span>
+        </button>
+        <button class="donate-btn" onclick="initRazorpay(5000)" id="donate-5000" aria-label="Donate 5000 rupees">
+          <span class="amt">₹5000</span>
+          <span class="lbl">Upgrade memory</span>
+        </button>
+      </div>
+
+      <div class="custom-input-wrap">
+        <input type="number" id="custom-amt" class="custom-amount" placeholder="Custom amount (₹)" min="1" aria-label="Custom donation amount">
+        <button class="btn btn-primary" onclick="payCustom()" id="donate-custom-btn" style="white-space:nowrap">Support Now</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="foot-brand">
+        <a class="brand" href="index.html" aria-label="L.U.C.Y home">L.U.C.Y</a>
+        <p class="foot-copy">
+          A fully local AI companion.<br>
+          Built by <strong style="color:rgba(255,255,255,0.6)">Bhaveek Agrawal</strong>.
+        </p>
+      </div>
+
+      <div class="foot-socials">
+        <a href="https://www.instagram.com/de.lu.lucy/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="https://www.twitch.tv/lucydoestwitch" target="_blank" rel="noopener noreferrer" aria-label="Twitch">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path></svg>
+        </a>
+        <a href="https://www.youtube.com/@de-lu-lucy" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+        </a>
+        <a href="https://github.com/lucy0107" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        </a>
+        <a href="https://discord.gg/U9yv3KqdXH" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.054a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"></path></svg>
+        </a>
+      </div>
+
+      <div class="foot-links">
+        <a href="index.html" id="foot-home">Home</a>
+        <a href="changelog.html" id="foot-changelog">Changelog</a>
+        <a href="support.html" id="foot-support">Support</a>
+        <a href="privacy.html" id="foot-privacy">Privacy Policy</a>
+        <a href="terms.html" id="foot-terms">Terms &amp; Conditions</a>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <p class="foot-bottom-copy">© 2026 Bhaveek Agrawal. All rights reserved.</p>
+      <div class="foot-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  var RZP_KEY = "rzp_live_TRygI1mpQBOGS0";
+
+  function initRazorpay(amountINR) {
+    if (!amountINR || amountINR < 1) {
+      alert("Please enter a valid amount.");
+      return;
+    }
+    var options = {
+      key: RZP_KEY,
+      amount: amountINR * 100,
+      currency: "INR",
+      name: "L.U.C.Y",
+      description: "Support Compute Costs",
+      theme: { color: "#ff2d74" }
+    };
+    var rzp = new Razorpay(options);
+    rzp.open();
+  }
+
+  function payCustom() {
+    var amt = parseInt(document.getElementById("custom-amt").value, 10);
+    initRazorpay(amt);
+  }
+</script>
+</body>
+</html>

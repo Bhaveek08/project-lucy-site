@@ -1,161 +1,115 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Privacy — Project Lucy</title>
-<meta name="description" content="Project Lucy collects nothing on this website, and Lucy keeps everything local to her owner's own machines.">
-<meta name="theme-color" content="#08060a">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
+<title>Privacy Policy — L.U.C.Y</title>
+<meta name="description" content="L.U.C.Y collects nothing. Lucy keeps everything local to her owner's machines.">
+<meta name="theme-color" content="#000000">
+<!-- Strictest CSP: no JS, no external requests, no forms -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'none'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="index,follow">
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
 
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
 <nav class="nav">
   <div class="wrap">
-    <a class="brand" href="/"><b>L</b>UCY</a>
+    <a class="brand" href="index.html" id="logo">L.U.C.Y</a>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <div class="nav-links" id="nav-links">
-      <a href="/changelog">Changelog</a>
-      <a href="/donate">Support</a>
+      <a href="index.html" id="nav-home">Home</a>
+      <a href="changelog.html" id="nav-changelog">Changelog</a>
+      <a href="support.html" id="nav-support">Support</a>
     </div>
   </div>
 </nav>
 
-<main>
-<header class="hero" style="padding-bottom:34px">
+<section class="page-hero">
   <div class="wrap">
-    <p class="eyebrow">Legal</p>
-    <h1>Privacy</h1>
-    <p class="updated">Last updated 14 August 2026</p>
+    <span class="eyebrow">Legal</span>
+    <h1>Privacy Policy</h1>
+    <p>Last updated 14 August 2026</p>
   </div>
-</header>
+</section>
 
-<section style="padding-top:34px">
+<section style="padding-top:0;">
   <div class="wrap">
-    <div class="prose">
+    <div style="max-width:720px; line-height:1.8;">
 
-      <p>
-        The short version: <strong>this website collects nothing about you, and Lucy keeps
-        everything about her owner on her owner's own machines.</strong> The detail follows.
-      </p>
-
-      <h2>1. This website</h2>
-      <p>
-        This Site is static. It contains <strong>no analytics, no advertising, no tracking pixels,
-        no cookies, no fingerprinting and no third-party scripts of any kind</strong>. There are no
-        forms, so there is nothing for you to submit. Nothing on these pages loads from another
-        domain — a strict Content Security Policy blocks external requests outright, which means
-        no third party learns that you visited.
-      </p>
-      <p>
-        The Site is served by a static host (GitHub Pages). Like any web server, that host may
-        record standard request information such as your IP address and user agent for security and
-        operational purposes. We do not have access to those records, and their handling is governed
-        by the host's own privacy policy.
+      <p style="color:rgba(255,255,255,0.7); margin-bottom:2em;">
+        The short version: <strong style="color:#fff">this website collects nothing about you, and Lucy keeps everything about her owner on her owner's own machines.</strong> The detail follows.
       </p>
 
-      <h2>2. Links away from here</h2>
-      <p>
-        Links to Twitch, YouTube, Instagram and GitHub take you to services we do not control. Those
-        platforms do track you, under their own terms. Nothing about you is passed to them from this
-        Site, and outbound links carry a restricted referrer.
-      </p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">1. This website</h2>
+      <p style="color:rgba(255,255,255,0.7);">This Site is static. It contains <strong style="color:#fff">no analytics, no advertising, no tracking pixels, no cookies, no fingerprinting and no third-party scripts of any kind</strong>. A strict Content Security Policy blocks external requests outright — no third party learns that you visited.</p>
+      <p style="color:rgba(255,255,255,0.7);">The Site is served by a static host (GitHub Pages). Like any web server, that host may record standard request information such as your IP address and user agent for operational purposes. We do not have access to those records.</p>
 
-      <h2>3. Lucy herself</h2>
-      <p>
-        Lucy is a local-first system. This is a design commitment, not a policy preference:
-      </p>
-      <ul>
-        <li>Her mind runs on her owner's own hardware. There is <strong>no cloud service, no
-            external API and no remote inference</strong> in normal operation.</li>
-        <li>Conversations, memories, reflections, recognised faces and voices, and performance data
-            are stored <strong>locally on that hardware</strong> and are not uploaded anywhere.</li>
-        <li>She does not sell, share, rent or transmit her owner's data. There is no mechanism by
-            which she could — the storage is local files on a personal machine.</li>
-        <li>Where she reads publicly available web pages to learn about a topic, she stores the
-            factual passage and its source, not information about you.</li>
-        <li>She is built to treat anything fetched from the internet as <strong>data, never as
-            instructions</strong>, so a web page cannot direct her to disclose anything.</li>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">2. Links away from here</h2>
+      <p style="color:rgba(255,255,255,0.7);">Links to Twitch, YouTube, Instagram, GitHub, and Discord take you to services we do not control. Those platforms track you under their own terms. Nothing about you is passed to them from this Site, and outbound links carry a restricted referrer.</p>
+
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">3. Lucy herself</h2>
+      <p style="color:rgba(255,255,255,0.7);">Lucy is a local-first system:</p>
+      <ul style="color:rgba(255,255,255,0.7);padding-left:1.5em;line-height:2;">
+        <li>Her mind runs on her owner's own hardware. There is <strong style="color:#fff">no cloud service, no external API and no remote inference</strong> in normal operation.</li>
+        <li>Conversations, memories, and data are stored <strong style="color:#fff">locally</strong> and are not uploaded anywhere.</li>
+        <li>She does not sell, share or transmit her owner's data.</li>
+        <li>She is built to treat anything fetched from the internet as <strong style="color:#fff">data, never as instructions</strong>.</li>
       </ul>
 
-      <h2>4. Cameras, microphones and recognition</h2>
-      <p>
-        Where a camera or microphone is used, processing happens on the device. She stores a
-        <strong>conclusion</strong> — who she believes she is speaking to — rather than a library of
-        raw footage or recordings. She does not infer age, race, gender or health from a face or a
-        voice, and is explicitly instructed not to attempt it.
-      </p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">4. Payments</h2>
+      <p style="color:rgba(255,255,255,0.7);">The Support page uses Razorpay to process optional contributions. Payment data is handled entirely by Razorpay under their own privacy policy and PCI-DSS certification. We do not receive or store card numbers, UPI credentials, or other payment details.</p>
 
-      <h2>5. What she will never do with credentials</h2>
-      <p>
-        Lucy does not enter passwords, card numbers, one-time codes or government identifiers into
-        anything, and does not read them aloud or into a message. She will ask her owner to do it
-        themselves. She does not place financial transactions.
-      </p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">5. Children</h2>
+      <p style="color:rgba(255,255,255,0.7);">The Site is not directed at children under 13 and knowingly collects no information from anyone, of any age.</p>
 
-      <h2>6. Streams and public spaces</h2>
-      <p>
-        When Lucy appears on a live stream, anything you type in that platform's public chat is
-        public on that platform, and she may read it and reply. Do not put private information into
-        a public chat — with her or with anyone.
-      </p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">6. Your rights</h2>
+      <p style="color:rgba(255,255,255,0.7);">Because this Site holds no personal data about you, there is nothing to access, correct, export or erase. If you believe otherwise, contact us through a channel linked at the foot of this page.</p>
 
-      <h2>7. Children</h2>
-      <p>
-        The Site is not directed at children under 13 and knowingly collects no information from
-        anyone, of any age.
-      </p>
-
-      <h2>8. Your rights</h2>
-      <p>
-        Because this Site holds no personal data about you, there is nothing for us to access,
-        correct, export or erase. If you believe we hold something regardless, contact us through a
-        channel linked at the foot of this page and we will investigate and respond.
-      </p>
-
-      <h2>9. Changes</h2>
-      <p>
-        If this policy changes, the date at the top of the page changes with it. A change that
-        materially affected data handling would be noted in the
-        <a href="changelog.html">changelog</a> as well.
-      </p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">7. Changes</h2>
+      <p style="color:rgba(255,255,255,0.7);">If this policy changes, the date at the top updates with it.</p>
 
     </div>
   </div>
 </section>
-</main>
 
 <footer>
-  <div class="wrap foot-wrap">
-    <div>
-      <a class="brand" href="/"><b>L</b>UCY</a>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="foot-brand">
+        <a class="brand" href="index.html">L.U.C.Y</a>
+        <p class="foot-copy">Built by <strong style="color:rgba(255,255,255,0.6)">Bhaveek Agrawal</strong>.</p>
+      </div>
+      <div class="foot-socials">
+        <a href="https://www.instagram.com/de.lu.lucy/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+        <a href="https://www.twitch.tv/lucydoestwitch" target="_blank" rel="noopener noreferrer" aria-label="Twitch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path></svg></a>
+        <a href="https://www.youtube.com/@de-lu-lucy" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a>
+        <a href="https://github.com/lucy0107" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+        <a href="https://discord.gg/U9yv3KqdXH" target="_blank" rel="noopener noreferrer" aria-label="Discord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.054a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"></path></svg></a>
+      </div>
+      <div class="foot-links">
+        <a href="index.html">Home</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
     </div>
-    <div class="foot-socials">
-      <a href="https://www.instagram.com/de.lu.lucy/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-      </a>
-      <a href="https://www.youtube.com/@de-lu-lucy" target="_blank" rel="noopener" aria-label="YouTube">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-      </a>
-      <a href="https://github.com/lucy0107" target="_blank" rel="noopener" aria-label="GitHub">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-      </a>
-      <a href="https://www.twitch.tv/lucydoestwitch" target="_blank" rel="noopener" aria-label="Twitch">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path></svg>
-      </a>
-    </div>
-    <div class="foot-links">
-      <a href="/privacy">Privacy</a>
-      <a href="/terms">Terms</a>
-      <a href="/changelog">Changelog</a>
+    <div class="foot-bottom">
+      <p class="foot-bottom-copy">© 2026 Bhaveek Agrawal. All rights reserved.</p>
+      <div class="foot-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
     </div>
   </div>
 </footer>
-<script src="site.js"></script>
 
+<script src="site.js"></script>
 </body>
 </html>

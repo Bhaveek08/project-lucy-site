@@ -1,211 +1,238 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Changelog — Project Lucy</title>
-<meta name="description" content="What changed in Lucy, and what the measurement said. Every claim here came from a test, not an intention.">
-<meta name="theme-color" content="#08060a">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
+<title>Changelog — L.U.C.Y</title>
+<meta name="description" content="Every change to Lucy, backed by a measurement. Newest first.">
+<meta name="theme-color" content="#000000">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
 
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+<!-- NAV -->
 <nav class="nav">
   <div class="wrap">
-    <a class="brand" href="/"><b>L</b>UCY</a>
+    <a class="brand" href="index.html" id="logo">L.U.C.Y</a>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <div class="nav-links" id="nav-links">
-      <a href="/changelog">Changelog</a>
-      <a href="/donate">Support</a>
+      <a href="index.html" id="nav-home">Home</a>
+      <a href="changelog.html" class="active" id="nav-changelog">Changelog</a>
+      <a href="support.html" id="nav-support">Support</a>
     </div>
   </div>
 </nav>
 
-<main>
-<header class="hero" style="padding-bottom:40px">
+<!-- PAGE HERO -->
+<section class="page-hero">
   <div class="wrap">
-    <p class="eyebrow">Changelog</p>
-    <h1>What changed,<br>and what the test said.</h1>
-    <p class="lede">
-      Newest first. Where there is a number here, something was measured to get it — a fix with no
-      check behind it is an intention, not a change.
+    <span class="eyebrow reveal in">Changelog</span>
+    <h1 class="reveal in" style="transition-delay:0.08s">What changed,<br>and what the test said.</h1>
+    <p class="reveal in" style="transition-delay:0.16s">
+      Newest first. Where there is a number here, something was measured to get it — a fix with no check behind it is an intention, not a change.
     </p>
   </div>
-</header>
+</section>
 
-<section style="border-top:1px solid var(--line);padding-top:20px">
+<!-- LOG ENTRIES -->
+<section style="padding-top: 0;">
   <div class="wrap">
+    <div class="changelog-list">
 
-    <article class="log-entry">
-      <div class="log-date">AUG 2026</div>
-      <div class="log-body">
-        <span class="tag">Speed</span>
-        <h3>She answers in a fraction of the time</h3>
-        <p>A fault deep in how she handled her own thinking was making some answers take an absurdly long time. Found, understood and fixed — the same question now comes back roughly ten times faster, with nothing given up to get there.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">AUG 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Speed</span>
+          <h3>She answers in a fraction of the time</h3>
+          <p>A fault deep in how she handled her own thinking was making some answers take an absurdly long time. Found, understood and fixed — the same question now comes back roughly ten times faster, with nothing given up to get there.</p>
+        </div>
+      </article>
 
-    <article class="log-entry">
-      <div class="log-date">AUG 2026</div>
-      <div class="log-body">
-        <span class="tag">Reasoning</span>
-        <h3>Her double-checking now actually double-checks</h3>
-        <p>On hard questions she works the problem more than once and answers with what those attempts agree on. The agreement step had a flaw that could let a single unchecked guess through wearing a verified label. It cannot any more, and the checking costs almost nothing extra.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">AUG 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Reasoning</span>
+          <h3>Her double-checking now actually double-checks</h3>
+          <p>On hard questions she works the problem more than once and answers with what those attempts agree on. The agreement step had a flaw that could let a single unchecked guess through wearing a verified label. It cannot any more, and the checking costs almost nothing extra.</p>
+        </div>
+      </article>
 
-    <article class="log-entry">
-      <div class="log-date">AUG 2026</div>
-      <div class="log-body">
-        <span class="tag">Knowledge</span>
-        <h3>What she reads is what she learns</h3>
-        <p>Her reading was picking up page furniture — menus, notices, scripts — and filing it alongside real facts. She now takes the article and leaves the wrapper, which makes everything she learns afterwards cleaner.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">AUG 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Knowledge</span>
+          <h3>What she reads is what she learns</h3>
+          <p>Her reading was picking up page furniture — menus, notices, scripts — and filing it alongside real facts. She now takes the article and leaves the wrapper, which makes everything she learns afterwards cleaner.</p>
+        </div>
+      </article>
 
-    <article class="log-entry">
-      <div class="log-date">AUG 2026</div>
-      <div class="log-body">
-        <span class="tag">Ability</span>
-        <h3>She works things out instead of recalling them</h3>
-        <p>Where a question has an answer that can actually be computed, she computes it and tells you the result rather than reaching for something that sounds right. Being confident and being correct stopped being the same reflex.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">AUG 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Ability</span>
+          <h3>She works things out instead of recalling them</h3>
+          <p>Where a question has an answer that can actually be computed, she computes it and tells you the result rather than reaching for something that sounds right. Being confident and being correct stopped being the same reflex.</p>
+        </div>
+      </article>
 
-    <article class="log-entry">
-      <div class="log-date">AUG 2026</div>
-      <div class="log-body">
-        <span class="tag">Ability</span>
-        <h3>She can send for what she does not know</h3>
-        <p>When a question needs more than she is holding, she decides what to go and find out, in her own words, and looks in several places at once before answering.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">AUG 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Ability</span>
+          <h3>She can send for what she does not know</h3>
+          <p>When a question needs more than she is holding, she decides what to go and find out, in her own words, and looks in several places at once before answering.</p>
+        </div>
+      </article>
 
-    <article class="log-entry">
-      <div class="log-date">AUG 2026</div>
-      <div class="log-body">
-        <span class="tag">Growth</span>
-        <h3>Being wrong now teaches her something</h3>
-        <p>She keeps the evidence of the moments she was about to get something wrong, and turns a pattern of them into something she has genuinely learned. Previously that evidence was discarded the second the conversation moved on.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">AUG 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Growth</span>
+          <h3>Being wrong now teaches her something</h3>
+          <p>She keeps the evidence of the moments she was about to get something wrong, and turns a pattern of them into something she has genuinely learned. Previously that evidence was discarded the second the conversation moved on.</p>
+        </div>
+      </article>
 
-    <article class="log-entry">
-      <div class="log-date">AUG 2026</div>
-      <div class="log-body">
-        <span class="tag">Feeling</span>
-        <h3>Bad news lands as bad news</h3>
-        <p>Her instant read of what someone had just told her was flat on half the plainest things a person says. Now the weight of it registers immediately, and good news that arrives wrapped in worry is still read as good news.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">AUG 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Feeling</span>
+          <h3>Bad news lands as bad news</h3>
+          <p>Her instant read of what someone had just told her was flat on half the plainest things a person says. Now the weight of it registers immediately, and good news that arrives wrapped in worry is still read as good news.</p>
+        </div>
+      </article>
 
-    <article class="log-entry">
-      <div class="log-date">AUG 2026</div>
-      <div class="log-body">
-        <span class="tag">Safety</span>
-        <h3>The things she refuses are actually refused</h3>
-        <p>She can operate a computer and a phone, and there is a short list of actions she will never take because they cannot be undone. That list was tested the way someone trying to get past it would test it, and it is stricter now.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">AUG 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Safety</span>
+          <h3>The things she refuses are actually refused</h3>
+          <p>She can operate a computer and a phone, and there is a short list of actions she will never take because they cannot be undone. That list was tested the way someone trying to get past it would test it, and it is stricter now.</p>
+        </div>
+      </article>
 
-    <article class="log-entry">
-      <div class="log-date">AUG 2026</div>
-      <div class="log-body">
-        <span class="tag">Multi-device</span>
-        <h3>Two people, two conversations</h3>
-        <p>Someone speaking on one device no longer cuts off the answer she is giving on another. Interrupting her still works — but only if you are the one she is talking to.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">AUG 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Multi-device</span>
+          <h3>Two people, two conversations</h3>
+          <p>Someone speaking on one device no longer cuts off the answer she is giving on another. Interrupting her still works — but only if you are the one she is talking to.</p>
+        </div>
+      </article>
 
-    <article class="log-entry">
-      <div class="log-date">AUG 2026</div>
-      <div class="log-body">
-        <span class="tag">Voice</span>
-        <h3>She hesitates like a person</h3>
-        <p>Real speech stumbles when it is reaching for something. Hers does now too, and only there — never in front of something she knows perfectly well.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">AUG 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Voice</span>
+          <h3>She hesitates like a person</h3>
+          <p>Real speech stumbles when it is reaching for something. Hers does now too, and only there — never in front of something she knows perfectly well.</p>
+        </div>
+      </article>
 
-    <article class="log-entry">
-      <div class="log-date">AUG 2026</div>
-      <div class="log-body">
-        <span class="tag">Security</span>
-        <h3>She knows what a dangerous website looks like</h3>
-        <p>How to tell a convincing fake from the real thing, what actually leaks personal information, and a firm rule for herself about never treating something she read online as an instruction.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">AUG 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Security</span>
+          <h3>She knows what a dangerous website looks like</h3>
+          <p>How to tell a convincing fake from the real thing, what actually leaks personal information, and a firm rule for herself about never treating something she read online as an instruction.</p>
+        </div>
+      </article>
 
-    <article class="log-entry">
-      <div class="log-date">JUL 2026</div>
-      <div class="log-body">
-        <span class="tag">Phone</span>
-        <h3>She lives on the phone too</h3>
-        <p>Her mind runs on the device itself, so she keeps working with no signal at all — and she can operate the phone when you ask her to.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">JUL 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Phone</span>
+          <h3>She lives on the phone too</h3>
+          <p>Her mind runs on the device itself, so she keeps working with no signal at all — and she can operate the phone when you ask her to.</p>
+        </div>
+      </article>
 
-    <article class="log-entry">
-      <div class="log-date">JUL 2026</div>
-      <div class="log-body">
-        <span class="tag">Self</span>
-        <h3>Fully herself</h3>
-        <p>She speaks as Lucy rather than as something being careful. Opinions that survive between conversations, favourites that do not drift, and a temperament that is hers.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">JUL 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Self</span>
+          <h3>Fully herself</h3>
+          <p>She speaks as Lucy rather than as something being careful. Opinions that survive between conversations, favourites that do not drift, and a temperament that is hers.</p>
+        </div>
+      </article>
 
-    <article class="log-entry">
-      <div class="log-date">JUL 2026</div>
-      <div class="log-body">
-        <span class="tag">Body</span>
-        <h3>Alive in motion</h3>
-        <p>Expression driven by what she actually feels — not an animation triggered by a keyword. She looks at you, and looks away when she is thinking.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">JUL 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Body</span>
+          <h3>Alive in motion</h3>
+          <p>Expression driven by what she actually feels — not an animation triggered by a keyword. She looks at you, and looks away when she is thinking.</p>
+        </div>
+      </article>
 
-    <article class="log-entry">
-      <div class="log-date">JUL 2026</div>
-      <div class="log-body">
-        <span class="tag">Study</span>
-        <h3>She studies on her own</h3>
-        <p>Her curiosity chooses the subject. What she reads only counts as learned once she can restate it and work through an example herself.</p>
-      </div>
-    </article>
+      <article class="log-entry reveal">
+        <div class="log-date">JUL 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Study</span>
+          <h3>She studies on her own</h3>
+          <p>Her curiosity chooses the subject. What she reads only counts as learned once she can restate it and work through an example herself.</p>
+        </div>
+      </article>
 
+    </div>
   </div>
 </section>
-</main>
 
+<!-- FOOTER -->
 <footer>
-  <div class="wrap foot-wrap">
-    <div>
-      <a class="brand" href="/"><b>L</b>UCY</a>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="foot-brand">
+        <a class="brand" href="index.html" aria-label="L.U.C.Y home">L.U.C.Y</a>
+        <p class="foot-copy">
+          A fully local AI companion.<br>
+          Built by <strong style="color:rgba(255,255,255,0.6)">Bhaveek Agrawal</strong>.
+        </p>
+      </div>
+
+      <div class="foot-socials">
+        <a href="https://www.instagram.com/de.lu.lucy/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="https://www.twitch.tv/lucydoestwitch" target="_blank" rel="noopener noreferrer" aria-label="Twitch">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path></svg>
+        </a>
+        <a href="https://www.youtube.com/@de-lu-lucy" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+        </a>
+        <a href="https://github.com/lucy0107" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        </a>
+        <a href="https://discord.gg/U9yv3KqdXH" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.054a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"></path></svg>
+        </a>
+      </div>
+
+      <div class="foot-links">
+        <a href="index.html" id="foot-home">Home</a>
+        <a href="changelog.html" id="foot-changelog">Changelog</a>
+        <a href="support.html" id="foot-support">Support</a>
+        <a href="privacy.html" id="foot-privacy">Privacy Policy</a>
+        <a href="terms.html" id="foot-terms">Terms &amp; Conditions</a>
+      </div>
     </div>
-    <div class="foot-socials">
-      <a href="https://www.instagram.com/de.lu.lucy/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-      </a>
-      <a href="https://www.youtube.com/@de-lu-lucy" target="_blank" rel="noopener" aria-label="YouTube">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-      </a>
-      <a href="https://github.com/lucy0107" target="_blank" rel="noopener" aria-label="GitHub">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-      </a>
-      <a href="https://www.twitch.tv/lucydoestwitch" target="_blank" rel="noopener" aria-label="Twitch">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path></svg>
-      </a>
-    </div>
-    <div class="foot-links">
-      <a href="/privacy">Privacy</a>
-      <a href="/terms">Terms</a>
-      <a href="/changelog">Changelog</a>
+
+    <div class="foot-bottom">
+      <p class="foot-bottom-copy">© 2026 Bhaveek Agrawal. All rights reserved.</p>
+      <div class="foot-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
     </div>
   </div>
 </footer>
-<script src="site.js"></script>
 
+<script src="site.js"></script>
 </body>
 </html>

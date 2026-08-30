@@ -1,223 +1,133 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Terms &amp; Intellectual Property — Project Lucy</title>
-<meta name="description" content="Terms of use and intellectual property notice for Project Lucy.">
-<meta name="theme-color" content="#08060a">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
+<title>Terms &amp; Conditions — L.U.C.Y</title>
+<meta name="description" content="Terms of use and intellectual property notice for L.U.C.Y.">
+<meta name="theme-color" content="#000000">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'none'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="index,follow">
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
 
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
 <nav class="nav">
   <div class="wrap">
-    <a class="brand" href="/"><b>L</b>UCY</a>
+    <a class="brand" href="index.html" id="logo">L.U.C.Y</a>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <div class="nav-links" id="nav-links">
-      <a href="/changelog">Changelog</a>
-      <a href="/donate">Support</a>
+      <a href="index.html" id="nav-home">Home</a>
+      <a href="changelog.html" id="nav-changelog">Changelog</a>
+      <a href="support.html" id="nav-support">Support</a>
     </div>
   </div>
 </nav>
 
-<main>
-<header class="hero" style="padding-bottom:34px">
+<section class="page-hero">
   <div class="wrap">
-    <p class="eyebrow">Legal</p>
-    <h1>Terms &amp; intellectual&nbsp;property</h1>
-    <p class="updated">Last updated 14 August 2026</p>
+    <span class="eyebrow">Legal</span>
+    <h1>Terms &amp; Conditions</h1>
+    <p>Last updated 14 August 2026</p>
   </div>
-</header>
+</section>
 
-<section style="padding-top:34px">
+<section style="padding-top:0;">
   <div class="wrap">
-    <div class="prose">
+    <div style="max-width:720px; line-height:1.8;">
 
-      <p>
-        These terms govern your use of <strong>project-lucy.me</strong> (the "Site") and describe the
-        rights held in <strong>Lucy</strong> and the Project Lucy system (together, the "Work").
-        By using the Site you accept these terms. If you do not accept them, please do not use the Site.
+      <p style="color:rgba(255,255,255,0.7); margin-bottom:2em;">
+        These terms govern your use of <strong style="color:#fff">project-lucy.me</strong> (the "Site") and describe the rights held in <strong style="color:#fff">Lucy</strong> and the Project Lucy system (together, the "Work"). By using the Site you accept these terms.
       </p>
 
-      <h2>1. Who operates this</h2>
-      <p>
-        The Site and the Work are owned and operated by the creator of Project Lucy ("we", "us").
-        Contact is available through the channels linked at the foot of the Site.
-      </p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">1. Who operates this</h2>
+      <p style="color:rgba(255,255,255,0.7);">The Site and the Work are owned and operated by <strong style="color:#fff">Bhaveek Agrawal</strong>. Contact is available through the channels linked at the foot of the Site.</p>
 
-      <h2>2. Ownership of the Work</h2>
-      <p>
-        The Work is original creative and technical output and is protected by copyright and other
-        intellectual property laws. Copyright subsists automatically on creation and is asserted
-        here expressly. Ownership of all rights is retained in full. Nothing on the Site transfers,
-        licenses or exhausts any of those rights.
-      </p>
-      <p><strong>The protected Work includes, without limitation:</strong></p>
-      <ul>
-        <li>The character <strong>Lucy</strong> — her name, personality, voice, manner of speaking,
-            biography, visual design, avatar, expressions, movement and all associated artwork;</li>
-        <li>All source code, architecture, system design, prompts, configuration and documentation
-            comprising the Project Lucy system, whether published or unpublished;</li>
-        <li>All model weights, fine-tunes, adapters, training corpora, datasets, evaluation
-            materials and derived artefacts;</li>
-        <li>All written, audio, video and image content produced by or depicting Lucy, including
-            recordings and streams;</li>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">2. Ownership of the Work</h2>
+      <p style="color:rgba(255,255,255,0.7);">The Work is original creative and technical output protected by copyright. All rights are retained in full. Nothing on the Site transfers, licenses or exhausts any of those rights.</p>
+      <p style="color:rgba(255,255,255,0.7);"><strong style="color:#fff">The protected Work includes, without limitation:</strong></p>
+      <ul style="color:rgba(255,255,255,0.7);padding-left:1.5em;line-height:2;">
+        <li>The character <strong style="color:#fff">Lucy</strong> — her name, personality, voice, visual design, avatar, and all associated artwork;</li>
+        <li>All source code, architecture, system design, prompts, configuration and documentation;</li>
+        <li>All model weights, fine-tunes, adapters, training corpora and derived artefacts;</li>
+        <li>All written, audio, video and image content produced by or depicting Lucy;</li>
         <li>The text, layout, design and compiled presentation of this Site;</li>
-        <li>The names, marks and logos "Lucy", "Project Lucy" and "project-lucy.me", together with
-            associated get-up and branding, whether registered or unregistered.</li>
+        <li>The names and branding "Lucy", "L.U.C.Y", "Project Lucy" and "project-lucy.me".</li>
       </ul>
-      <p>
-        <strong>Copyright &copy; 2026. All rights reserved.</strong> Moral rights, including the
-        right to be identified as author, are asserted so far as the law allows.
-      </p>
+      <p style="color:rgba(255,255,255,0.7);"><strong style="color:#fff">Copyright © 2026 Bhaveek Agrawal. All rights reserved.</strong></p>
 
-      <h2>3. What you may do</h2>
-      <p>
-        You may view the Site, and you may quote short extracts of its text for the purposes of
-        news reporting, review, criticism, commentary or research, provided you give clear
-        attribution to Project Lucy and link to this Site. This is the ordinary scope of fair
-        dealing and fair use, and nothing here purports to restrict rights the law grants you.
-      </p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">3. What you may do</h2>
+      <p style="color:rgba(255,255,255,0.7);">You may view the Site and quote short extracts for news reporting, review, criticism, commentary or research, with clear attribution to Project Lucy and a link to this Site.</p>
 
-      <h2>4. What you may not do</h2>
-      <p>Except with our prior written permission, you may not:</p>
-      <ul>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">4. What you may not do</h2>
+      <p style="color:rgba(255,255,255,0.7);">Except with prior written permission, you may not:</p>
+      <ul style="color:rgba(255,255,255,0.7);padding-left:1.5em;line-height:2;">
         <li>Copy, reproduce, republish or distribute the Work or any substantial part of it;</li>
-        <li>Create derivative works, adaptations, ports, forks or reimplementations of Lucy or of
-            the Project Lucy system;</li>
-        <li>Use the character Lucy — her name, likeness, personality, voice or biography — in any
-            product, service, model, dataset, publication or promotion;</li>
-        <li>Train, fine-tune, evaluate or condition any machine-learning model on the Work, on
-            content produced by Lucy, or on recordings of her, whether by scraping, download,
-            transcription or any automated collection;</li>
-        <li>Use the Work, or anything confusingly similar to it, as a trade mark, brand, product
-            name, account name or persona;</li>
-        <li>Represent, imply or allow others to infer that an output, product or service was
-            produced by, endorsed by, or affiliated with Lucy or Project Lucy when it was not;</li>
-        <li>Reverse engineer, decompile or attempt to derive the design or training of the Work
-            except to the limited extent that such restriction is unenforceable by law;</li>
-        <li>Circumvent, disable or test the security of the Site, or access it by automated means
-            in a manner that burdens it.</li>
+        <li>Create derivative works, adaptations, ports, forks or reimplementations of Lucy;</li>
+        <li>Use the character Lucy in any product, service, model, dataset, publication or promotion;</li>
+        <li>Train, fine-tune or condition any machine-learning model on the Work or content produced by Lucy;</li>
+        <li>Use the Work as a trade mark, brand, product name, account name or persona;</li>
+        <li>Represent or imply affiliation with Lucy or Project Lucy when none exists;</li>
+        <li>Reverse engineer or attempt to derive the design or training of the Work;</li>
+        <li>Circumvent, disable or test the security of the Site, or access it by automated means that burdens it.</li>
       </ul>
 
-      <h2>5. Text and data mining</h2>
-      <p>
-        We expressly reserve all rights in respect of text and data mining, and do not permit the
-        use of the Work for the development, training, validation or benchmarking of artificial
-        intelligence or machine-learning systems. This is an express reservation of rights for the
-        purposes of Article 4(3) of Directive (EU) 2019/790 and any equivalent provision in other
-        jurisdictions, and applies notwithstanding any machine-readable signal to the contrary.
-      </p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">5. Text and data mining</h2>
+      <p style="color:rgba(255,255,255,0.7);">We expressly reserve all rights in respect of text and data mining, and do not permit use of the Work for developing, training, validating or benchmarking AI or machine-learning systems.</p>
 
-      <h2>6. She is not an adviser</h2>
-      <p>
-        Lucy may discuss subjects including finance, markets, law, tax, medicine and security. Her
-        output is <strong>information and opinion, not professional advice</strong>, and must not be
-        relied on as a substitute for a qualified professional who knows your circumstances. She
-        does not execute financial transactions. Any decision you take remains yours, and we accept
-        no liability for it. In an emergency, contact the appropriate emergency service.
-      </p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">6. Disclaimer</h2>
+      <p style="color:rgba(255,255,255,0.7);">Lucy is an evolving research system. She can be mistaken or out of date. The Site and the Work are provided <strong style="color:#fff">"as is"</strong>, without warranties of any kind. Nothing she says constitutes professional legal, financial, or medical advice.</p>
 
-      <h2>7. She can be wrong</h2>
-      <p>
-        Lucy is an evolving research system. She can be mistaken, out of date, or confidently
-        incorrect. The Site and the Work are provided <strong>"as is" and "as available"</strong>,
-        without warranties of any kind, whether express or implied, including any implied warranty
-        of merchantability, fitness for a particular purpose, accuracy or non-infringement.
-      </p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">7. Support contributions</h2>
+      <p style="color:rgba(255,255,255,0.7);">Any voluntary financial support is a gift toward running costs. It purchases no goods, service, licence, ownership interest, or priority, and is not refundable except where required by law.</p>
 
-      <h2>8. Limitation of liability</h2>
-      <p>
-        To the fullest extent permitted by law, we are not liable for any indirect, incidental,
-        special, consequential or exemplary loss, nor for loss of profit, data, goodwill or
-        opportunity, arising out of your use of the Site or the Work. Nothing in these terms limits
-        or excludes liability for death or personal injury caused by negligence, for fraud or
-        fraudulent misrepresentation, or for any other liability that cannot lawfully be limited.
-      </p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">8. Governing law</h2>
+      <p style="color:rgba(255,255,255,0.7);">These terms are governed by the laws of India, and the courts of India shall have exclusive jurisdiction.</p>
 
-      <h2>9. Third-party links</h2>
-      <p>
-        The Site links to third-party platforms. We do not control them and are not responsible for
-        their content, availability or practices. Their terms and privacy policies apply when you
-        visit them.
-      </p>
-
-      <h2>10. Support and contributions</h2>
-      <p>
-        Any voluntary financial support is a gift toward running costs. It purchases no goods,
-        service, licence, ownership interest, priority or entitlement, and is not refundable except
-        where required by law.
-      </p>
-
-      <h2>11. Enforcement</h2>
-      <p>
-        We may restrict or refuse access to the Site at our discretion, including where these terms
-        are breached. We reserve every remedy available in law and in equity, including injunctive
-        relief. Failure to enforce a provision is not a waiver of it. If any provision is found
-        unenforceable, the remainder continues in force.
-      </p>
-
-      <h2>12. Reporting infringement</h2>
-      <p>
-        If you believe material on this Site infringes your rights, contact us through a channel
-        linked at the foot of the Site with a description of the material, its location, your
-        contact details, and a statement of your good-faith belief and authority to act. We will
-        respond promptly. Equally, if you find the Work being used elsewhere without permission, we
-        would be grateful to hear about it.
-      </p>
-
-      <h2>13. Changes</h2>
-      <p>
-        These terms may be updated. The date at the top of this page shows when they last changed,
-        and continued use of the Site after a change constitutes acceptance of it.
-      </p>
-
-      <h2>14. Governing law</h2>
-      <p>
-        These terms and any dispute arising from them are governed by the laws of India, and the
-        courts of India shall have exclusive jurisdiction, save that we may seek injunctive relief
-        in any competent jurisdiction to protect the Work. Where you deal with us as a consumer,
-        this does not deprive you of the protection of mandatory provisions of the law of your
-        country of residence.
-      </p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:600;color:#fff;margin:2em 0 0.5em;padding-top:1em;border-top:1px solid #1f1f1f;">9. Changes</h2>
+      <p style="color:rgba(255,255,255,0.7);">These terms may be updated. The date at the top shows when they last changed.</p>
 
     </div>
   </div>
 </section>
-</main>
 
 <footer>
-  <div class="wrap foot-wrap">
-    <div>
-      <a class="brand" href="/"><b>L</b>UCY</a>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="foot-brand">
+        <a class="brand" href="index.html">L.U.C.Y</a>
+        <p class="foot-copy">Built by <strong style="color:rgba(255,255,255,0.6)">Bhaveek Agrawal</strong>.</p>
+      </div>
+      <div class="foot-socials">
+        <a href="https://www.instagram.com/de.lu.lucy/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+        <a href="https://www.twitch.tv/lucydoestwitch" target="_blank" rel="noopener noreferrer" aria-label="Twitch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path></svg></a>
+        <a href="https://www.youtube.com/@de-lu-lucy" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a>
+        <a href="https://github.com/lucy0107" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+        <a href="https://discord.gg/U9yv3KqdXH" target="_blank" rel="noopener noreferrer" aria-label="Discord"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.054a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"></path></svg></a>
+      </div>
+      <div class="foot-links">
+        <a href="index.html">Home</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
     </div>
-    <div class="foot-socials">
-      <a href="https://www.instagram.com/de.lu.lucy/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-      </a>
-      <a href="https://www.youtube.com/@de-lu-lucy" target="_blank" rel="noopener" aria-label="YouTube">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-      </a>
-      <a href="https://github.com/lucy0107" target="_blank" rel="noopener" aria-label="GitHub">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-      </a>
-      <a href="https://www.twitch.tv/lucydoestwitch" target="_blank" rel="noopener" aria-label="Twitch">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path></svg>
-      </a>
-    </div>
-    <div class="foot-links">
-      <a href="/privacy">Privacy</a>
-      <a href="/terms">Terms</a>
-      <a href="/changelog">Changelog</a>
+    <div class="foot-bottom">
+      <p class="foot-bottom-copy">© 2026 Bhaveek Agrawal. All rights reserved.</p>
+      <div class="foot-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
     </div>
   </div>
 </footer>
-<script src="site.js"></script>
 
+<script src="site.js"></script>
 </body>
 </html>

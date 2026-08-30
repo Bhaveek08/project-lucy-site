@@ -3,135 +3,186 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Project Lucy — Awake on your machine</title>
-<meta name="description" content="Lucy is an embodied AI companion. Every part of her runs on your machine. No cloud, no API calls, no subscription.">
-<meta name="theme-color" content="#050308">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
+<title>L.U.C.Y — Awake on your machine</title>
+<meta name="description" content="Lucy is a fully local AI companion. She hears you, thinks, and speaks — entirely on your machine. No cloud. No subscriptions. No limits.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="L.U.C.Y — Awake on your machine">
+<meta property="og:description" content="A fully local AI companion. No cloud, no API calls. She runs entirely on your hardware.">
+<meta property="og:type" content="website">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="stylesheet" href="site.css?v=2">
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
 
 <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
+<!-- NAV -->
 <nav class="nav">
   <div class="wrap">
-    <a class="brand" href="/"><b>L</b>UCY</a>
+    <a class="brand" href="index.html" id="logo">L.U.C.Y</a>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <div class="nav-links" id="nav-links">
-      <a class="jump" href="#what">Overview</a>
-      <a class="jump" href="#capabilities">Capabilities</a>
-      <a href="/changelog">Changelog</a>
-      <a href="/donate">Support</a>
+      <a href="index.html" class="active" id="nav-home">Home</a>
+      <a href="changelog.html" id="nav-changelog">Changelog</a>
+      <a href="support.html" id="nav-support">Support</a>
     </div>
   </div>
 </nav>
 
+<!-- HERO -->
 <header class="hero">
-  <div class="wrap reveal in">
-    <h1>Every part of her runs on that machine over there.</h1>
-    <p class="lede">No cloud, no API calls, no subscription. If you pulled the network cable out right now, she'd carry on talking to you.</p>
-    <div class="cta-row">
-      <a href="/donate" class="btn btn-primary">Support Compute</a>
-      <a href="#what" class="btn btn-outline jump">See the stats</a>
+  <!-- Background drifting text -->
+  <div class="hero-bg-text" aria-hidden="true">
+    <span>L.U.C.Y &nbsp; L.U.C.Y &nbsp; L.U.C.Y &nbsp; L.U.C.Y &nbsp; L.U.C.Y &nbsp; L.U.C.Y &nbsp;</span>
+    <span>L.U.C.Y &nbsp; L.U.C.Y &nbsp; L.U.C.Y &nbsp; L.U.C.Y &nbsp; L.U.C.Y &nbsp; L.U.C.Y &nbsp;</span>
+  </div>
+  <!-- Pink glow -->
+  <div class="hero-glow" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <!-- Left: text -->
+    <div class="hero-text">
+      <span class="eyebrow reveal in">Fully Local AI Companion</span>
+      <h1 class="reveal in" style="transition-delay:0.1s">
+        Meet <em>Lucy.</em>
+      </h1>
+      <p class="lede reveal in" style="transition-delay:0.2s">
+        A fully local AI companion. No cloud, no subscriptions, no limits — she runs entirely on your machine.
+      </p>
+      <div class="hero-cta reveal in" style="transition-delay:0.3s">
+        <a href="support.html" class="btn btn-primary" id="hero-cta-support">Support the Project</a>
+        <a href="#what" class="btn btn-outline" id="hero-cta-about">Learn More ↓</a>
+      </div>
+    </div>
+
+    <!-- Right: Lucy image -->
+    <div class="hero-image-wrap reveal in" style="transition-delay:0.15s">
+      <div class="hero-image-inner">
+        <img src="assets/lucy/lucy-3.webp" alt="Lucy — AI companion with pink hair" loading="eager">
+        <div class="hero-badge">
+          <strong>100% Local</strong>
+          Zero cloud calls, ever.
+        </div>
+      </div>
     </div>
   </div>
 </header>
 
-<section id="what">
+<!-- STATS STRIP -->
+<div class="stats-strip" id="what">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="idx">BEAT 01</span>
-      <h2>What local actually buys you.</h2>
-      <p>That's not a technical detail, it's the whole product. Her memory of you — fourteen thousand conversations — never leaves the house.</p>
+    <div class="stat-item reveal">
+      <span class="stat-num fig" data-target="170">0</span>
+      <span class="stat-label">Faculties</span>
     </div>
-
-    <div class="split">
-      <div class="split-text reveal">
-        <p>She hears you with a local speech model, thinks with a seven-billion-parameter model fine-tuned on her own personality, and speaks with a local voice.</p>
-        <p><strong>Nothing she says has ever touched someone else's server.</strong></p>
-      </div>
-      <div class="split-img reveal">
-        <img src="assets/lucy/lucy-3.webp" alt="Lucy thinking" loading="lazy">
-      </div>
+    <div class="stat-item reveal">
+      <span class="stat-num fig" data-target="411">0</span>
+      <span class="stat-label">Routing Checks</span>
     </div>
-    
-    <div class="figures">
-      <div class="fig-box reveal"><span class="fig" data-target="170">0</span><span class="lab">Faculties</span></div>
-      <div class="fig-box reveal"><span class="fig" data-target="111">0</span><span class="lab">Self-Tests</span></div>
-      <div class="fig-box reveal"><span class="fig" data-target="411">0</span><span class="lab">Routing Checks</span></div>
-      <div class="fig-box reveal"><span class="fig" data-target="100" data-suffix="%">0</span><span class="lab">Local</span></div>
+    <div class="stat-item reveal">
+      <span class="stat-num fig" data-target="111">0</span>
+      <span class="stat-label">Self-Tests</span>
+    </div>
+    <div class="stat-item reveal">
+      <span class="stat-num fig" data-target="100" data-suffix="%">0</span>
+      <span class="stat-label">Local</span>
     </div>
   </div>
-</section>
+</div>
 
-<section id="capabilities">
+<!-- WHAT SHE IS -->
+<section id="about">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="idx">BEAT 02</span>
-      <h2>She has a body, and it isn't a gimmick.</h2>
-      <p>She's not a text box. She has a face that reacts, a body that breathes, and she looks at you through the camera.</p>
+    <div class="reveal">
+      <span class="section-label">What she is</span>
+      <h2 class="section-title">Built for you.<br>Designed to impress.</h2>
+      <p class="section-subtitle">
+        Lucy listens, thinks, and responds entirely on your device — giving you a deeply personal AI experience that's as fast, private, and capable as the hardware you run her on.
+      </p>
     </div>
 
-    <div class="grid grid-3">
-      <div class="cell reveal">
-        <span class="n">01</span>
+    <div class="card-grid">
+      <div class="card reveal">
+        <span class="card-num">01</span>
         <h3>170 Faculties</h3>
-        <p>She possesses over one hundred and seventy distinct cognitive faculties, allowing her to see your screen, reason about active processes, and manage your machine flawlessly.</p>
+        <p>Lucy comes equipped with over 170 distinct capabilities — from reading your screen and managing your files to deep reasoning and multi-step planning.</p>
       </div>
-      <div class="cell reveal">
-        <span class="n">02</span>
+      <div class="card reveal" style="transition-delay:0.08s">
+        <span class="card-num">02</span>
         <h3>411 Routing Checks</h3>
-        <p>Before she ever speaks, her thoughts pass through 411 strict routing checks. This ensures she never hallucinates an action she didn't actually take.</p>
+        <p>Every response passes through 411 precision routing checks, ensuring Lucy always acts with intention, accuracy, and complete reliability.</p>
       </div>
-      <div class="cell reveal">
-        <span class="n">03</span>
-        <h3>18/18 Live-Verified</h3>
-        <p>Her core 18 faculties are live-verified every time she wakes. She constantly checks her own code, audits web contrasts, and rewrites failures autonomously.</p>
+      <div class="card reveal" style="transition-delay:0.16s">
+        <span class="card-num">03</span>
+        <h3>111 Self-Tests</h3>
+        <p>Before every session, 111 automated self-tests verify Lucy is at her best — so you always get peak performance, right from the first word.</p>
       </div>
-      <div class="cell reveal">
-        <span class="n">04</span>
-        <h3>Zero Cloud Calls</h3>
-        <p>When she speaks to you, she makes zero cloud calls. The speech synthesis, the reasoning, and the action routing happen directly on the metal.</p>
+      <div class="card reveal" style="transition-delay:0.04s">
+        <span class="card-num">04</span>
+        <h3>100% Private</h3>
+        <p>Everything — her voice, her reasoning, her memory of you — stays on your machine. Your conversations are yours, completely and permanently.</p>
       </div>
-      <div class="cell reveal">
-        <span class="n">05</span>
-        <h3>111 Self-tests</h3>
-        <p>The part I'm proudest of is boring: she doesn't trust herself. 111 rigorous module self-tests run before I ever demo her.</p>
+      <div class="card reveal" style="transition-delay:0.12s">
+        <span class="card-num">05</span>
+        <h3>Always Improving</h3>
+        <p>Lucy continuously verifies and refines her own capabilities. The more she runs, the sharper she gets — learning and adapting just for you.</p>
+      </div>
+      <div class="card reveal" style="transition-delay:0.2s">
+        <span class="card-num">06</span>
+        <h3>Real Personality</h3>
+        <p>Warm, consistent, and genuinely hers. Lucy remembers your conversations, holds real opinions, and grows closer to you over time.</p>
       </div>
     </div>
   </div>
 </section>
 
-
-
-
-
+<!-- FOOTER -->
 <footer>
-  <div class="wrap foot-wrap">
-    <div>
-      <a class="brand" href="/"><b>L</b>UCY</a>
+  <div class="wrap">
+    <div class="foot-inner">
+      <!-- Brand + copy -->
+      <div class="foot-brand">
+        <a class="brand" href="index.html" aria-label="L.U.C.Y home">L.U.C.Y</a>
+        <p class="foot-copy">
+          A fully local AI companion.<br>
+          Built by <strong style="color:rgba(255,255,255,0.6)">Bhaveek Agrawal</strong>.
+        </p>
+      </div>
+
+      <!-- Socials -->
+      <div class="foot-socials">
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/de.lu.lucy/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <!-- Twitch -->
+        <a href="https://www.twitch.tv/lucydoestwitch" target="_blank" rel="noopener noreferrer" aria-label="Twitch">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path></svg>
+        </a>
+        <!-- YouTube -->
+        <a href="https://www.youtube.com/@de-lu-lucy" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+        </a>
+        <!-- GitHub -->
+        <a href="https://github.com/lucy0107" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        </a>
+        <!-- Discord -->
+        <a href="https://discord.gg/U9yv3KqdXH" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.054a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"></path></svg>
+        </a>
+      </div>
     </div>
-    <div class="foot-socials">
-      <a href="https://www.instagram.com/de.lu.lucy/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-      </a>
-      <a href="https://www.youtube.com/@de-lu-lucy" target="_blank" rel="noopener" aria-label="YouTube">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-      </a>
-      <a href="https://github.com/lucy0107" target="_blank" rel="noopener" aria-label="GitHub">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-      </a>
-      <a href="https://www.twitch.tv/lucydoestwitch" target="_blank" rel="noopener" aria-label="Twitch">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path></svg>
-      </a>
-    </div>
-    <div class="foot-links">
-      <a href="/privacy">Privacy</a>
-      <a href="/terms">Terms</a>
-      <a href="/changelog">Changelog</a>
+
+    <div class="foot-bottom">
+      <p class="foot-bottom-copy">© 2026 Bhaveek Agrawal. All rights reserved.</p>
+      <div class="foot-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
     </div>
   </div>
 </footer>
