@@ -5,11 +5,31 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Support Lucy Compute</title>
 <meta name="description" content="Lucy runs entirely on hardware paid out of pocket. Support her compute costs.">
+<meta property="og:title" content="Support Lucy Compute">
+<meta property="og:description" content="Contribute toward the GPU time that keeps Lucy running locally. No subscription, no account.">
+<meta property="og:type" content="website">
 <meta name="theme-color" content="#050308">
 <!-- CSP relaxed to allow Razorpay Checkout -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://cdn.razorpay.com; font-src 'self'; connect-src 'self' https://api.razorpay.com; frame-src https://api.razorpay.com https://checkout.razorpay.com; form-action 'none'; base-uri 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://cdn.razorpay.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://cdn.razorpay.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.razorpay.com https://lumberjack.razorpay.com; frame-src https://api.razorpay.com https://checkout.razorpay.com; form-action 'none'; base-uri 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="stylesheet" href="site.css?v=2">
+<link rel="canonical" href="https://project-lucy.me/donate.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:url" content="https://project-lucy.me/donate.html">
+<meta property="og:site_name" content="L.U.C.Y">
+<meta property="og:image" content="https://project-lucy.me/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="L.U.C.Y — a fully local AI companion">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Support Lucy Compute">
+<meta name="twitter:description" content="Contribute toward the GPU time that keeps Lucy running locally. No subscription, no account.">
+<meta name="twitter:image" content="https://project-lucy.me/og-image.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://project-lucy.me/#website", "name": "L.U.C.Y", "url": "https://project-lucy.me/", "description": "A fully local AI companion - her own voice, memory and personality, running on one home PC.", "inLanguage": "en-GB"}, {"@type": "WebPage", "@id": "https://project-lucy.me/donate.html", "url": "https://project-lucy.me/donate.html", "name": "Support her compute", "isPartOf": {"@id": "https://project-lucy.me/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://project-lucy.me/"}, {"@type": "ListItem", "position": 2, "name": "Support her compute", "item": "https://project-lucy.me/donate.html"}]}]}</script>
 </head>
 <body>
 
@@ -20,14 +40,15 @@
       <span></span><span></span><span></span>
     </button>
     <div class="nav-links" id="nav-links">
-      <a href="/changelog">Changelog</a>
-      <a href="/donate">Support</a>
+      <a href="changelog.html">Changelog</a>
+      <a href="donate.html">Support</a>
     </div>
   </div>
 </nav>
 
 <section class="hero" style="padding-top: clamp(180px, 25vh, 260px);">
   <div class="wrap reveal in">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Support her compute</span></nav>
     <h1>Support her compute.</h1>
     <p class="lede">Lucy is built by one person and runs on hardware paid for out of pocket. There is no subscription and there never will be. Support is entirely optional and goes directly to paying the electricity and hardware costs that keep her awake.</p>
   </div>
@@ -81,9 +102,9 @@
       </a>
     </div>
     <div class="foot-links">
-      <a href="/privacy">Privacy</a>
-      <a href="/terms">Terms</a>
-      <a href="/changelog">Changelog</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="changelog.html">Changelog</a>
     </div>
   </div>
 </footer>
@@ -117,6 +138,5 @@
     initRazorpay(amt);
   }
 </script>
-<script src="site.js"></script>
 </body>
 </html>

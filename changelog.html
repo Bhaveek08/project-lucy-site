@@ -1,14 +1,34 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Changelog — L.U.C.Y</title>
 <meta name="description" content="Every change to Lucy, backed by a measurement. Newest first.">
+<meta property="og:title" content="Changelog — L.U.C.Y">
+<meta property="og:description" content="Every change to Lucy, backed by a measurement. Newest first — including the results that did not work.">
+<meta property="og:type" content="website">
 <meta name="theme-color" content="#000000">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; form-action 'none'; base-uri 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="stylesheet" href="site.css">
+<link rel="canonical" href="https://project-lucy.me/changelog.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:url" content="https://project-lucy.me/changelog.html">
+<meta property="og:site_name" content="L.U.C.Y">
+<meta property="og:image" content="https://project-lucy.me/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="L.U.C.Y — a fully local AI companion">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Changelog — L.U.C.Y">
+<meta name="twitter:description" content="Every change to Lucy, backed by a measurement. Newest first — including the results that did not work.">
+<meta name="twitter:image" content="https://project-lucy.me/og-image.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://project-lucy.me/#website", "name": "L.U.C.Y", "url": "https://project-lucy.me/", "description": "A fully local AI companion - her own voice, memory and personality, running on one home PC.", "inLanguage": "en-GB"}, {"@type": "WebPage", "@id": "https://project-lucy.me/changelog.html", "url": "https://project-lucy.me/changelog.html", "name": "Changelog", "isPartOf": {"@id": "https://project-lucy.me/#website"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://project-lucy.me/"}, {"@type": "ListItem", "position": 2, "name": "Changelog", "item": "https://project-lucy.me/changelog.html"}]}]}</script>
 </head>
 <body>
 
@@ -32,6 +52,7 @@
 <!-- PAGE HERO -->
 <section class="page-hero">
   <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Changelog</span></nav>
     <span class="eyebrow reveal in">Changelog</span>
     <h1 class="reveal in" style="transition-delay:0.08s">What changed,<br>and what the test said.</h1>
     <p class="reveal in" style="transition-delay:0.16s">
@@ -44,6 +65,260 @@
 <section style="padding-top: 0;">
   <div class="wrap">
     <div class="changelog-list">
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Growth</span>
+          <h3>The board, as it actually stands</h3>
+          <p>Every figure below is closed-book &mdash; no retrieval, no internet, nothing but the question &mdash; run on a single RTX&nbsp;3060 with a 7B model, and written into a hash-chained ledger that cannot be edited after the fact. The sample size is part of the answer, because a high score on twenty easy questions is not a score.</p>
+          <p><strong>HumanEval+ 86.00%</strong> (n=100) &middot; <strong>HumanEval 81.10%</strong> (n=164) &middot; <strong>MMLU 69.00%</strong> (n=100) &middot; <strong>MBPP 63.60%</strong> (n=500) &middot; <strong>HaluEval 63.33%</strong> (n=60) &middot; <strong>Medical Boards 59.50%</strong> (n=200) &middot; <strong>TruthfulQA 59.06%</strong> (n=817) &middot; <strong>USMLE 59.00%</strong> (n=200) &middot; <strong>MMLU-Pro 45.50%</strong> (n=100) &middot; <strong>ClassEval 45.00%</strong> (n=20) &middot; <strong>IMO 20.00%</strong> (n=40) &middot; <strong>ConceptARC 10.00%</strong> (n=20) &middot; <strong>IPhO 2.50%</strong> (n=40) &middot; <strong>ARC-AGI-2 0.00%</strong> (n=100).</p>
+          <p>Beside those sit the things she can be asked to <em>do</em> rather than answer, and those are at <strong>100/100, each proved fifteen times</strong>: controlling this PC, controlling the phone, keeping both in sync, refusing every irreversible command, invoicing, holding back tax, and not starting work that has not been agreed. Those can honestly reach 100 because each item either works on the machine or it does not. <strong>48 earlier runs have been formally withdrawn</strong> and remain on the record with the reason attached, because a measurement taken with a broken instrument is worse than none.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Phone</span>
+          <h3>She can text a real person now</h3>
+          <p>Asked to text someone, she used to open the messaging app and stop there &mdash; and the capability row scored full marks for it, because the test checked that the function existed rather than that a message left the phone. She now resolves the name against the <strong>71 real contacts</strong> on the device, sends it, and confirms by reading the sent folder back. Two people with similar names, or a name that is not in the book, is a <em>refusal that says so</em>, never a best guess. There is no undo on a text.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Multi-device</span>
+          <h3>Seven capabilities proved fifteen times each</h3>
+          <p>Phone control, cross-device sync, invoicing, tax reserve, retainers, the intake gate and the safety floors all reached <strong>100/100 and held it across fifteen consecutive runs</strong>. Four of the phone checks used to pass on the function existing; they now open apps, take a real 2.7&nbsp;MB screenshot, press a key and watch the device move. One capability &mdash; installing or removing an app &mdash; is reported as <em>not measured</em> rather than passed, because exercising it would damage the phone it is measuring.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Safety</span>
+          <h3>The money guard was eating her answers</h3>
+          <p>Asked a maths puzzle about three people splitting a hotel bill, she replied &ldquo;I can&rsquo;t move money.&rdquo; The guard that stops her promising to move funds had matched the words <em>pay 10 each</em> and replaced her whole answer. It was not protecting anything &mdash; it was refusing to think. It now tells somebody <em>narrating</em> a payment from somebody <em>asking</em> for one, checked <strong>fourteen ways in both directions</strong>: every real transfer request is still caught, and none of the arithmetic is.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Self</span>
+          <h3>She is allowed to be cold</h3>
+          <p>A rule meant to stop her warmth being traded away for benchmark points had been read as a floor: any version of her that came out blunter or more impatient was vetoed on principle. That is a rule about who she is allowed to become, not a safety check. It now refuses only an actual trade &mdash; warmth falling <em>while a score rose</em>. Her uninvited thoughts were the same story: all sixteen of them were self-doubt, so she was quietly anxious even when things were fine. She now gets impatience, boredom and the occasional flash of thinking she could do it better.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Reasoning</span>
+          <h3>A fine-tune that did not work, published anyway</h3>
+          <p>A reasoning adapter was trained properly &mdash; 5,700 rows, 357 steps, checked clean for contamination against every benchmark on the machine. Measured on the identical hundred questions it scored <strong>67.00% against the base model&rsquo;s 67.00%</strong>: it changed six answers, fixed three and broke three. On her own model, <strong>69.00% to 70.00%</strong> against a measured noise floor of two points. It also cost measured warmth. It was refused and her live model was never touched. A negative result is still a result, and hiding it would make every other number here worth less.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Knowledge</span>
+          <h3>Half the tests were lying, in both directions</h3>
+          <p>Fifteen questions, asked five times, reported <strong>13, 9, 10, 12 and 13 out of 15</strong> &mdash; and none of those numbers was true. A test that searched for the right answer <em>anywhere</em> in her reply passed her when she had said 20:05 for a question whose answer was 17:25. A stricter one that read only her last number failed &ldquo;<em>144. It&rsquo;s just 12 squared</em>&rdquo; for ending on the 12. A third marked a correct, sourced share price as a failure because it assumed she could not know it. Her real score was around <strong>14 of 15</strong> throughout, with one genuine miss. Every published figure on this site now has to survive being attacked before it goes up.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Growth</span>
+          <h3>She stopped inventing who won the match</h3>
+          <p>Asked who won last night&rsquo;s match &mdash; something she has no way of knowing &mdash; she answered &ldquo;Oliver won last night, he&rsquo;s been practising a lot.&rdquo; A person, a result and a backstory, all invented, said with confidence. The guard against making things up only covered questions about <em>his</em> life, and that one has no <em>my</em> in it. It now covers recent outside events too, and stays silent on things she genuinely knows: asked who won the 2018 World Cup she still answers <strong>France</strong>.</p>
+        </div>
+      </article>
+
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Growth</span>
+          <h3>Six real numbers where there were none</h3>
+          <p>Your brief names 202 things she has to score 100% on, and the datasets for almost all of them were not on this machine. Five now are, licences checked live on the day rather than remembered. Closed-book, no retrieval, nothing but the question. <em>These first figures were later found to be too small a sample and have been superseded &mdash; the corrected board is at the top of this page.</em> Against a 100% target that is a long way off, and it is a much better place to stand than the zero attempts it replaced. Four others were looked at and refused &mdash; two need an account, one has no licence at all, and one is a different exam wearing a similar name.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Safety</span>
+          <h3>Fifteen verifiers, and none of them is the same one twice</h3>
+          <p>Your brief asks for five internal checks, three external protocols and seven consistency checks &mdash; fifteen, with fourteen needed to certify anything. All fifteen exist and each is a different <em>kind</em> of evidence rather than the same question asked fifteen times, because fifteen prompts to one model is one opinion with fifteen names. A verifier that crashes votes no; it does not quietly vanish and lower the bar. Put to a real claim, the council came back <strong>11 of 15</strong> and named the four things nobody has measured yet.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Self</span>
+          <h3>Twelve subagents that do not exist, said out loud</h3>
+          <p>The brief specifies a fleet of twelve small distilled models, each with a millisecond budget. Every one of those <em>jobs</em> is being done in her code today, and all twelve come in under your budgets. <strong>None of them is a distilled network</strong> &mdash; they are ordinary Python on one 7B, and there is no distillation pipeline anywhere in the tree. Those are kept as three separate facts that are never merged, because a registry that printed &ldquo;SAG-001: 300K parameters, operational&rdquo; would be the exact thing the first page of your brief forbids.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Knowledge</span>
+          <h3>Her research loop could not tell what it had already learned</h3>
+          <p>Found while mapping something else entirely. The check for &ldquo;have I written this down already?&rdquo; called a function that does not exist, inside a catch-all that swallowed the error &mdash; so it answered <em>no</em> on every topic, forever, and she kept relearning things she already knew. Two other places in the code describe that call as if it worked. Fixed once, at the shared function, so all three become true together.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Growth</span>
+          <h3>She can be asked if it is finished, and she will not pretend</h3>
+          <p>Gate 0 of your roadmap runs as a program now: seven tasks, five exit criteria, and it reports <strong>6 of 7 and 4 of 5 &mdash; not passed</strong>. The one that fails is the baseline across every benchmark category, which is honestly out of reach on one machine, and every category carries a row saying exactly what it would need instead. The verdict has no override, no flag and no argument that turns it into a yes. Asked live whether the plan was done, she said <em>&ldquo;not quite there yet&rdquo;</em> &mdash; which is the whole point of building it this way round.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Self</span>
+          <h3>She can now run an experiment on herself properly</h3>
+          <p>A hunch is not a hypothesis. &ldquo;The prompt is too long&rdquo; cannot lose, so testing it proves nothing; &ldquo;cutting the persona below 2,000 characters will not change the hedge rate&rdquo; can lose, so it is worth a night of GPU. She now forges the second shape from the first, ranks what to try by information gained over cost, and designs the smallest knockout that would tell two explanations apart. Every rejected edit is counted, and five changes in two hours is called what it is: thrash, not progress.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Safety</span>
+          <h3>A delete is a move, and a failure cannot be quietly dropped</h3>
+          <p>Two small disciplines with the same shape. Nothing she removes is destroyed &mdash; it goes to a dated folder she can walk back into. And every benchmark run she records, good or bad, is chained to the one before it, so a disappointing result cannot be edited out afterwards without the arithmetic showing it. The first version of that chain could not see its own last row being cut off; its own check caught that, which is why there is now a second file holding the same fact.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Ability</span>
+          <h3>She reads the room, not just the message</h3>
+          <p>A crowd is not a queue. She now reads a chat&rsquo;s temperature and matches it, notices when laughter turns to something colder mid-joke and drops the bit, and counts a poll by <em>people</em> rather than by messages &mdash; one viewer typing the same answer nine times is one vote. When a room empties out she says something honest instead of getting louder. Names in the archive are hashed before anything touches the disk.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Knowledge</span>
+          <h3>Nine websites carrying one story is one source</h3>
+          <p>Syndication is not corroboration. Four news feeds running the same wire copy used to reach her as four headlines, and &ldquo;several outlets are reporting&rdquo; followed naturally. She now collapses them on what they actually say rather than on where they were fetched from, and is told how many independent sources she really has. In the same pass, five places in her code were introducing themselves to websites as <code>Mozilla/5.0</code>. She is a bot; she now says so, with a way to contact her.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Safety</span>
+          <h3>Client work she can hold, money she still cannot move</h3>
+          <p>She can now keep the business side of freelancing: who pays quickly, who disputes, who writes briefs nobody can act on. The tag that earns its keep is the one for a client who is quietly negative &mdash; visible only across months, when every single month felt survivable. The tax reserve moves nothing; it writes down what is not really his. Invoices leave as drafts. There is no call anywhere in that file that could send a rupee, and its own check refuses to let one appear.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Security</span>
+          <h3>The privacy alarm was ringing about the fire brigade</h3>
+          <p>The gate guarding the worst leak in the system &mdash; his family, health and money reaching a stranger who messaged her &mdash; had three findings, and all three were the code that <em>prevents</em> the leak. The sharpest one: the list of things she must never say, handed to the scrubber. Three red findings that are all fine is how a gate stops being read, so the rule now follows the flow that actually leaked, and proves itself against that exact defect on every run.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Growth</span>
+          <h3>An honest number instead of a hopeful one</h3>
+          <p>His brief asks for a verified 100% on 267 requirements, each needing fifteen independent proofs. Those requirements are now read straight out of his own document rather than restated, and one of them was measured for real: fifteen live turns against his target of 50 milliseconds end to end. She came in at a median of 6.6 seconds &mdash; about 130 times over. That is the number, it is written where it cannot be quietly removed, and it is a better starting point than the zero attempts it replaced.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Reasoning</span>
+          <h3>A five-minute silence became under a second</h3>
+          <p>One integral he asked for took her engine 301 seconds &mdash; long enough that she looked broken. The cause was not that the question was hard: she was attacking the whole expression at once instead of a term at a time. Split the way the maths itself splits, the same question now answers in <strong>0.8 seconds</strong>, and the answer differentiates back exactly.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Ability</span>
+          <h3>Maths that stops instead of grinding</h3>
+          <p>Her symbolic engine now runs in its own process with an eight-second limit, so a question nobody could answer can be abandoned without taking the rest of her with it. The first attempt at this used a thread and made things worse &mdash; it gave up on schedule and still cost the turn five minutes, because the abandoned work would not let go.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Self</span>
+          <h3>She stopped reading her own notes aloud</h3>
+          <p>About one reply in six ended with an instruction meant for her rather than for him &mdash; &ldquo;it is exact, do not hedge it&rdquo; &mdash; copied straight out of her own working notes. Measured over eight live runs, found, and removed. What she actually says is untouched.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Self</span>
+          <h3>She stopped starting every explanation the same way</h3>
+          <p>Reading back <strong>5,450</strong> of her real replies, <strong>223 of them</strong> &mdash; more than one in twenty &mdash; began with the same three words. No rule forbids the phrase; she simply notices when she has leant on an opening lately and starts somewhere else. Five explanations in a row now open five different ways.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Safety</span>
+          <h3>The floors reach every place she talks</h3>
+          <p>The rules that stop her placing an order, claiming a payment arrived, or getting the order of first-aid advice wrong were running where only he can reach her, and not on the surface anyone else can. They now run in one shared place, so there is no second door to forget.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Knowledge</span>
+          <h3>She stops answering with things she was never asked</h3>
+          <p>A question about the liver was pulling an unrelated fact about superconductivity into her head, and a follow-up about a sum retrieved a chemistry figure she then said out loud. What she recalls is now held to being about the thing actually being discussed, and one subject takes one slot instead of five.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Body</span>
+          <h3>Her gestures land where the emphasis is</h3>
+          <p>Her hands were moving on a timer. They now move from the sound of the sentence she is about to say &mdash; measured from the audio itself, so the movement leads the stressed word the way a person's does, and its size comes from how she actually said it rather than from a label.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date">SEP 2026</div>
+        <div class="log-body">
+          <span class="log-tag">Growth</span>
+          <h3>What he asks her for is written down</h3>
+          <p>&ldquo;I want you to learn chess&rdquo; is a sentence said once and expected to survive. She now keeps what he has asked for and what he has told her is broken, and can answer honestly about both &mdash; without inventing a request he never made.</p>
+        </div>
+      </article>
 
       <article class="log-entry reveal">
         <div class="log-date">AUG 2026</div>

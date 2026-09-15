@@ -1,0 +1,9 @@
+# project-lucy.me
+# Lucy is a local-first AI companion. Everything here is public.
+User-agent: *
+Allow: /
+
+# The 3D ad page is a heavy standalone demo (a 12 MB model); it is not content.
+Disallow: /ad.html
+
+Sitemap: https://project-lucy.me/sitemap.xml

@@ -772,6 +772,15 @@ footer {
     text-align: center;
     gap: 40px;
   }
+  /* A 1fr TRACK WILL NOT SHRINK BELOW ITS CONTENT unless you say so: `min-width: auto` is the
+     default for a grid item, so `.hero-image-inner { width: 360px }` sized the whole column to
+     360px and its own `max-width: 100%` could never bite - the parent had already grown to match
+     it. Measured on a 360 px viewport: the hero text and image both sat 14 px past the right edge
+     and their last 14 px were clipped, while the page itself reported no horizontal overflow, so
+     nothing looked wrong from the outside. `min-width: 0` lets the track shrink and the image's
+     own max-width takes over. */
+  .hero .wrap > * { min-width: 0; }
+  .hero-image-inner { width: 100%; max-width: 360px; }
   .hero-text .lede { margin-left: auto; margin-right: auto; }
   .hero-cta { justify-content: center; }
   .hero-image-wrap { justify-content: center; }
@@ -810,3 +819,17 @@ footer {
   .foot-inner { flex-direction: column; gap: 32px; }
   .foot-bottom { flex-direction: column; text-align: center; }
 }
+
+/* Breadcrumbs: where this page sits under Home. Quiet on purpose - a trail, not a nav bar. */
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  color: var(--white-faint);
+}
+.crumbs a { color: var(--white-dim); text-decoration: none; }
+.crumbs a:hover, .crumbs a:focus-visible { color: var(--pink); }
+.crumbs [aria-current="page"] { color: var(--white-dim); }
