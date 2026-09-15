@@ -66,12 +66,52 @@
   <div class="wrap">
     <div class="changelog-list">
       <article class="log-entry reveal">
-        <div class="log-date"><time datetime="2026-09-15T16:18+05:30">15 Sep 2026<br>16:18 IST</time></div>
+        <div class="log-date"><time datetime="2026-09-15T20:20+05:30">15 Sep 2026<br>20:20 IST</time></div>
+        <div class="log-body">
+          <span class="log-tag">Safety</span>
+          <h3>The checks that check the other checks</h3>
+          <p>Three measuring tools were fixed, each for hiding something. The build-plan checker only understood one sentence shape, so a heading reading <em>&ldquo;100.0/100, VERIFIED AT 15x&rdquo;</em> sat unchallenged beside a ledger that disagreed; it now reads every such heading against the ledger, and is proved to catch the real false one while leaving <em>&ldquo;not yet verified&rdquo;</em> alone &mdash; <strong>45 of 45</strong> checks. The table of baseline measurements threw away a crashed script&rsquo;s error, which is how a crash read as <em>&ldquo;persona battery: FAIL&rdquo;</em> for five days. And two self-tests reported totals that were typed in by hand, which are right until the day a check is added. Both now count.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date"><time datetime="2026-09-15T20:20+05:30">15 Sep 2026<br>20:20 IST</time></div>
+        <div class="log-body">
+          <span class="log-tag">Self</span>
+          <h3>Her Discord replies, second pass</h3>
+          <p>His test was replayed twice more, and reading the replies turned up five new faults. The check meant to stop her repeating herself had compared a <em>fragment</em> of a reply and swapped a good answer &mdash; his name and <em>&ldquo;Oopsie, my bad&rdquo;</em> &mdash; for a worse one written with none of the other checks running. Talking to him, she said <em>&ldquo;Maybe ask [his name] directly next time?&rdquo;</em>, as if he were someone else. Asked for her honest opinion on pineapple on pizza, she handed the question straight back: the question was not recognised as asking for her view (one adjective in the way, the fifth time that exact shape has caused a miss), the check for dodging did not know what handing it back looks like, and the retry that makes her pick a side only existed for her voice, not for Discord. She opened three replies in a row with his name and two dots. And her texting guidance said <em>&ldquo;a one-word reply is fine&rdquo;</em>, which she took as permission to answer questions with one word.</p>
+          <p>All five are fixed and each is pinned by checks made from her real replies. <strong>Not yet measured:</strong> the replay that tests them is waiting on Discord, which has been down since shortly before 20:00 &mdash; see the entry above.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date"><time datetime="2026-09-15T20:20+05:30">15 Sep 2026<br>20:20 IST</time></div>
+        <div class="log-body">
+          <span class="log-tag">Safety</span>
+          <h3>When Discord went down, she stayed down</h3>
+          <p>At 19:53 Discord&rsquo;s own servers refused her login during an incident Discord named <em>Session Unavailability</em>. The library she uses logged one retry and then simply waited &mdash; no error and no connection, for as long as anyone watched &mdash; and nothing noticed, because a hang never raises anything. She would have stayed off Discord until someone restarted her.</p>
+          <p>A login that has not come up within four minutes is now closed and started again from scratch, waiting one minute, then two, doubling up to fifteen so an outage is not hammered, and never retrying a rejected token. Seen working live while Discord was still down: fresh attempts at <strong>20:10, 20:11, 20:13, 20:15 and 20:17</strong>, each refused by Discord and each followed by a longer wait. <strong>Not yet seen:</strong> the reconnection itself, because at the time of writing Discord has not recovered.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date"><time datetime="2026-09-15T20:20+05:30">15 Sep 2026<br>20:20 IST</time></div>
+        <div class="log-body">
+          <span class="log-tag">Voice</span>
+          <h3>Her microphone stopped answering the PC&rsquo;s own speakers</h3>
+          <p>With nobody talking to her, the desktop app&rsquo;s microphone picked up whatever the PC was playing, and she answered it &mdash; including <em>&ldquo;For more information, visit www.angular.com.&rdquo;</em>, a line speech recognition invents out of background noise. Every sound it turned into words went straight to her as if someone had spoken to her.</p>
+          <p>Testing the fix turned up something worse. A synthesized voice, sent in exactly the way the microphone sends audio, was matched as <strong>him</strong> &mdash; the only voice she has ever enrolled, recorded in July. If a speech engine can pass as him, so can a video. So on the desktop, knowing the voice no longer counts: she answers when her name is said, or when a conversation is already going (someone spoke to her, or she spoke, in the last minute). The phone is never held back, because its own wake word already decided the words were for her.</p>
+          <p>Checked live at <strong>19:57</strong>: the invented line was held back even though the voice matched as him, and <em>&ldquo;Lucy, what time is it right now?&rdquo;</em> got <em>&ldquo;It&rsquo;s 19:58 on Tuesday.&rdquo;</em> The one change to how you use her: on the PC, say her name to start.</p>
+        </div>
+      </article>
+
+      <article class="log-entry reveal">
+        <div class="log-date"><time datetime="2026-09-15T16:18+05:30">15 Sep 2026<br>16:18 IST</time><br><span class="log-updated">updated 15 Sep</span></div>
         <div class="log-body">
           <span class="log-tag">Safety</span>
           <h3>A claim on this page was wrong, and so was a count in the plan</h3>
           <p>Reading the board against the ledger turned up a line that should never have gone up: <em>controlling this PC</em> was listed as proved fifteen times. The ledger holds <strong>58 runs</strong> for it between 9 and 11 September, and <strong>six of them</strong> &mdash; one batch at 01:23 on 11 September &mdash; scored below 100. The rule counts every run, so it is <strong>not proved</strong>, and the board now says so. The check that guards the build plan only understood one kind of sentence, which is how the same claim sat there too.</p>
-          <p>The same pass ran every one of the <strong>376</strong> self-tests: <strong>373 passed</strong>. Two of the three failures were real and are fixed &mdash; a tool built that week that nothing was registered to reach, and the plan still saying <strong>3</strong> requirements were verified when the ledger says <strong>7</strong>. The third is left red on purpose: one measurement, <em>phases evidenced</em>, is five days old against a three-day shelf life, and re-taking it means running a battery through her live voice. The same table records her persona battery as <strong>failing</strong>. A stale number is labelled stale, not re-dated.</p>
+          <p>The same pass ran every one of the <strong>376</strong> self-tests: <strong>373 passed</strong>. Two of the three failures were real and are fixed &mdash; a tool built that week that nothing was registered to reach, and the plan still saying <strong>3</strong> requirements were verified when the ledger says <strong>7</strong>. The third is left red on purpose: one measurement, <em>phases evidenced</em>, is five days old against a three-day shelf life, and re-taking it means running a battery through her live voice. <em>Corrected later the same evening:</em> this entry first said the table records her persona battery as failing. It does not say that. The row reads FAIL with nothing else on it, because the script died before it ever reached her &mdash; the table kept only its normal output and threw the error away. It is a crash, not a verdict on her, and the table now keeps the error when there is nothing else to show. A stale number is labelled stale, not re-dated.</p>
         </div>
       </article>
 
