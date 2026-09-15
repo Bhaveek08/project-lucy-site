@@ -609,7 +609,7 @@ section { padding: clamp(80px, 12vh, 140px) 0; position: relative; }
 .changelog-list { max-width: 720px; margin: 0 auto; }
 .log-entry {
   display: grid;
-  grid-template-columns: 90px 1fr;
+  grid-template-columns: 112px 1fr;
   gap: 36px;
   padding: 40px 0;
   border-bottom: 1px solid var(--black-border);
@@ -833,3 +833,6 @@ footer {
 .crumbs a { color: var(--white-dim); text-decoration: none; }
 .crumbs a:hover, .crumbs a:focus-visible { color: var(--pink); }
 .crumbs [aria-current="page"] { color: var(--white-dim); }
+
+/* A changelog entry that was corrected after it went up says so beside its date. */
+.log-updated { display: inline-block; margin-top: 6px; color: var(--pink); letter-spacing: 0.08em; }
