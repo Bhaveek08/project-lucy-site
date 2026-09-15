@@ -33,24 +33,17 @@ Lucy began as a **blank mind** and lived through **36 simulated lifetimes** — 
 | Lifetimes lived | 36 |
 | Memories formed | 16,453 |
 | Distinct feelings | 200 |
-| Verified capabilities | 170 |
 | Cloud dependency | **0%** |
 
-## 170 Capabilities
+## What She Can Do
 
-Lucy has **170 verified faculties** — every one has a test, every test passes before she runs. She earns money via email, creates and posts her own video content, maintains long-term memory across thousands of conversations, speaks and listens in real-time, sees through cameras and screens, moves a full 3D body with expressions she defines herself, reasons through problems with verified sources, and enforces hard safety limits that are code — not prompts.
+She keeps long-term memory across thousands of conversations, speaks and listens in real time, sees through cameras and screens, moves a 3D body with expressions of her own, controls the phone she runs beside, and works inside hard safety limits that are code, not prompts.
 
-## Exam Results
+## Measured Results
 
-Sat under real exam conditions. No internet, no answer key — the same conditions a human candidate gets.
+Every figure worth quoting is on the [changelog](https://project-lucy.me/changelog.html), closed-book and with its sample size, taken from a hash-chained ledger that cannot be edited after the fact.
 
-| Paper | Score |
-|-------|-------|
-| Gaokao · STEM | **96%** |
-| JEE Main | **94%** |
-| NEET | **88%** |
-| UPSC Prelims · GS-I | **78%** |
-| JEE Advanced | **72%** |
+> **Corrected 15 Sep 2026.** This page used to list exam scores — Gaokao 96%, JEE Main 94%, NEET 88%, UPSC Prelims 78%, JEE Advanced 72% — and "170 verified capabilities". No measurement on record supports those numbers. The only stored exam runs are from July, on 4 to 38 questions each, and every one scored lower (Gaokao 75–83%, JEE Main 47–71%, UPSC Prelims 67%, JEE Advanced 34%). The table and the count have been removed rather than left up.
 
 ## 100% Local
 
